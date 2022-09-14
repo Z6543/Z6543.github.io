@@ -23,8 +23,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   Because Google started to delete hacking related blog posts 
   without using a single brain cell, I had to learn just another framework.
   Thx Google
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+# baseurl: "" # the subpath of your site, e.g. /blog
+# url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: zh4ck
 github_username:  Z6543
 
