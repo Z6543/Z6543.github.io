@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem "jekyll-feed"
-gem 'jekyll-dash', git: 'https://github.com/m4rcix/jekyll-dash.git', branch: 'm4rcix' 
+gem 'jekyll-dash'
 gem 'liquid-md5'
 
 gem 'jekyll-tagging'
