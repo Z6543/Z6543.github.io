@@ -29,7 +29,7 @@ twitter_username: zh4ck
 github_username:  Z6543
 
 # Build settings
-theme: minima
+# theme: minima
 plugins:
   - jekyll-feed
 
@@ -56,8 +56,8 @@ plugins:
 include:
   - "_img"
 
-# paginate: 5
-# paginate_path: "/blog/page:num/"
+paginate: 5
+paginate_path: "/blog/page:num/"
 
 tag_permalink_style: pretty
 tag_page_layout: tag_page
@@ -69,7 +69,7 @@ dash:
   show_author_posts: false
   show_related: false
 
-# theme: jekyll-dash
+theme: jekyll-dash
 
 plugins:
   - liquid-md5
