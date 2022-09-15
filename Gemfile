@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "jekyll-feed"
+# gem "jekyll-feed"
 gem 'jekyll-dash', '~> 2'
 gem 'liquid-md5'
 

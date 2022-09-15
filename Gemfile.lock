@@ -79,7 +79,6 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll-dash (~> 2)
-  jekyll-feed
   jekyll-fontawesome-svg
   jekyll-tagging
   kramdown-parser-gfm
