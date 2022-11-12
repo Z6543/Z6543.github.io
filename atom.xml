@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Jump ESP, jump! | Because Google started to delete hacking related blog posts without using a single brain cell, I had to learn just another framework. Thx Google</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Jump ESP, jump!" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Because Google started to delete hacking related blog posts without using a single brain cell, I had to learn just another framework. Thx Google" />
+<meta property="og:description" content="Because Google started to delete hacking related blog posts without using a single brain cell, I had to learn just another framework. Thx Google" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Jump ESP, jump!" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Because Google started to delete hacking related blog posts without using a single brain cell, I had to learn just another framework. Thx Google","headline":"Jump ESP, jump!","url":"/atom.xml"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Jump ESP, jump!</title>
+ <link href="/atom.xml" rel="self"/>
+ <link href="/"/>
+ <updated>2022-11-12T15:02:21+00:00</updated>
+ <id></id>
+ <author>
+   <name></name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>So Long Google, and Thanks for All the Fish</title>
+   <link href="/2022/11/12/Google.html"/>
+   <updated>2022-11-12T13:39:00+00:00</updated>
+   <id>/2022/11/12/Google</id>
+   <content type="html">&lt;h1 id=&quot;thx-google-and-youtube-i-got-what-i-paid-for-&quot;&gt;Thx, Google and YouTube. I got what I paid for …&lt;/h1&gt;
+
+&lt;p&gt;I joined Gmail at the end of 2005. It was not invite-only anymore but still restricted in some countries. It was a novel service compared to my previous one, freemail.hu … if you live in Hungary, you know … 
+Anyway, I am still using Gmail as my primary email after 17 years, and I still have not run out of storage. Even though I am paying money for an encrypted email service, searching in that one is pretty bulky, so I only use that one for online shopping, healthcare, and other sensitive topics where I don’t want Google to know everything. 
+I uploaded my first hacking-related &lt;a href=&quot;https://www.youtube.com/watch?v=lsMK84QOb2M&quot;&gt;YouTube video&lt;/a&gt; in 2012. 
+I wrote &lt;a href=&quot;https://jumpespjump.blogspot.com/2013/11/secure-ipv6-deployment-checklist-think.html&quot;&gt;my first blog post&lt;/a&gt; on Blogger/Blogspot in 2013, when my friend invited me to write some new hacking-related content on his blog. 
+As you can see, I was a happy Google user … until I was not.&lt;/p&gt;
+
+&lt;p&gt;On February 27, 2021, I got an email from “YouTube team” that my video with the title “IoT hack - IP camera via cloud password brute-force” was removed because it violated the &lt;a href=&quot;https://support.google.com/youtube/answer/2801964?hl=en&quot;&gt;“Harmful or dangerous content policies”&lt;/a&gt;. 
+I understand that via keyword-search or quickly looking at the video it got flagged. I disagree with removing the video, as it was about warning of the dangers and did not provide any step-by-step guide or link to hacking codes. But I understand that mistakes happen. What made things worse is that they deleted the video, and I could not access it via YouTube Studio. This is a terrible practice. Please change it.&lt;/p&gt;
+
+&lt;p&gt;I felt that appealing would not resolve the issue, so I did the opposite. I emailed them that, “in this case, they should delete all of my videos”. Right after clicking on the send button, I got an instant reply. They “carefully” checked my appeal but will not change their mind. Clearly they did not check the mail.
+I also reached out for help on Twitter, and a &lt;a href=&quot;https://twitter.com/gynvael/status/1365957884245401602&quot;&gt;nice hacker guy&lt;/a&gt; working for Google helped me , but unfortunately, the issue was not resolved. 
+I moved on. I still do not know what will be the best place to host my educational hacking videos.&lt;/p&gt;
+
+&lt;p&gt;On August 21, 2022, I got a mail from the Blogger team. They have unpublished &lt;a href=&quot;https://web.archive.org/web/20210517170248/https://jumpespjump.blogspot.com/2020/09/my-whcd-exam-experience.html&quot;&gt;one of my posts&lt;/a&gt; because it &lt;a href=&quot;https://blogger.com/go/contentpolicy&quot;&gt;violated their guideline&lt;/a&gt;, especially the “Malware and Viruses policy”
+Honestly, I don’t know how this blog post could have violated it, as this describes how I passed a blue team-related exam. Yes, the post discussed malware, but not a single piece of code or anything suspicious was published in the blog post. As that would have spoiled the fun … 
+The good news is that they did not delete the post, at least.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-conclusion&quot;&gt;The conclusion?&lt;/h1&gt;
+&lt;p&gt;I think I can’t complain as I was “only” paying with my personal data for Google, so I got what one could expect … But I believe it is time to migrate from Google totally if you want to publish any educational-related hacking material. For the time being, maybe it is time that I start to flag all of their &lt;a href=&quot;https://googleprojectzero.blogspot.com/&quot;&gt;Project Zero&lt;/a&gt; blog posts, as they clearly violate their guidelines … 
+And let’s hope Microsoft will not delete the hacking-related blog posts on GitHub pages.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>My WHCD experience</title>
+   <link href="/2020/09/10/WHCD.html"/>
+   <updated>2020-09-10T13:53:14+00:00</updated>
+   <id>/2020/09/10/WHCD</id>
+   <content type="html">&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;My story starts in July in Budapest, summer is hot. Way too hot. I am working in the cozy air-conditioned office room and look at my daily schedule. I have a business lunch with Sándor Fehér, co-founder &amp;amp; CEO at White Hat IT Security at an Italian restaurant. This will be a casual meeting, catching up with each other, no preparation needed. I show up at the place, meet Sándor, order a pizza, and we discuss average lunch topics like how APT attackers operate nowadays. He mentions that in September they will organize the exam for their &lt;a href=&quot;https://whitehat.eu/whcd&quot;&gt;WHCD - White Hat Certified Defender&lt;/a&gt; course. And he is happy to provide me a slot for the exam for free. But as nothing is free in life. If I pass - and why would not I? :) - I create a blog post about my view on the exam. I happily accept the invitation and finish the pizza.&lt;/p&gt;
+
+&lt;h1 id=&quot;preparation&quot;&gt;Preparation&lt;/h1&gt;
+&lt;p&gt;In 2020, the course consisted of 36 hours of training, touching topics like threat intelligence, IoCs, computer forensics, network forensics, all the blue team-related topics. I felt pretty confident that I don’t have to prepare for this exam, even if I did not attend the training and I did zero real forensics investigation in the past eight years.&lt;br /&gt;
+Before the exam, I received multiple documents on the rules and practical information for the exam. The exam started at 20:00 Friday and ended on 20:00 Sunday. 48 hours for finding 10 flags and provide documentation. Actually, 7 flags are enough to pass the test. The only preparations I made was to buy some energy drinks and sweets. Time is 19:30, so I still have some time to watch the latest Last week tonight before the exam starts.&lt;/p&gt;
+
+&lt;h1 id=&quot;my-past-experience&quot;&gt;My past experience&lt;/h1&gt;
+&lt;p&gt;I have the following certifications which helped me during the exam: OSCP, OSCE, PSP (Powershell for Penetration Testers). I also have some experience with &lt;a href=&quot;https://cujo.com/first-seclounge-ctf-2020-solutions/&quot;&gt;CTFs&lt;/a&gt;. 8 years ago I did some forensics investigations, but that was a loooong time ago, things changed. A lot.&lt;/p&gt;
+
+&lt;h1 id=&quot;the-exam---friday&quot;&gt;The exam - Friday&lt;/h1&gt;
+&lt;p&gt;I receive all the IP addresses and credentials to log in to my dedicated Windows AD network, consisting of a workstation, a File Server, and a Domain Controller. I am happy that I have to work with a live system - it is really painful when you work with offline images. I set the goal that today I find at least one flag, have a good night’s sleep and find the remaining 9 on Saturday, and write the documentation on Sunday. Let’s find the easiest task and get the flag quickly … The challenge descriptions are clear, and even the challenge IDs nicely map to MITRE ATT&amp;amp;CK®.&lt;br /&gt;
+Two hours later I realize I underestimated the difficulty of this exam, and I overestimated my skills. Zero flags found and …&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/_img/dog.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Spoiler alert - I was logging into the workstation with the admin user, and not with the victim. I realized this on Sunday afternoon … This first initial mistake took me at least two hours lost in this initial stage. Anyway, always read through the exam instructions and don’t rush into connecting to the first machine on the provided list. I finally find a sneaky backdoor, analyze it, and submit my first flag. Phew, this is not going to be easy. I go to sleep, but at 5:30 a.m. my brain starts to figure out the challenges even though I am still in my bed, eyes closed. Based on past experience, it does not make sense to try to force myself to sleep, it is better to wake up and &lt;a href=&quot;https://www.youtube.com/watch?v=RYnFIRc0k6E&quot;&gt;keep rollin’&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;saturday&quot;&gt;Saturday&lt;/h1&gt;
+&lt;p&gt;Around 10:00 a.m., I submit another flag. I already spent like seven hours, and I only have two flags. Boy oh boy, this is going to be tough. Time to crack open another energy drink. Hours later I find myself ALT + TAB-bing between the different challenges and making no progress. Time to have a &lt;a href=&quot;https://www.youtube.com/watch?v=ncNv1RyGgQk&quot;&gt;break&lt;/a&gt;. When I am back, I make some good progress. Basic programming skills are really needed to solve multiple challenges. Sometimes I mix up AES keys with IVs but luckily it is OK to fail. Flag after flag. It is evening, and I have 6 flags already \o/. I also found our main suspect, a bird! I was like “let’s find the seventh flag now and I can rest in peace”. Let’s connect the “Rubber duck debugging” and writing the documentation together - maybe I find out what I missed. It is already dark outside, I am tired as hell, but I made good progress with the documentation at least. This tactic turned out to be useful, as I submitted my seventh flag! Finally. I feel like &lt;a href=&quot;https://en.wikipedia.org/wiki/Dwayne_Johnson&quot;&gt;rock&lt;/a&gt; and I can find all the remaining flags on Sunday. GOTO sleep(28800).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/_img/flag.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;sunday&quot;&gt;Sunday&lt;/h1&gt;
+&lt;p&gt;My brain wakes up again earlier than I want. Let’s finish the documentation and after that focus on the remaining flags. I spend a lot of time on Stackoverflow on how to insert nice syntax-highlighted code into the report (Hello Microsoft, it is 2020, please make it easier for us with builtin tools …) and I also spend more time than I want to admit on how to format the flags in Wordart to make it look nice. Documentation finished, let’s go back to work. While I close all the opened tabs, I finally find the exam instructions, with the credentials to the user’s workspace. “What the fluff, how could I overlook this?”. &lt;a href=&quot;https://www.youtube.com/watch?v=HXQUWmXzPeM&quot;&gt;MMMKay&lt;/a&gt;, let’s log in. Run a bunch of tools. Run even more tools. Let’s dig up emails from 2009 for a German forensics tool I don’t remember the name anymore. But this whole exam is less about tools and more about perseverance and thoroughness. Time flies fast, no progress. Let’s have a break, and &lt;a href=&quot;https://www.youtube.com/watch?v=7I68_BdAQmw&quot;&gt;kill Sigrun, the Valkyrie Queen in God of War&lt;/a&gt;. When I got back, no new flags submitted themselves. Let’s listen to a &lt;a href=&quot;https://www.youtube.com/watch?v=fPslvBVqJp8&amp;amp;list=PLz6hefdTd2T5SThoTI0TD-WzwzBVUdj08&quot;&gt;CTF playlist&lt;/a&gt;, maybe that helps. Well, no, it does not. Let’s download &lt;del&gt;malware&lt;/del&gt; &lt;a href=&quot;https://github.com/gentilkiwi/mimikatz/releases&quot;&gt;information collector software&lt;/a&gt; to the workstation and run that for clues. Pro tip: never do this on a live forensics investigation ;)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/_img/bear.jpg&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It’s at 6 o’clock in the evening and I am getting really tired. And the fact that I already have enough flags to pass the exam makes me lazy. I close my eyes and all I can see is obfuscated code flickering. I literally made zero progress on Sunday on the remaining flags. Maybe if the passing limit was 8 flags, I would have tried harder®? We will never know.&lt;/p&gt;
+
+&lt;h1 id=&quot;monday&quot;&gt;Monday&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;/_img/cat.gif&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;The whole exam experience was perfect. Access to the machines was fast and responsive. I did not experience any technical glitch. All the challenges and the whole story is very challenging but possible to solve. I would say that high-end financially motivated attackers could attack any corporation the same way, and basic detection or forensics would miss most clues. The whole scenario is 100% realistic. Most attacks/techniques are sneaky. The only thing I missed is that on the official exam Discord, they should create a #rage or #random or #memes channel where you can send all your frustration during the exam.&lt;/p&gt;
+
+&lt;p&gt;Lesson l: Never underestimate an exam just because it is not known. 
+Lesson 2: Never overestimate the knowledge and skills you did not practice for a long time. 
+Lesson 3: This WHCD exam provided me the same - or even better experience than I had at Offensive exams like OSCP or OSCE. 
+If someone passes this challenge, it is really true that the person really knows how to technically deal with computer incidents. I vision great success for this certification because as of today, there are not many hands-on practical defender exams available on the market. 
+I would like to thank Sándor Fehér for this opportunity and to János Pallagi for his support during the weekend and to share some thoughts with me after the exam.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/_img/whcd.png&quot; alt=&quot;image-title-here&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>
