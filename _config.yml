@@ -74,3 +74,6 @@ theme: jekyll-dash
 plugins:
   - liquid-md5
   - jekyll/tagging  
+
+avatar_source: github
+github_username: Z6543  
