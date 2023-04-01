@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: DNSSEC, from an end-user perspective, part 3
-date: 2019-10-08 15:55:35 UTC
+date: 2014-01-25 15:55:35 UTC
 updated: 2019-10-08 15:55:35 UTC
 comments: false
 categories: DNS hijack DNS spoofing DNSSEC

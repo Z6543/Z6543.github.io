@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: Change passwords regularly - a myth and a lie, don't be fooled, part 1 
-date: 2019-10-08 13:49:47 UTC
+date: 2014-10-01 13:49:47 UTC
 updated: 2019-10-08 13:49:47 UTC
 comments: false
 categories: password security

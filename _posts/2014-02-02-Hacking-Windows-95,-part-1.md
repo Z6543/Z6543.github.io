@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: Hacking Windows 95, part 1
-date: 2019-10-08 15:56:35 UTC
+date: 2014-02-02 15:56:35 UTC
 updated: 2019-10-08 15:56:35 UTC
 comments: false
 categories: hacking ms00-072 pentest win95 windows95

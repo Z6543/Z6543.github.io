@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: DNSSEC, from an end-user perspective, part 2
-date: 2019-10-08 15:54:34 UTC
+date: 2014-01-06 15:54:34 UTC
 updated: 2019-10-08 15:54:34 UTC
 comments: false
 categories: dig DNSSEC security

@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: Stop using MD-5, now!
-date: 2019-10-08 13:59:37 UTC
+date: 2014-03-25 13:59:37 UTC
 updated: 2019-10-08 13:59:37 UTC
 comments: false
 categories: hash malware MD-5

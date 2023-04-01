@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: Hacktivity 2018 badge - quick start guide for beginners
-date: 2019-10-08 15:57:50 UTC
+date: 2019-09-19 15:57:50 UTC
 updated: 2019-10-08 15:57:50 UTC
 comments: false
 categories: badge hacking hacktivity HW hacking

@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: How to build a "burner device" for DEF CON in one easy step
-date: 2019-10-08 13:31:11 UTC
+date: 2018-08-15 13:31:11 UTC
 updated: 2019-10-08 13:31:11 UTC
 comments: false
 categories: build burner laptop burner phone defcon howto

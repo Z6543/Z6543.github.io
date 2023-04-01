@@ -1,7 +1,7 @@
 ---           
 layout: post
-title: Mythbusters: Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not.
-date: 2019-10-08 13:37:15 UTC
+title: Mythbusters - Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not
+date: 2015-07-23 13:37:15 UTC
 updated: 2019-10-08 13:37:15 UTC
 comments: false
 categories: VPN wifi wireless WPA2 WPA2-PSK

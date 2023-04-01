@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: How to secure your home against "Internet of Things" and FUD
-date: 2019-10-08 14:06:38 UTC
+date: 2015-08-20 14:06:38 UTC
 updated: 2019-10-08 14:06:38 UTC
 comments: false
 categories: Hack home security Internet of Things IoT

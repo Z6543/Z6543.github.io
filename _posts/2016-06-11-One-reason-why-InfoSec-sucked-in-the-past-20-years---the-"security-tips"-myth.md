@@ -1,7 +1,7 @@
 ---           
 layout: post
 title: One reason why InfoSec sucked in the past 20 years - the "security tips" myth
-date: 2019-10-08 13:36:22 UTC
+date: 2016-06-11 13:36:22 UTC
 updated: 2019-10-08 13:36:22 UTC
 comments: false
 categories: myth security tips
