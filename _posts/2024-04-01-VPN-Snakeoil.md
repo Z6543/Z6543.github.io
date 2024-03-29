@@ -5,6 +5,7 @@ date: 2024-03-01 10:19:41 UTC
 comments: false
 categories:  
 ---
+
 # Intro
 Personal VPN services are a multi-million dollar business. But is it worth your money?  
 
@@ -19,13 +20,13 @@ You don't need a personal VPN service if you are an average Internet user.
 If you are a tech-savvy user, you can do much better than using a VPN.  
 
 # Glossary
-By personal/commercial VPN service, I mean NordVPN, Tunnelbear, Mullvad VPN, etc. Company VPNs, or a VPN to phone into your home network, are out of the scope of this article.
+By personal/commercial VPN service, I mean NordVPN, Tunnelbear, Mullvad VPN, etc. Company VPNs, or a VPN to phone into your home network, are out of the scope of this article.  
 By public Wi-Fi, I mean Wi-Fi services where it is either open or the WPA key is shared with everyone. From a security point of view, there is not much difference between the two. 
 
 Let's break down the problem of privacy and security. Let's start with ...
 
 # Security
-Fifteen years ago, it was common malpractice that even though websites used HTTPS for the login page, the rest of the communication was over HTTP. One could steal the authentication cookie from the unencrypted Wi-Fi stream and use that to log in to that service. Tools like Surfjack and Firesheep were popular tools for wannabe hackers. Back then, using a personal VPN service at public Wi-Fi made sense. Also, back then, many email clients checked their email using unencrypted POP3 or IMAP protocols. 
+Fifteen years ago, it was common malpractice that even though websites used HTTPS for the login page, the rest of the communication was over HTTP. One could steal the authentication cookie from the unencrypted Wi-Fi stream and use that to log in to that service. Tools like Surfjack and Firesheep were popular tools for wannabe hackers. Back then, using a personal VPN service at public Wi-Fi made sense. Also, many email clients checked their email using unencrypted POP3 or IMAP protocols. 
 
 But nowadays, there [is practically no vital service on the Internet](https://transparencyreport.google.com/https/overview), which does not run on HTTPS. 
 
@@ -49,7 +50,7 @@ Well, the good news is that it is much easier to keep your browser up-to-date no
 
 One massive problem with personal VPN services is that they are working to fail open. If the connection fails, your connection is not "protected" anymore. Some premium VPN providers sell "kill switch" functionality, but I am sure less than 1% of the users use this properly. 
 
-Looking at the practical side, how many legit stories do you know where someone lost money that could have been avoided just by using a VPN? I have never heard such a story. The attacker group called "Darkhotel" could have been such example, except that a VPN would not protect you against their attack, as they used fake Wi-Fi portals to deliver exploit/malware. And before logging into a hotel Wi-Fi portal, you can't start your VPN ...   
+Looking at the practical side, how many legit stories do you know where someone lost money that could have been avoided just by using a VPN? I have never heard such a story. The " Darkhotel " attacker group could have been such an example, except that a VPN would not protect you against their attack, as they used fake Wi-Fi portals to deliver exploit/malware. And before logging into a hotel Wi-Fi portal, you can't start your VPN ...   
 
 And before I forget, let's quickly discuss free VPNs. Never, ever install a free VPN solution. They will abuse your network connectivity, and other malicious or non-malicious users will use it to do whatever they want. It is like inviting one thousand unknown people to your house to have a party and leave them unattended. 
 
@@ -58,37 +59,41 @@ And before I forget, let's quickly discuss free VPNs. Never, ever install a free
 # Privacy concerns
 OK, but what about my DNS and TLS records being exposed to everyone so they can follow what I am doing? In a public place, anyone can look at your display already. Or, if you are worried about your ISP selling your traffic data, there are better options for you. 
 Use [DNS over HTTPS](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/encrypted-dns-browsers/), for example. 
-You have to use a provider you trust better than your ISP/Wi-Fi provider/nearby Wi-Fi users.
+You have to use a VPN provider you trust better than your ISP/Wi-Fi provider.
 Also, as [Encrypted Client Hello](https://support.mozilla.org/en-US/kb/understand-encrypted-client-hello) is about to start soon, it will be exponentially harder for eavesdroppers to figure out which sites you are trying to visit. 
 
 But if you care about privacy, the answer is always ToR, ToR browser or Tails, and never VPN. Except in cases where you first have to hide your ToR usage using a VPN, which is a rare exception among users. If you don't understand why you would need that, you probably don't need that complexity. 
 Tor Browser uses uncountable techniques that prevent tracking your browser. And if your privacy is essential against local Wi-Fi attackers, your ISP, why is the ad industry not in scope? Adblockers are only half the solution against tracking. 
 
 # When to use a personal VPN?
-1. geofence bypass for region-locked content
-2. piracy? 
-3. soft network bloc/censorship
+1. Geofence bypass for region-locked content.
+2. Piracy. Not that you should not support your artists/musicians/content creators, filmmakers, actors, ... but I agree that there are situations in life when piracy is the only ethical option.  
+3. Soft network block/censorship. Do your own research. Don't end up in jail.
 
 # Conclusion
 Claims made by VPN companies:  
 1. VPNs reduce the risk of "getting hacked," whatever that means. 
-This is not true. Additional services provided by VPNs, like URL filtering, can reduce your risk. However, it is more effective to use URL filtering on the endpoint level, not on the network level, as most VPN companies do. 
+This is not true. Additional services provided by VPNs, like URL filtering, can reduce your risk. However, it is more effective to use URL filtering on the endpoint level, not the network level, as most VPN companies do. 
 
 2. VPNs protect your privacy  
 Even though they increase your privacy, it is still far from what ToR can do for you. 
 
-If you want to increase your privacy and security, instead of watching VPN reviews on YouTube, I recommend that you patch your operating system, patch your browser, configure always HTTPS and DoH in your browser. Use an adblocker, or even better, a [browser built with privacy in mind](https://www.privacytools.io/private-browser). If you frequently install new applications, you should also use an antivirus/endpoint protection on your non-mobile OS. For Windows, the built-in, default Microsoft Defender is a good option. 
+Suppose you want to increase your privacy and security. Instead of watching VPN reviews on YouTube. In that case, I recommend that you patch your operating system and your browser and always configure HTTPS and DoH in your browser. Use an adblocker or, even better, a [browser built with privacy in mind](https://www.privacytools.io/private-browser). If you frequently install new applications, use antivirus/endpoint protection on your non-mobile OS. For Windows, the built-in default Microsoft Defender is a good option. Congratulations, you are in a better position compared to using a VPN, and you don't have to pay for it, and you don't have to enable it all the time.
 
+![Change-my-mind](/_img/vpn-3.jpg)
 
 # What to read? 
-I found these articles also useful. As this is a complex topic, and if you want to read more, this is where I recommend to start:  
-https://overengineer.dev/blog/2019/04/08/very-precarious-narrative.html  
-https://krebsonsecurity.com/2017/03/post-fcc-privacy-rules-should-you-vpn/  
-https://gist.github.com/joepie91/5a9909939e6ce7d09e29  
-https://www.spacebar.news/you-dont-need-a-vpn/  
-https://www.forbes.com/advisor/business/vpn-statistics/  
-https://it.slashdot.org/story/22/01/02/2143256/nbc-you-probably-dont-need-to-rely-on-a-vpn-anymore  
+I found these articles also useful. As this is a complex topic, with different aspects, if you want to read more, this is where I recommend to start:  
+[overengineer.dev](https://overengineer.dev/blog/2019/04/08/very-precarious-narrative.html)  
+[krebsonsecurity.com](https://krebsonsecurity.com/2017/03/post-fcc-privacy-rules-should-you-vpn/)  
+[gist.github.com/joepie91](https://gist.github.com/joepie91/5a9909939e6ce7d09e29)  
+[www.spacebar.news](https://www.spacebar.news/you-dont-need-a-vpn/)  
+[www.forbes.com](https://www.forbes.com/advisor/business/vpn-statistics/)  
+[it.slashdot.org](https://it.slashdot.org/story/22/01/02/2143256/nbc-you-probably-dont-need-to-rely-on-a-vpn-anymore)  
 
 
 # PS  
-Yes, I know that some of these VPN products provide extra services/functions/protections. And some of these extra make sense. But that does not mean that in overall, VPN is the answer for your problems. 
+Yes, some of these VPN products provide extra services/functions/protections. And some of these extras make sense. But that does not mean that VPN is the answer to your problems overall. 
+
+# PS 2
+WPA3 can support encryption and privacy on open, non-password-protected networks. I have not seen it anywhere in the wild, but the future is bright. If you operate open Wi-Fi networks, please, please, upgrade to WPA3. 
