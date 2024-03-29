@@ -18,6 +18,7 @@ The statement I would like to prove:
 There are only a few problems for a few people worldwide where the answer is using a personal VPN service. 
 You don't need a personal VPN service if you are an average Internet user. 
 If you are a tech-savvy user, you can do much better than using a VPN.  
+Personal VPNs are the [homeopathic medicines](https://en.wikipedia.org/wiki/Homeopathy#Evidence_and_efficacy) of the tech industry. Also known as a scam.
 
 # Glossary
 By personal/commercial VPN service, I mean NordVPN, Tunnelbear, Mullvad VPN, etc. Company VPNs, or a VPN to phone into your home network, are out of the scope of this article.  
