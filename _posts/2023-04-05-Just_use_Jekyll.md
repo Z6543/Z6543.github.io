@@ -3,7 +3,7 @@ layout: post
 title: '"Just" migrate to Jekyll ...'
 date: 2023-04-05 10:49:41 UTC
 comments: false
-categories: Jekyll blogger blogspot
+categories: 
 ---
 # Intro
 [As I already ranted about it](/2022/09/16/Google.html), I am not very satisfied with multiple Google services recently (blogger, YouTube), so I started looking for alternative solutions for my blog. Based on a quick Twitter poll, all the cool kids use Jekyll and Github pages nowadays, and I did not want to miss out ...  
