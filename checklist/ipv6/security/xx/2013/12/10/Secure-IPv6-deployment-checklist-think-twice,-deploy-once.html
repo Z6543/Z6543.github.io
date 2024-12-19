@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Secure IPv6 deployment checklist think twice, deploy once | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Secure IPv6 deployment checklist think twice, deploy once" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Before deep-diving into IPv6, I&#39;m going to summarize my views on IPv6: Start now(!) to plan your IPv6 deployment - in case you have not done so. IPv6 is the future! There is no other choice. NAT is the root of all evil. IPv6 is coming. We&#39;ve heard this 10 years ago as well, but it is really coming now. If you live in Asia, you can see this in real life. If you live in Europe or the USA, you can feel the pain of triple NATed devices. Deploying IPv6 is not a binary task, you can do it in small steps. Get a public IPv6 address space, assign IPv6 addresses to your servers (e-mail, web, DNS). Great, you are now ahead of the world! Now, what about clients who want to access IPv6 web or email? You are lucky if you use an IPv6 compatible web/email proxy because the clients can still stay on IPv4. Now, what about your clients/servers accessing IPv6 services on the Internet directly (without a proxy)? If your network supports IPv6, your clients can directly access IPv6 services.&nbsp; If your network does not support IPv6, clients can still use tunneling protocols, e.g. ISATAP for Windows clients. This might sound easier than it is. But do you have the budget/people/management support to do this? Anyways, before you deploy IPv6 in your corporate environment, you have to think about the security issues. The next list is far from comprehensive or complete. Beware, here be dragons! It is a myth that IPv6 is more secure than IPv4. The only practical security addition in IPv6 is called IPSEC, and has been backported to IPv4 many years ago. Most networking people are not familiar with the new terms, best practices introduced with IPv6. It is important to educate the networking and security personnel about IPv6, and let them play with the technology. IPv6 can reintroduce basically all security vulnerabilities which has been mitigated in IPv4: If the vulnerability is not in the IP layer, the vulnerability will stay there. Although it sounds obvious, most people tend to forget this. Your MS08-067 vulnerability won&#39;t magically disappear if you use IPv6. OK, but you closed port 445 on the firewall. Oh crap, it is open on IPv6... Man-in-the-middle attacks: Organizations have already guarded themselves against ARP spoofing and DHCP server spoofing with mitigation techniques like DAI (Dynamic ARP Inspection) and DHCP snooping in the world of IPv4. The only thing which has been changed is the name of the attacks and defenses. Search for ICMPv6 attacks, and Neighbour Discovery attacks. Source routing: Source routed IPv4 packets have not been seen for a while bypassing firewalls, but &quot;luckily&quot; the IPv6 standard reintroduced source routing in IPv6, in the name of Type 0 Router Headers. You should check whether your OS/network equipment support Type 0 Router Headers. If you have time, play with Scapy to test it. Blocking ICMP: Let&#39;s face the truth: In order to effectively use IPv6, some ICMPv6 messages has to traverse through firewalls. Like it or not, you can&#39;t hide your clients anymore. Router advertisement: Let&#39;s play a game. Go into any network, and start broadcasting IPv6 router advertisement packets in the network. Guess what, the clients are going to connect to you, and you will be the default IPv6 gateway for the clients. If there is no web proxy configured on the client, this means all Google, Youtube and Facebook traffic will be routed through your box, because IPv6 is preferred over IPv4. This can be the next generation WPAD attack :) If you don&#39;t want to be vulnerable, better search for RAGuard or similar solutions. Translation/tunneling: If all your network equipment support&nbsp;IPv6&nbsp;and configured to use it, you are lucky, because your&nbsp;clients can use native IPv6. Otherwise, your clients have to use 6to4/ISATAP/Teredo/NAT64 or whatever IPv6 translation/tunneling. Do you know these protocols? Do your security products know these protocols? Dual stack: Your clients have to use both IPv4 and IPv6 together for a while. Be aware of the additional operating costs of maintaining 2 network protocol parallel. Fragmentation: In the first era of IDS/IPS devices, one of the main bypassing technique was IPv4 fragmentation. Have you checked whether your current solutions (IPS/IDS) parse fragmented packets the same way as your protected assets? The IPv4&nbsp;implementations have been tested thoroughly, and not much implementation bug is left there. But IPv6 implementation bugs, there will be a lot from them. Most of the programmers still don&#39;t know the basics of secure coding practices. IPv6 evercookie: Now that your clients don&#39;t have the same NAT IP, they static IP can be used to track them online. Luckily Microsoft solved the issue with IPv6 privacy extension, so clients will use temporarily IPv6 addresses to communicate with the Internet. Great, now how do you know in your security logs, which IPv6 address is which client??? Do your current security devices fully support IPv6? Have you tested this? Hardware Firewall (with all dual-stack/translation/tunneling nightmare) Do you block all outgoing UDP from the clients, especially 3544? Can you maintain rules for both IPv4 and IPv6? If you remove an IPv4 rule, do you remove the same rule for IPv6? Log collection, log analysis, correlation: Do the logs contain IPv6 addresses?&nbsp; Is it parsed by the SIEM application?&nbsp; Do you know that the DHCP IPv4 address is the same asset (workstation) as the IPv6 address with a privacy extension?&nbsp; IPS, IDS: Can these applications monitor/block all kinds of IPv6 translation/tunneling protocols? WAF: Is your WAF IPv6&nbsp;ready/aware? What about fragmentation? VPN: Can your clients connect to IPv6 services through VPN? Is your IPv6 VPN firewall rule as restrictive as the IPv4 one? If you remove a rule on IPv4, do you remove the same in IPv6? Software firewall: Is your software firewall IPv6 ready/aware?&nbsp; Does it understand all translation/tunneling protocols?&nbsp; Does it filter incoming traffic to the Teredo interface? AV/endpoint protection: Is your AV/endpoint protection IPv6&nbsp;ready/aware? What about files downloaded via IPv6, is it scanned the same way as IPv4? DLP (if you are in the 1% who actually bought one and enrolled it in production): Is your DLP IPv6&nbsp;ready/aware?&nbsp; Can it monitor tunneled traffics? And last but not least, the bad news: you are already using IPv6 if you have Windows7 notebooks leaving your company, not having access to the domain controller. Or have you checked your servers link-local IPv6 addresses recently? Do you have a Windows2008 cluster? It is using IPv6 already! The good news? In the not so far future (I estimate 2050) you can turn off your last device with IPv4 address, and forget all the nightmare around NAT and dual-stack. Because remember: NAT is not a security feature. It never was. Useful links: https://www.thc.org/thc-ipv6/ https://www.usenix.org/legacy/events/lisa11/tech/slides/babiker.pdf http://www.cisco.com/en/US/prod/collateral/iosswrel/ps6537/ps6554/ps6599/ps10800/white_paper_c11-629044.pdf http://www.cisco.com/web/about/security/security_services/ciag/documents/v6-v4-threats.pdf http://www.secdev.org/conf/IPv6_RH_security-csw07.pdf" />
+<meta property="og:description" content="Before deep-diving into IPv6, I&#39;m going to summarize my views on IPv6: Start now(!) to plan your IPv6 deployment - in case you have not done so. IPv6 is the future! There is no other choice. NAT is the root of all evil. IPv6 is coming. We&#39;ve heard this 10 years ago as well, but it is really coming now. If you live in Asia, you can see this in real life. If you live in Europe or the USA, you can feel the pain of triple NATed devices. Deploying IPv6 is not a binary task, you can do it in small steps. Get a public IPv6 address space, assign IPv6 addresses to your servers (e-mail, web, DNS). Great, you are now ahead of the world! Now, what about clients who want to access IPv6 web or email? You are lucky if you use an IPv6 compatible web/email proxy because the clients can still stay on IPv4. Now, what about your clients/servers accessing IPv6 services on the Internet directly (without a proxy)? If your network supports IPv6, your clients can directly access IPv6 services.&nbsp; If your network does not support IPv6, clients can still use tunneling protocols, e.g. ISATAP for Windows clients. This might sound easier than it is. But do you have the budget/people/management support to do this? Anyways, before you deploy IPv6 in your corporate environment, you have to think about the security issues. The next list is far from comprehensive or complete. Beware, here be dragons! It is a myth that IPv6 is more secure than IPv4. The only practical security addition in IPv6 is called IPSEC, and has been backported to IPv4 many years ago. Most networking people are not familiar with the new terms, best practices introduced with IPv6. It is important to educate the networking and security personnel about IPv6, and let them play with the technology. IPv6 can reintroduce basically all security vulnerabilities which has been mitigated in IPv4: If the vulnerability is not in the IP layer, the vulnerability will stay there. Although it sounds obvious, most people tend to forget this. Your MS08-067 vulnerability won&#39;t magically disappear if you use IPv6. OK, but you closed port 445 on the firewall. Oh crap, it is open on IPv6... Man-in-the-middle attacks: Organizations have already guarded themselves against ARP spoofing and DHCP server spoofing with mitigation techniques like DAI (Dynamic ARP Inspection) and DHCP snooping in the world of IPv4. The only thing which has been changed is the name of the attacks and defenses. Search for ICMPv6 attacks, and Neighbour Discovery attacks. Source routing: Source routed IPv4 packets have not been seen for a while bypassing firewalls, but &quot;luckily&quot; the IPv6 standard reintroduced source routing in IPv6, in the name of Type 0 Router Headers. You should check whether your OS/network equipment support Type 0 Router Headers. If you have time, play with Scapy to test it. Blocking ICMP: Let&#39;s face the truth: In order to effectively use IPv6, some ICMPv6 messages has to traverse through firewalls. Like it or not, you can&#39;t hide your clients anymore. Router advertisement: Let&#39;s play a game. Go into any network, and start broadcasting IPv6 router advertisement packets in the network. Guess what, the clients are going to connect to you, and you will be the default IPv6 gateway for the clients. If there is no web proxy configured on the client, this means all Google, Youtube and Facebook traffic will be routed through your box, because IPv6 is preferred over IPv4. This can be the next generation WPAD attack :) If you don&#39;t want to be vulnerable, better search for RAGuard or similar solutions. Translation/tunneling: If all your network equipment support&nbsp;IPv6&nbsp;and configured to use it, you are lucky, because your&nbsp;clients can use native IPv6. Otherwise, your clients have to use 6to4/ISATAP/Teredo/NAT64 or whatever IPv6 translation/tunneling. Do you know these protocols? Do your security products know these protocols? Dual stack: Your clients have to use both IPv4 and IPv6 together for a while. Be aware of the additional operating costs of maintaining 2 network protocol parallel. Fragmentation: In the first era of IDS/IPS devices, one of the main bypassing technique was IPv4 fragmentation. Have you checked whether your current solutions (IPS/IDS) parse fragmented packets the same way as your protected assets? The IPv4&nbsp;implementations have been tested thoroughly, and not much implementation bug is left there. But IPv6 implementation bugs, there will be a lot from them. Most of the programmers still don&#39;t know the basics of secure coding practices. IPv6 evercookie: Now that your clients don&#39;t have the same NAT IP, they static IP can be used to track them online. Luckily Microsoft solved the issue with IPv6 privacy extension, so clients will use temporarily IPv6 addresses to communicate with the Internet. Great, now how do you know in your security logs, which IPv6 address is which client??? Do your current security devices fully support IPv6? Have you tested this? Hardware Firewall (with all dual-stack/translation/tunneling nightmare) Do you block all outgoing UDP from the clients, especially 3544? Can you maintain rules for both IPv4 and IPv6? If you remove an IPv4 rule, do you remove the same rule for IPv6? Log collection, log analysis, correlation: Do the logs contain IPv6 addresses?&nbsp; Is it parsed by the SIEM application?&nbsp; Do you know that the DHCP IPv4 address is the same asset (workstation) as the IPv6 address with a privacy extension?&nbsp; IPS, IDS: Can these applications monitor/block all kinds of IPv6 translation/tunneling protocols? WAF: Is your WAF IPv6&nbsp;ready/aware? What about fragmentation? VPN: Can your clients connect to IPv6 services through VPN? Is your IPv6 VPN firewall rule as restrictive as the IPv4 one? If you remove a rule on IPv4, do you remove the same in IPv6? Software firewall: Is your software firewall IPv6 ready/aware?&nbsp; Does it understand all translation/tunneling protocols?&nbsp; Does it filter incoming traffic to the Teredo interface? AV/endpoint protection: Is your AV/endpoint protection IPv6&nbsp;ready/aware? What about files downloaded via IPv6, is it scanned the same way as IPv4? DLP (if you are in the 1% who actually bought one and enrolled it in production): Is your DLP IPv6&nbsp;ready/aware?&nbsp; Can it monitor tunneled traffics? And last but not least, the bad news: you are already using IPv6 if you have Windows7 notebooks leaving your company, not having access to the domain controller. Or have you checked your servers link-local IPv6 addresses recently? Do you have a Windows2008 cluster? It is using IPv6 already! The good news? In the not so far future (I estimate 2050) you can turn off your last device with IPv4 address, and forget all the nightmare around NAT and dual-stack. Because remember: NAT is not a security feature. It never was. Useful links: https://www.thc.org/thc-ipv6/ https://www.usenix.org/legacy/events/lisa11/tech/slides/babiker.pdf http://www.cisco.com/en/US/prod/collateral/iosswrel/ps6537/ps6554/ps6599/ps10800/white_paper_c11-629044.pdf http://www.cisco.com/web/about/security/security_services/ciag/documents/v6-v4-threats.pdf http://www.secdev.org/conf/IPv6_RH_security-csw07.pdf" />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/checklist/ipv6/security/xx/2013/12/10/Secure-IPv6-deployment-checklist-think-twice,-deploy-once.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/checklist/ipv6/security/xx/2013/12/10/Secure-IPv6-deployment-checklist-think-twice,-deploy-once.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-12-10T10:47:39+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Secure IPv6 deployment checklist think twice, deploy once" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2013-12-10T10:47:39+00:00","datePublished":"2013-12-10T10:47:39+00:00","description":"Before deep-diving into IPv6, I&#39;m going to summarize my views on IPv6: Start now(!) to plan your IPv6 deployment - in case you have not done so. IPv6 is the future! There is no other choice. NAT is the root of all evil. IPv6 is coming. We&#39;ve heard this 10 years ago as well, but it is really coming now. If you live in Asia, you can see this in real life. If you live in Europe or the USA, you can feel the pain of triple NATed devices. Deploying IPv6 is not a binary task, you can do it in small steps. Get a public IPv6 address space, assign IPv6 addresses to your servers (e-mail, web, DNS). Great, you are now ahead of the world! Now, what about clients who want to access IPv6 web or email? You are lucky if you use an IPv6 compatible web/email proxy because the clients can still stay on IPv4. Now, what about your clients/servers accessing IPv6 services on the Internet directly (without a proxy)? If your network supports IPv6, your clients can directly access IPv6 services.&nbsp; If your network does not support IPv6, clients can still use tunneling protocols, e.g. ISATAP for Windows clients. This might sound easier than it is. But do you have the budget/people/management support to do this? Anyways, before you deploy IPv6 in your corporate environment, you have to think about the security issues. The next list is far from comprehensive or complete. Beware, here be dragons! It is a myth that IPv6 is more secure than IPv4. The only practical security addition in IPv6 is called IPSEC, and has been backported to IPv4 many years ago. Most networking people are not familiar with the new terms, best practices introduced with IPv6. It is important to educate the networking and security personnel about IPv6, and let them play with the technology. IPv6 can reintroduce basically all security vulnerabilities which has been mitigated in IPv4: If the vulnerability is not in the IP layer, the vulnerability will stay there. Although it sounds obvious, most people tend to forget this. Your MS08-067 vulnerability won&#39;t magically disappear if you use IPv6. OK, but you closed port 445 on the firewall. Oh crap, it is open on IPv6... Man-in-the-middle attacks: Organizations have already guarded themselves against ARP spoofing and DHCP server spoofing with mitigation techniques like DAI (Dynamic ARP Inspection) and DHCP snooping in the world of IPv4. The only thing which has been changed is the name of the attacks and defenses. Search for ICMPv6 attacks, and Neighbour Discovery attacks. Source routing: Source routed IPv4 packets have not been seen for a while bypassing firewalls, but &quot;luckily&quot; the IPv6 standard reintroduced source routing in IPv6, in the name of Type 0 Router Headers. You should check whether your OS/network equipment support Type 0 Router Headers. If you have time, play with Scapy to test it. Blocking ICMP: Let&#39;s face the truth: In order to effectively use IPv6, some ICMPv6 messages has to traverse through firewalls. Like it or not, you can&#39;t hide your clients anymore. Router advertisement: Let&#39;s play a game. Go into any network, and start broadcasting IPv6 router advertisement packets in the network. Guess what, the clients are going to connect to you, and you will be the default IPv6 gateway for the clients. If there is no web proxy configured on the client, this means all Google, Youtube and Facebook traffic will be routed through your box, because IPv6 is preferred over IPv4. This can be the next generation WPAD attack :) If you don&#39;t want to be vulnerable, better search for RAGuard or similar solutions. Translation/tunneling: If all your network equipment support&nbsp;IPv6&nbsp;and configured to use it, you are lucky, because your&nbsp;clients can use native IPv6. Otherwise, your clients have to use 6to4/ISATAP/Teredo/NAT64 or whatever IPv6 translation/tunneling. Do you know these protocols? Do your security products know these protocols? Dual stack: Your clients have to use both IPv4 and IPv6 together for a while. Be aware of the additional operating costs of maintaining 2 network protocol parallel. Fragmentation: In the first era of IDS/IPS devices, one of the main bypassing technique was IPv4 fragmentation. Have you checked whether your current solutions (IPS/IDS) parse fragmented packets the same way as your protected assets? The IPv4&nbsp;implementations have been tested thoroughly, and not much implementation bug is left there. But IPv6 implementation bugs, there will be a lot from them. Most of the programmers still don&#39;t know the basics of secure coding practices. IPv6 evercookie: Now that your clients don&#39;t have the same NAT IP, they static IP can be used to track them online. Luckily Microsoft solved the issue with IPv6 privacy extension, so clients will use temporarily IPv6 addresses to communicate with the Internet. Great, now how do you know in your security logs, which IPv6 address is which client??? Do your current security devices fully support IPv6? Have you tested this? Hardware Firewall (with all dual-stack/translation/tunneling nightmare) Do you block all outgoing UDP from the clients, especially 3544? Can you maintain rules for both IPv4 and IPv6? If you remove an IPv4 rule, do you remove the same rule for IPv6? Log collection, log analysis, correlation: Do the logs contain IPv6 addresses?&nbsp; Is it parsed by the SIEM application?&nbsp; Do you know that the DHCP IPv4 address is the same asset (workstation) as the IPv6 address with a privacy extension?&nbsp; IPS, IDS: Can these applications monitor/block all kinds of IPv6 translation/tunneling protocols? WAF: Is your WAF IPv6&nbsp;ready/aware? What about fragmentation? VPN: Can your clients connect to IPv6 services through VPN? Is your IPv6 VPN firewall rule as restrictive as the IPv4 one? If you remove a rule on IPv4, do you remove the same in IPv6? Software firewall: Is your software firewall IPv6 ready/aware?&nbsp; Does it understand all translation/tunneling protocols?&nbsp; Does it filter incoming traffic to the Teredo interface? AV/endpoint protection: Is your AV/endpoint protection IPv6&nbsp;ready/aware? What about files downloaded via IPv6, is it scanned the same way as IPv4? DLP (if you are in the 1% who actually bought one and enrolled it in production): Is your DLP IPv6&nbsp;ready/aware?&nbsp; Can it monitor tunneled traffics? And last but not least, the bad news: you are already using IPv6 if you have Windows7 notebooks leaving your company, not having access to the domain controller. Or have you checked your servers link-local IPv6 addresses recently? Do you have a Windows2008 cluster? It is using IPv6 already! The good news? In the not so far future (I estimate 2050) you can turn off your last device with IPv4 address, and forget all the nightmare around NAT and dual-stack. Because remember: NAT is not a security feature. It never was. Useful links: https://www.thc.org/thc-ipv6/ https://www.usenix.org/legacy/events/lisa11/tech/slides/babiker.pdf http://www.cisco.com/en/US/prod/collateral/iosswrel/ps6537/ps6554/ps6599/ps10800/white_paper_c11-629044.pdf http://www.cisco.com/web/about/security/security_services/ciag/documents/v6-v4-threats.pdf http://www.secdev.org/conf/IPv6_RH_security-csw07.pdf","headline":"Secure IPv6 deployment checklist think twice, deploy once","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/checklist/ipv6/security/xx/2013/12/10/Secure-IPv6-deployment-checklist-think-twice,-deploy-once.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/checklist/ipv6/security/xx/2013/12/10/Secure-IPv6-deployment-checklist-think-twice,-deploy-once.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Secure IPv6 deployment checklist think twice, deploy once</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 10 Dec 2013
+    
+  </div>
+  
+  <div style="text-align: justify;">
+Before deep-diving into IPv6, I'm going to summarize my views on IPv6:</div>
+<ol>
+<li style="text-align: justify;">Start now(!) to plan your IPv6 deployment - in case you have not done so.</li>
+<li style="text-align: justify;">IPv6 is the future! There is no other choice.</li>
+<li style="text-align: justify;">NAT is the root of all evil.</li>
+</ol>
+<div>
+<div style="text-align: justify;">
+IPv6 is coming. We've heard this 10 years ago as well, but it is really coming now. If you live in Asia, you can see this in real life. If you live in Europe or the USA, you can feel the pain of triple NATed devices.</div>
+</div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Deploying IPv6 is not a binary task, you can do it in small steps. Get a public IPv6 address space, assign IPv6 addresses to your servers (e-mail, web, DNS).</div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Great, you are now ahead of the world!</div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Now, what about clients who want to access IPv6 web or email? You are lucky if you use an IPv6 compatible web/email proxy because the clients can still stay on IPv4.</div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Now, what about your clients/servers accessing IPv6 services on the Internet directly (without a proxy)?</div>
+<ul>
+<li style="text-align: justify;">If your network supports IPv6, your clients can directly access IPv6 services.&nbsp;</li>
+<li style="text-align: justify;">If your network does not support IPv6, clients can still use tunneling protocols, e.g. ISATAP for Windows clients.</li>
+</ul>
+<div style="text-align: justify;">
+This might sound easier than it is. But do you have the budget/people/management support to do this? </div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Anyways, before you deploy IPv6 in your corporate environment, you have to think about the security issues. The next list is far from comprehensive or complete. Beware, here be dragons!</div>
+<div>
+<div style="text-align: justify;">
+<br /></div>
+</div>
+<div style="text-align: justify;">
+It is a myth that IPv6 is more secure than IPv4. The only practical security addition in IPv6 is called IPSEC, and has been backported to IPv4 many years ago.</div>
+<div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Most networking people are not familiar with the new terms, best practices introduced with IPv6. It is important to educate the networking and security personnel about IPv6, and let them play with the technology.</div>
+<ol>
+</ol>
+<div style="text-align: justify;">
+IPv6 can reintroduce basically all security vulnerabilities which has been mitigated in IPv4:</div>
+<ol>
+</ol>
+<ul>
+<li style="text-align: justify;">If the vulnerability is not in the IP layer, the vulnerability will stay there. Although it sounds obvious, most people tend to forget this. Your MS08-067 vulnerability won't magically disappear if you use IPv6. OK, but you closed port 445 on the firewall. Oh crap, it is open on IPv6...</li>
+<li style="text-align: justify;"><b>Man-in-the-middle attacks:</b> Organizations have already guarded themselves against ARP spoofing and DHCP server spoofing with mitigation techniques like DAI (Dynamic ARP Inspection) and DHCP snooping in the world of IPv4. The only thing which has been changed is the name of the attacks and defenses. Search for ICMPv6 attacks, and Neighbour Discovery attacks.</li>
+<li style="text-align: justify;"><b>Source routing:</b> Source routed IPv4 packets have not been seen for a while bypassing firewalls, but "luckily" the IPv6 standard reintroduced source routing in IPv6, in the name of Type 0 Router Headers. You should check whether your OS/network equipment support Type 0 Router Headers. If you have time, play with Scapy to test it.</li>
+<li style="text-align: justify;"><b>Blocking ICMP:</b> Let's face the truth: In order to effectively use IPv6, some ICMPv6 messages has to traverse through firewalls. Like it or not, you can't hide your clients anymore.</li>
+<li style="text-align: justify;"><b>Router advertisement:</b> Let's play a game. Go into any network, and start broadcasting IPv6 router advertisement packets in the network. Guess what, the clients are going to connect to you, and you will be the default IPv6 gateway for the clients. If there is no web proxy configured on the client, this means all Google, Youtube and Facebook traffic will be routed through your box, because IPv6 is preferred over IPv4. This can be the next generation WPAD attack :) If you don't want to be vulnerable, better search for RAGuard or similar solutions.</li>
+<li style="text-align: justify;"><b>Translation/tunneling:</b> If all your network equipment support&nbsp;IPv6&nbsp;and configured to use it, you are lucky, because your&nbsp;clients can use native IPv6. Otherwise, your clients have to use 6to4/ISATAP/Teredo/NAT64 or whatever IPv6 translation/tunneling. Do you know these protocols? Do your security products know these protocols?</li>
+<li style="text-align: justify;"><b>Dual stack:</b> Your clients have to use both IPv4 and IPv6 together for a while. Be aware of the additional operating costs of maintaining 2 network protocol parallel.</li>
+<li style="text-align: justify;"><b>Fragmentation:</b> In the first era of IDS/IPS devices, one of the main bypassing technique was IPv4 fragmentation. Have you checked whether your current solutions (IPS/IDS) parse fragmented packets the same way as your protected assets?</li>
+<li style="text-align: justify;">The IPv4&nbsp;implementations have been tested thoroughly, and not much implementation bug is left there. But IPv6 implementation bugs, there will be a lot from them. Most of the programmers still don't know the basics of secure coding practices.</li>
+<li style="text-align: justify;"><b>IPv6 evercookie:</b> Now that your clients don't have the same NAT IP, they static IP can be used to track them online. Luckily Microsoft solved the issue with IPv6 privacy extension, so clients will use temporarily IPv6 addresses to communicate with the Internet. Great, now how do you know in your security logs, which IPv6 address is which client???</li>
+</ul>
+<div style="text-align: justify;">
+Do your current security devices fully support IPv6? Have you tested this?</div>
+<div>
+<ul><ul>
+</ul>
+<li style="text-align: justify;">Hardware Firewall (with all dual-stack/translation/tunneling nightmare)</li>
+<ul>
+<li style="text-align: justify;">Do you block all outgoing UDP from the clients, especially 3544?</li>
+<li style="text-align: justify;">Can you maintain rules for both IPv4 and IPv6?</li>
+<li><span style="text-align: justify;">If you remove an IPv4 rule, do you remove the same rule for IPv6?</span></li>
+<ul>
+</ul>
+</ul>
+<li style="text-align: justify;">Log collection, log analysis, correlation:</li>
+<ul>
+<li style="text-align: justify;">Do the logs contain IPv6 addresses?&nbsp;</li>
+<li style="text-align: justify;">Is it parsed by the SIEM application?&nbsp;</li>
+<li style="text-align: justify;">Do you know that the DHCP IPv4 address is the same asset (workstation) as the IPv6 address with a privacy extension?&nbsp;</li>
+</ul>
+<li><span style="text-align: justify;">IPS, IDS:</span></li>
+<ul>
+<li><span style="text-align: justify;">Can these applications monitor/block all kinds of IPv6 translation/tunneling protocols?</span></li>
+</ul>
+<li style="text-align: justify;">WAF:</li>
+<ul>
+<li style="text-align: justify;">Is your WAF IPv6&nbsp;ready/aware?</li>
+<li style="text-align: justify;">What about fragmentation?</li>
+</ul>
+<li style="text-align: justify;">VPN:</li>
+<ul>
+<li style="text-align: justify;">Can your clients connect to IPv6 services through VPN?</li>
+<li style="text-align: justify;">Is your IPv6 VPN firewall rule as restrictive as the IPv4 one?</li>
+<li style="text-align: justify;">If you remove a rule on IPv4, do you remove the same in IPv6?</li>
+</ul>
+<li style="text-align: justify;">Software firewall:</li>
+<ul>
+<li style="text-align: justify;">Is your software firewall IPv6 ready/aware?&nbsp;</li>
+<li style="text-align: justify;">Does it understand all translation/tunneling protocols?&nbsp;</li>
+<li style="text-align: justify;">Does it filter incoming traffic to the Teredo interface?</li>
+</ul>
+<ul>
+</ul>
+<li style="text-align: justify;">AV/endpoint protection:</li>
+<ul>
+<li style="text-align: justify;">Is your AV/endpoint protection IPv6&nbsp;ready/aware?</li>
+<li style="text-align: justify;">What about files downloaded via IPv6, is it scanned the same way as IPv4?</li>
+</ul>
+<li><span style="text-align: justify;">DLP (if you are in the 1% who actually bought one and enrolled it in production):</span></li>
+<ul>
+<li><span style="text-align: justify;">Is your DLP IPv6&nbsp;ready/aware?&nbsp;</span></li>
+<li><span style="text-align: justify;">Can it monitor tunneled traffics?</span></li>
+</ul>
+</ul>
+</div>
+<div>
+<div style="text-align: justify;">
+And last but not least, the bad news: you are already using IPv6 if you have Windows7 notebooks leaving your company, not having access to the domain controller. Or have you checked your servers link-local IPv6 addresses recently? Do you have a Windows2008 cluster? It is using IPv6 already!</div>
+</div>
+<div>
+<div style="text-align: justify;">
+<br /></div>
+</div>
+<div>
+<div style="text-align: justify;">
+The good news? In the not so far future (I estimate 2050) you can turn off your last device with IPv4 address, and forget all the nightmare around NAT and dual-stack. Because remember: NAT is not a security feature. It never was.</div>
+</div>
+<div>
+<div style="text-align: justify;">
+<br /></div>
+<div style="text-align: justify;">
+Useful links:</div>
+<div style="text-align: justify;">
+<a href="https://www.thc.org/thc-ipv6/" target="_blank">https://www.thc.org/thc-ipv6/</a></div>
+<div style="text-align: justify;">
+<a href="https://www.usenix.org/legacy/events/lisa11/tech/slides/babiker.pdf" target="_blank">https://www.usenix.org/legacy/events/lisa11/tech/slides/babiker.pdf</a></div>
+</div>
+<div style="text-align: justify;">
+<a href="http://www.cisco.com/en/US/prod/collateral/iosswrel/ps6537/ps6554/ps6599/ps10800/white_paper_c11-629044.pdf" target="_blank">http://www.cisco.com/en/US/prod/collateral/iosswrel/ps6537/ps6554/ps6599/ps10800/white_paper_c11-629044.pdf</a></div>
+<div style="text-align: justify;">
+<a href="http://www.cisco.com/web/about/security/security_services/ciag/documents/v6-v4-threats.pdf" target="_blank">http://www.cisco.com/web/about/security/security_services/ciag/documents/v6-v4-threats.pdf</a></div>
+<div style="text-align: justify;">
+<a href="http://www.secdev.org/conf/IPv6_RH_security-csw07.pdf" target="_blank">http://www.secdev.org/conf/IPv6_RH_security-csw07.pdf</a></div>
+<div style="text-align: justify;">
+<br /></div>
+</div>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

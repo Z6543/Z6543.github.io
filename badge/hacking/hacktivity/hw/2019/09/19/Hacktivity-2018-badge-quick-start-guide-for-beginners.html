@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Hacktivity 2018 badge - quick start guide for beginners | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Hacktivity 2018 badge - quick start guide for beginners" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="You either landed on this blog post because  you are a huge fan of Hacktivityyou bought this badge around a year agoyou are just interested in hacker conference badge hacking.  or maybe all of the above. Whatever the reasons, this guide should be helpful for those who never had any real-life experience with these little gadgets.  But first things first, here is a list what you need for hacking the badge: a computer with USB port and macOS, Linux or Windows. You can use other OS as well, but this guide covers theseUSB mini cable to connect the badge to the computerthe Hacktivity badge from 2018 By default, this is how your badge looks like. Let&#39;s get started Luckily, you don’t need any soldering skills for the first steps. Just connect the USB mini port to the bottom left connector on the badge, connect the other part of the USB cable to your computer, and within some seconds you will be able to see that the lights on your badge are blinking. So far so good. Now, depending on which OS you use, you should choose your destiny here. Linux The best source of information about a new device being connected is dmesg The tail of the output should look like [267300.206966] usb 2-2.2: new full-speed USB device number 14 using uhci_hcd [267300.326484] usb 2-2.2: New USB device found, idVendor=0403, idProduct=6001 [267300.326486] usb 2-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3 [267300.326487] usb 2-2.2: Product: FT232R USB UART [267300.326488] usb 2-2.2: Manufacturer: FTDI [267300.326489] usb 2-2.2: SerialNumber: AC01U4XN [267300.558684] usbcore: registered new interface driver usbserial_generic [267300.558692] usbserial: USB Serial support registered for generic [267300.639673] usbcore: registered new interface driver ftdi_sio [267300.639684] usbserial: USB Serial support registered for FTDI USB Serial Device [267300.639713] ftdi_sio 2-2.2:1.0: FTDI USB Serial Device converter detected [267300.639741] usb 2-2.2: Detected FT232RL [267300.643235] usb 2-2.2: FTDI USB Serial Device converter now attached to ttyUSB0 Dmesg is pretty kind to us, as it even notifies us that the device is now attached to ttyUSB0.  From now on, connecting to the device is exactly the same as it is in the macOS section, so please find the &quot;Linux users, read it from here&quot; section below.  macOS There are multiple commands you can type into Terminal to get an idea about what you are looking at. One command is: # ioreg -p IOUSB -w0 -l With this command, you should get output similar to this: +-o FT232R USB UART@14100000  &lt;class AppleUSBDevice, id 0x100005465, registered, matched, active, busy 0 (712 ms), retain 20&gt;    |   {    |     &quot;sessionID&quot; = 71217335583342    |     &quot;iManufacturer&quot; = 1    |     &quot;bNumConfigurations&quot; = 1    |     &quot;idProduct&quot; = 24577    |     &quot;bcdDevice&quot; = 1536    |     &quot;Bus Power Available&quot; = 250    |     &quot;USB Address&quot; = 2    |     &quot;bMaxPacketSize0&quot; = 8    |     &quot;iProduct&quot; = 2    |     &quot;iSerialNumber&quot; = 3    |     &quot;bDeviceClass&quot; = 0    |     &quot;Built-In&quot; = No    |     &quot;locationID&quot; = 336592896    |     &quot;bDeviceSubClass&quot; = 0    |     &quot;bcdUSB&quot; = 512    |     &quot;USB Product Name&quot; = &quot;FT232R USB UART&quot;    |     &quot;PortNum&quot; = 1    |     &quot;non-removable&quot; = &quot;no&quot;    |     &quot;IOCFPlugInTypes&quot; = {&quot;9dc7b780-9ec0-11d4-a54f-000a27052861&quot;=&quot;IOUSBFamily.kext/Contents/PlugIns/IOUSBLib.bundle&quot;}    |     &quot;bDeviceProtocol&quot; = 0    |     &quot;IOUserClientClass&quot; = &quot;IOUSBDeviceUserClientV2&quot;    |     &quot;IOPowerManagement&quot; = {&quot;DevicePowerState&quot;=0,&quot;CurrentPowerState&quot;=3,&quot;CapabilityFlags&quot;=65536,&quot;MaxPowerState&quot;=4,&quot;DriverPowerState&quot;=3}    |     &quot;kUSBCurrentConfiguration&quot; = 1    |     &quot;Device Speed&quot; = 1    |     &quot;USB Vendor Name&quot; = &quot;FTDI&quot;    |     &quot;idVendor&quot; = 1027    |     &quot;IOGeneralInterest&quot; = &quot;IOCommand is not serializable&quot;    |     &quot;USB Serial Number&quot; = &quot;AC01U4XN&quot;    |     &quot;IOClassNameOverride&quot; = &quot;IOUSBDevice&quot;    |   } The most important information you get is the USB serial number - AC01U4XN in my case.Another way to get this information is# system_profiler SPUSBDataTypewhich will give back something similar to:FT232R USB UART:          Product ID: 0x6001          Vendor ID: 0x0403  (Future Technology Devices International Limited)          Version: 6.00          Serial Number: AC01U4XN          Speed: Up to 12 Mb/sec          Manufacturer: FTDI          Location ID: 0x14100000 / 2          Current Available (mA): 500          Current Required (mA): 90          Extra Operating Current (mA): 0The serial number you got is the same.What you are trying to achieve here is to connect to the device, but in order to connect to it, you have to know where the device in the /dev folder is mapped to. A quick and dirty solution is to list all devices under /dev when the device is disconnected, once when it is connected, and diff the outputs. For example, the following should do the job:ls -lha /dev/tty* &gt; plugged.txtls -lha /dev/tty* &gt; np.txtvimdiff plugged.txt np.txtThe result should be obvious, /dev/tty.usbserial-AC01U4XN is the new device in case macOS. In the case of Linux, it was /dev/ttyUSB0.Linux users, read it from here. macOS users, please continue readingNow you can use either the built-in screen command or minicom to get data out from the badge. Usually, you need three information in order to communicate with a badge. Path on /dev (you already got that), speed in baud, and the async config parameters. Either you can guess the speed or you can Google that for the specific device. Standard baud rates include 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000 and 256000 bits per second. I usually found 1200, 9600 and 115200 a common choice, but that is just me.Regarding the async config parameters, the default is that 8 bits are used, there is no parity bit, and 1 stop bit is used. The short abbreviation for this is 8n1. In the next example, you will use the screen command. By default, it uses 8n1, but it is called cs8 to confuse the beginners.If you type:# screen /dev/tty.usbserial-AC01U4XN 9600or# screen /dev/ttyUSB0 9600and wait for minutes and nothing happens, it is because the badge already tried to communicate via the USB port, but no-one was listening there. Disconnect the badge from the computer, connect again, and type the screen command above to connect. If you are quick enough you can see that the amber LED will stop blinking and your screen command is greeted with some interesting information. By quick enough I mean ˜90 seconds, as it takes the device 1.5 minutes to boot the OS and the CTF app.WindowsWhen you connect the device to Windows, you will be greeted with a pop-up.Just click on the popup and you will see the COM port number the device is connected to:In this case, it is connected to COM3. So let&#39;s fire up our favorite putty.exe, select Serial, choose COM3, add speed 9600, and you are ready to go!You might check the end of the macOS section in case you can&#39;t see anything. Timing is everything.The CTFWelcome to the Hacktivity 2018 badge challenge!This challenge consists of several tasks with one or more levels ofdifficulty. They are all connected in some way or another to HW REand there&#39;s no competition, the whole purpose is to learn things.Note: we recommend turning on local echo in your terminal!Also, feel free to ask for hints at the Hackcenter!Choose your destiny below: 1. Visual HW debugging 2. Reverse engineering 3. RF hacking 4. Crypto protectionEnter the number of the challenge you&#39;re interested in and press [Excellent, now you are ready to hack this! In case you are lost in controlling the screen command, go to https://linuxize.com/post/how-to-use-linux-screen/.I will not spoil any fun in giving out the challenge solutions here. It is still your task to find solutions for these.But here is a catch. You can get a root shell on the device. And it is pretty straightforward. Just carefully remove the Omega shield from the badge. Now you see two jumpers; by default, these are connected together as UART1. As seen below. But what happens if you move these jumpers to UART0? Guess what, you can get a root shell! This is what I call privilege escalation on the HW level :) But first, let&#39;s connect the Omega shield back. Also, for added fun, this new interface speaks on 115200 baud, so you should change your screen parameters to 115200. Also, the new interface has a different ID under /dev, but I am sure you can figure this out from now on. If you connect to the device during boot time, you can see a lot of exciting debug information about the device. And after it boots, you just get a root prompt. Woohoo!  But what can you do with this root access? Well, for starters, how about running  # strings hello | less From now on, you are on your own to hack this badge. Happy hacking. Big thanks to Attila Marosi-Bauer and Hackerspace Budapest for developing this badge and the contests. PS: In case you want to use the radio functionality of the badge, see below how you should solder the parts to it. By default, you can process slow speed radio frequency signals on GPIO19. But for higher transfer speeds, you should wire the RF module DATA OUT pin with the RX1 free together." />
+<meta property="og:description" content="You either landed on this blog post because  you are a huge fan of Hacktivityyou bought this badge around a year agoyou are just interested in hacker conference badge hacking.  or maybe all of the above. Whatever the reasons, this guide should be helpful for those who never had any real-life experience with these little gadgets.  But first things first, here is a list what you need for hacking the badge: a computer with USB port and macOS, Linux or Windows. You can use other OS as well, but this guide covers theseUSB mini cable to connect the badge to the computerthe Hacktivity badge from 2018 By default, this is how your badge looks like. Let&#39;s get started Luckily, you don’t need any soldering skills for the first steps. Just connect the USB mini port to the bottom left connector on the badge, connect the other part of the USB cable to your computer, and within some seconds you will be able to see that the lights on your badge are blinking. So far so good. Now, depending on which OS you use, you should choose your destiny here. Linux The best source of information about a new device being connected is dmesg The tail of the output should look like [267300.206966] usb 2-2.2: new full-speed USB device number 14 using uhci_hcd [267300.326484] usb 2-2.2: New USB device found, idVendor=0403, idProduct=6001 [267300.326486] usb 2-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3 [267300.326487] usb 2-2.2: Product: FT232R USB UART [267300.326488] usb 2-2.2: Manufacturer: FTDI [267300.326489] usb 2-2.2: SerialNumber: AC01U4XN [267300.558684] usbcore: registered new interface driver usbserial_generic [267300.558692] usbserial: USB Serial support registered for generic [267300.639673] usbcore: registered new interface driver ftdi_sio [267300.639684] usbserial: USB Serial support registered for FTDI USB Serial Device [267300.639713] ftdi_sio 2-2.2:1.0: FTDI USB Serial Device converter detected [267300.639741] usb 2-2.2: Detected FT232RL [267300.643235] usb 2-2.2: FTDI USB Serial Device converter now attached to ttyUSB0 Dmesg is pretty kind to us, as it even notifies us that the device is now attached to ttyUSB0.  From now on, connecting to the device is exactly the same as it is in the macOS section, so please find the &quot;Linux users, read it from here&quot; section below.  macOS There are multiple commands you can type into Terminal to get an idea about what you are looking at. One command is: # ioreg -p IOUSB -w0 -l With this command, you should get output similar to this: +-o FT232R USB UART@14100000  &lt;class AppleUSBDevice, id 0x100005465, registered, matched, active, busy 0 (712 ms), retain 20&gt;    |   {    |     &quot;sessionID&quot; = 71217335583342    |     &quot;iManufacturer&quot; = 1    |     &quot;bNumConfigurations&quot; = 1    |     &quot;idProduct&quot; = 24577    |     &quot;bcdDevice&quot; = 1536    |     &quot;Bus Power Available&quot; = 250    |     &quot;USB Address&quot; = 2    |     &quot;bMaxPacketSize0&quot; = 8    |     &quot;iProduct&quot; = 2    |     &quot;iSerialNumber&quot; = 3    |     &quot;bDeviceClass&quot; = 0    |     &quot;Built-In&quot; = No    |     &quot;locationID&quot; = 336592896    |     &quot;bDeviceSubClass&quot; = 0    |     &quot;bcdUSB&quot; = 512    |     &quot;USB Product Name&quot; = &quot;FT232R USB UART&quot;    |     &quot;PortNum&quot; = 1    |     &quot;non-removable&quot; = &quot;no&quot;    |     &quot;IOCFPlugInTypes&quot; = {&quot;9dc7b780-9ec0-11d4-a54f-000a27052861&quot;=&quot;IOUSBFamily.kext/Contents/PlugIns/IOUSBLib.bundle&quot;}    |     &quot;bDeviceProtocol&quot; = 0    |     &quot;IOUserClientClass&quot; = &quot;IOUSBDeviceUserClientV2&quot;    |     &quot;IOPowerManagement&quot; = {&quot;DevicePowerState&quot;=0,&quot;CurrentPowerState&quot;=3,&quot;CapabilityFlags&quot;=65536,&quot;MaxPowerState&quot;=4,&quot;DriverPowerState&quot;=3}    |     &quot;kUSBCurrentConfiguration&quot; = 1    |     &quot;Device Speed&quot; = 1    |     &quot;USB Vendor Name&quot; = &quot;FTDI&quot;    |     &quot;idVendor&quot; = 1027    |     &quot;IOGeneralInterest&quot; = &quot;IOCommand is not serializable&quot;    |     &quot;USB Serial Number&quot; = &quot;AC01U4XN&quot;    |     &quot;IOClassNameOverride&quot; = &quot;IOUSBDevice&quot;    |   } The most important information you get is the USB serial number - AC01U4XN in my case.Another way to get this information is# system_profiler SPUSBDataTypewhich will give back something similar to:FT232R USB UART:          Product ID: 0x6001          Vendor ID: 0x0403  (Future Technology Devices International Limited)          Version: 6.00          Serial Number: AC01U4XN          Speed: Up to 12 Mb/sec          Manufacturer: FTDI          Location ID: 0x14100000 / 2          Current Available (mA): 500          Current Required (mA): 90          Extra Operating Current (mA): 0The serial number you got is the same.What you are trying to achieve here is to connect to the device, but in order to connect to it, you have to know where the device in the /dev folder is mapped to. A quick and dirty solution is to list all devices under /dev when the device is disconnected, once when it is connected, and diff the outputs. For example, the following should do the job:ls -lha /dev/tty* &gt; plugged.txtls -lha /dev/tty* &gt; np.txtvimdiff plugged.txt np.txtThe result should be obvious, /dev/tty.usbserial-AC01U4XN is the new device in case macOS. In the case of Linux, it was /dev/ttyUSB0.Linux users, read it from here. macOS users, please continue readingNow you can use either the built-in screen command or minicom to get data out from the badge. Usually, you need three information in order to communicate with a badge. Path on /dev (you already got that), speed in baud, and the async config parameters. Either you can guess the speed or you can Google that for the specific device. Standard baud rates include 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000 and 256000 bits per second. I usually found 1200, 9600 and 115200 a common choice, but that is just me.Regarding the async config parameters, the default is that 8 bits are used, there is no parity bit, and 1 stop bit is used. The short abbreviation for this is 8n1. In the next example, you will use the screen command. By default, it uses 8n1, but it is called cs8 to confuse the beginners.If you type:# screen /dev/tty.usbserial-AC01U4XN 9600or# screen /dev/ttyUSB0 9600and wait for minutes and nothing happens, it is because the badge already tried to communicate via the USB port, but no-one was listening there. Disconnect the badge from the computer, connect again, and type the screen command above to connect. If you are quick enough you can see that the amber LED will stop blinking and your screen command is greeted with some interesting information. By quick enough I mean ˜90 seconds, as it takes the device 1.5 minutes to boot the OS and the CTF app.WindowsWhen you connect the device to Windows, you will be greeted with a pop-up.Just click on the popup and you will see the COM port number the device is connected to:In this case, it is connected to COM3. So let&#39;s fire up our favorite putty.exe, select Serial, choose COM3, add speed 9600, and you are ready to go!You might check the end of the macOS section in case you can&#39;t see anything. Timing is everything.The CTFWelcome to the Hacktivity 2018 badge challenge!This challenge consists of several tasks with one or more levels ofdifficulty. They are all connected in some way or another to HW REand there&#39;s no competition, the whole purpose is to learn things.Note: we recommend turning on local echo in your terminal!Also, feel free to ask for hints at the Hackcenter!Choose your destiny below: 1. Visual HW debugging 2. Reverse engineering 3. RF hacking 4. Crypto protectionEnter the number of the challenge you&#39;re interested in and press [Excellent, now you are ready to hack this! In case you are lost in controlling the screen command, go to https://linuxize.com/post/how-to-use-linux-screen/.I will not spoil any fun in giving out the challenge solutions here. It is still your task to find solutions for these.But here is a catch. You can get a root shell on the device. And it is pretty straightforward. Just carefully remove the Omega shield from the badge. Now you see two jumpers; by default, these are connected together as UART1. As seen below. But what happens if you move these jumpers to UART0? Guess what, you can get a root shell! This is what I call privilege escalation on the HW level :) But first, let&#39;s connect the Omega shield back. Also, for added fun, this new interface speaks on 115200 baud, so you should change your screen parameters to 115200. Also, the new interface has a different ID under /dev, but I am sure you can figure this out from now on. If you connect to the device during boot time, you can see a lot of exciting debug information about the device. And after it boots, you just get a root prompt. Woohoo!  But what can you do with this root access? Well, for starters, how about running  # strings hello | less From now on, you are on your own to hack this badge. Happy hacking. Big thanks to Attila Marosi-Bauer and Hackerspace Budapest for developing this badge and the contests. PS: In case you want to use the radio functionality of the badge, see below how you should solder the parts to it. By default, you can process slow speed radio frequency signals on GPIO19. But for higher transfer speeds, you should wire the RF module DATA OUT pin with the RX1 free together." />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/badge/hacking/hacktivity/hw/2019/09/19/Hacktivity-2018-badge-quick-start-guide-for-beginners.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/badge/hacking/hacktivity/hw/2019/09/19/Hacktivity-2018-badge-quick-start-guide-for-beginners.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-09-19T15:57:50+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Hacktivity 2018 badge - quick start guide for beginners" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2019-09-19T15:57:50+00:00","datePublished":"2019-09-19T15:57:50+00:00","description":"You either landed on this blog post because  you are a huge fan of Hacktivityyou bought this badge around a year agoyou are just interested in hacker conference badge hacking.  or maybe all of the above. Whatever the reasons, this guide should be helpful for those who never had any real-life experience with these little gadgets.  But first things first, here is a list what you need for hacking the badge: a computer with USB port and macOS, Linux or Windows. You can use other OS as well, but this guide covers theseUSB mini cable to connect the badge to the computerthe Hacktivity badge from 2018 By default, this is how your badge looks like. Let&#39;s get started Luckily, you don’t need any soldering skills for the first steps. Just connect the USB mini port to the bottom left connector on the badge, connect the other part of the USB cable to your computer, and within some seconds you will be able to see that the lights on your badge are blinking. So far so good. Now, depending on which OS you use, you should choose your destiny here. Linux The best source of information about a new device being connected is dmesg The tail of the output should look like [267300.206966] usb 2-2.2: new full-speed USB device number 14 using uhci_hcd [267300.326484] usb 2-2.2: New USB device found, idVendor=0403, idProduct=6001 [267300.326486] usb 2-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3 [267300.326487] usb 2-2.2: Product: FT232R USB UART [267300.326488] usb 2-2.2: Manufacturer: FTDI [267300.326489] usb 2-2.2: SerialNumber: AC01U4XN [267300.558684] usbcore: registered new interface driver usbserial_generic [267300.558692] usbserial: USB Serial support registered for generic [267300.639673] usbcore: registered new interface driver ftdi_sio [267300.639684] usbserial: USB Serial support registered for FTDI USB Serial Device [267300.639713] ftdi_sio 2-2.2:1.0: FTDI USB Serial Device converter detected [267300.639741] usb 2-2.2: Detected FT232RL [267300.643235] usb 2-2.2: FTDI USB Serial Device converter now attached to ttyUSB0 Dmesg is pretty kind to us, as it even notifies us that the device is now attached to ttyUSB0.  From now on, connecting to the device is exactly the same as it is in the macOS section, so please find the &quot;Linux users, read it from here&quot; section below.  macOS There are multiple commands you can type into Terminal to get an idea about what you are looking at. One command is: # ioreg -p IOUSB -w0 -l With this command, you should get output similar to this: +-o FT232R USB UART@14100000  &lt;class AppleUSBDevice, id 0x100005465, registered, matched, active, busy 0 (712 ms), retain 20&gt;    |   {    |     &quot;sessionID&quot; = 71217335583342    |     &quot;iManufacturer&quot; = 1    |     &quot;bNumConfigurations&quot; = 1    |     &quot;idProduct&quot; = 24577    |     &quot;bcdDevice&quot; = 1536    |     &quot;Bus Power Available&quot; = 250    |     &quot;USB Address&quot; = 2    |     &quot;bMaxPacketSize0&quot; = 8    |     &quot;iProduct&quot; = 2    |     &quot;iSerialNumber&quot; = 3    |     &quot;bDeviceClass&quot; = 0    |     &quot;Built-In&quot; = No    |     &quot;locationID&quot; = 336592896    |     &quot;bDeviceSubClass&quot; = 0    |     &quot;bcdUSB&quot; = 512    |     &quot;USB Product Name&quot; = &quot;FT232R USB UART&quot;    |     &quot;PortNum&quot; = 1    |     &quot;non-removable&quot; = &quot;no&quot;    |     &quot;IOCFPlugInTypes&quot; = {&quot;9dc7b780-9ec0-11d4-a54f-000a27052861&quot;=&quot;IOUSBFamily.kext/Contents/PlugIns/IOUSBLib.bundle&quot;}    |     &quot;bDeviceProtocol&quot; = 0    |     &quot;IOUserClientClass&quot; = &quot;IOUSBDeviceUserClientV2&quot;    |     &quot;IOPowerManagement&quot; = {&quot;DevicePowerState&quot;=0,&quot;CurrentPowerState&quot;=3,&quot;CapabilityFlags&quot;=65536,&quot;MaxPowerState&quot;=4,&quot;DriverPowerState&quot;=3}    |     &quot;kUSBCurrentConfiguration&quot; = 1    |     &quot;Device Speed&quot; = 1    |     &quot;USB Vendor Name&quot; = &quot;FTDI&quot;    |     &quot;idVendor&quot; = 1027    |     &quot;IOGeneralInterest&quot; = &quot;IOCommand is not serializable&quot;    |     &quot;USB Serial Number&quot; = &quot;AC01U4XN&quot;    |     &quot;IOClassNameOverride&quot; = &quot;IOUSBDevice&quot;    |   } The most important information you get is the USB serial number - AC01U4XN in my case.Another way to get this information is# system_profiler SPUSBDataTypewhich will give back something similar to:FT232R USB UART:          Product ID: 0x6001          Vendor ID: 0x0403  (Future Technology Devices International Limited)          Version: 6.00          Serial Number: AC01U4XN          Speed: Up to 12 Mb/sec          Manufacturer: FTDI          Location ID: 0x14100000 / 2          Current Available (mA): 500          Current Required (mA): 90          Extra Operating Current (mA): 0The serial number you got is the same.What you are trying to achieve here is to connect to the device, but in order to connect to it, you have to know where the device in the /dev folder is mapped to. A quick and dirty solution is to list all devices under /dev when the device is disconnected, once when it is connected, and diff the outputs. For example, the following should do the job:ls -lha /dev/tty* &gt; plugged.txtls -lha /dev/tty* &gt; np.txtvimdiff plugged.txt np.txtThe result should be obvious, /dev/tty.usbserial-AC01U4XN is the new device in case macOS. In the case of Linux, it was /dev/ttyUSB0.Linux users, read it from here. macOS users, please continue readingNow you can use either the built-in screen command or minicom to get data out from the badge. Usually, you need three information in order to communicate with a badge. Path on /dev (you already got that), speed in baud, and the async config parameters. Either you can guess the speed or you can Google that for the specific device. Standard baud rates include 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000 and 256000 bits per second. I usually found 1200, 9600 and 115200 a common choice, but that is just me.Regarding the async config parameters, the default is that 8 bits are used, there is no parity bit, and 1 stop bit is used. The short abbreviation for this is 8n1. In the next example, you will use the screen command. By default, it uses 8n1, but it is called cs8 to confuse the beginners.If you type:# screen /dev/tty.usbserial-AC01U4XN 9600or# screen /dev/ttyUSB0 9600and wait for minutes and nothing happens, it is because the badge already tried to communicate via the USB port, but no-one was listening there. Disconnect the badge from the computer, connect again, and type the screen command above to connect. If you are quick enough you can see that the amber LED will stop blinking and your screen command is greeted with some interesting information. By quick enough I mean ˜90 seconds, as it takes the device 1.5 minutes to boot the OS and the CTF app.WindowsWhen you connect the device to Windows, you will be greeted with a pop-up.Just click on the popup and you will see the COM port number the device is connected to:In this case, it is connected to COM3. So let&#39;s fire up our favorite putty.exe, select Serial, choose COM3, add speed 9600, and you are ready to go!You might check the end of the macOS section in case you can&#39;t see anything. Timing is everything.The CTFWelcome to the Hacktivity 2018 badge challenge!This challenge consists of several tasks with one or more levels ofdifficulty. They are all connected in some way or another to HW REand there&#39;s no competition, the whole purpose is to learn things.Note: we recommend turning on local echo in your terminal!Also, feel free to ask for hints at the Hackcenter!Choose your destiny below: 1. Visual HW debugging 2. Reverse engineering 3. RF hacking 4. Crypto protectionEnter the number of the challenge you&#39;re interested in and press [Excellent, now you are ready to hack this! In case you are lost in controlling the screen command, go to https://linuxize.com/post/how-to-use-linux-screen/.I will not spoil any fun in giving out the challenge solutions here. It is still your task to find solutions for these.But here is a catch. You can get a root shell on the device. And it is pretty straightforward. Just carefully remove the Omega shield from the badge. Now you see two jumpers; by default, these are connected together as UART1. As seen below. But what happens if you move these jumpers to UART0? Guess what, you can get a root shell! This is what I call privilege escalation on the HW level :) But first, let&#39;s connect the Omega shield back. Also, for added fun, this new interface speaks on 115200 baud, so you should change your screen parameters to 115200. Also, the new interface has a different ID under /dev, but I am sure you can figure this out from now on. If you connect to the device during boot time, you can see a lot of exciting debug information about the device. And after it boots, you just get a root prompt. Woohoo!  But what can you do with this root access? Well, for starters, how about running  # strings hello | less From now on, you are on your own to hack this badge. Happy hacking. Big thanks to Attila Marosi-Bauer and Hackerspace Budapest for developing this badge and the contests. PS: In case you want to use the radio functionality of the badge, see below how you should solder the parts to it. By default, you can process slow speed radio frequency signals on GPIO19. But for higher transfer speeds, you should wire the RF module DATA OUT pin with the RX1 free together.","headline":"Hacktivity 2018 badge - quick start guide for beginners","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/badge/hacking/hacktivity/hw/2019/09/19/Hacktivity-2018-badge-quick-start-guide-for-beginners.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/badge/hacking/hacktivity/hw/2019/09/19/Hacktivity-2018-badge-quick-start-guide-for-beginners.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Hacktivity 2018 badge - quick start guide for beginners</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 19 Sep 2019
+    
+  </div>
+  
+  <div>You either landed on this blog post because </div>
+<div></div>
+<ul><li>you are a huge fan of Hacktivity</li><li>you bought this badge around a year ago</li><li>you are just interested in hacker conference badge hacking. </li></ul>
+<div>or maybe all of the above. Whatever the reasons, this guide should be helpful for those who never had any real-life experience with these little gadgets. </div>
+<div>But first things first, here is a list what you need for hacking the badge:</div>
+<div></div>
+<ul><li>a computer with USB port and macOS, Linux or Windows. You can use other OS as well, but this guide covers these</li><li>USB mini cable to connect the badge to the computer</li><li>the Hacktivity badge from 2018</li></ul>
+<div>By default, this is how your badge looks like.</div>
+<p><img src="https://z6543.github.io/_img/IMG_8640.JPG" /></p>
+<h2>Let's get started</h2>
+<p>Luckily, you don’t need any soldering skills for the first steps. Just connect the USB mini port to the bottom left connector on the badge, connect the other part of the USB cable to your computer, and within some seconds you will be able to see that the lights on your badge are blinking. So far so good. Now, depending on which OS you use, you should choose your destiny here.</p>
+<h3>Linux</h3>
+<p>The best source of information about a new device being connected is</p>
+<h1 id="dmesg">dmesg</h1>
+<p>The tail of the output should look like</p>
+<pre>[267300.206966] usb 2-2.2: new full-speed USB device number 14 using uhci_hcd
+[267300.326484] usb 2-2.2: New USB device found, idVendor=0403, idProduct=6001
+[267300.326486] usb 2-2.2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[267300.326487] usb 2-2.2: Product: FT232R USB UART
+[267300.326488] usb 2-2.2: Manufacturer: FTDI
+[267300.326489] usb 2-2.2: SerialNumber: <b>AC01U4XN</b>
+[267300.558684] usbcore: registered new interface driver usbserial_generic
+[267300.558692] usbserial: USB Serial support registered for generic
+[267300.639673] usbcore: registered new interface driver ftdi_sio
+[267300.639684] usbserial: USB Serial support registered for FTDI USB Serial Device
+[267300.639713] ftdi_sio 2-2.2:1.0: FTDI USB Serial Device converter detected
+[267300.639741] usb 2-2.2: Detected FT232RL
+[267300.643235] usb 2-2.2: FTDI USB Serial Device converter now attached to <b>ttyUSB0</b></pre>
+<div style=""><br />Dmesg is pretty kind to us, as it even notifies us that the device is now attached to ttyUSB0. 
+From now on, connecting to the device is exactly the same as it is in the macOS section, so please find the "Linux users, read it from here" section below. </div>
+<h3>macOS</h3>
+<div>There are multiple commands you can type into Terminal to get an idea about what you are looking at. One command is:</div>
+<div> </div>
+<div><pre># ioreg -p IOUSB -w0 -l</pre></div>
+<div><br /></div>
+<div>With this command, you should get output similar to this:</div>
+<div> <br /><pre>+-o FT232R USB UART@14100000  &lt;class AppleUSBDevice, id 0x100005465, registered, matched, active, busy 0 (712 ms), retain 20&gt;<br />    |   {<br />    |     "sessionID" = 71217335583342<br />    |     "iManufacturer" = 1<br />    |     "bNumConfigurations" = 1<br />    |     "idProduct" = 24577<br />    |     "bcdDevice" = 1536<br />    |     "Bus Power Available" = 250<br />    |     "USB Address" = 2<br />    |     "bMaxPacketSize0" = 8<br />    |     "iProduct" = 2<br />    |     "iSerialNumber" = 3<br />    |     "bDeviceClass" = 0<br />    |     "Built-In" = No<br />    |     "locationID" = 336592896<br />    |     "bDeviceSubClass" = 0<br />    |     "bcdUSB" = 512<br />    |     "USB Product Name" = "FT232R USB UART"<br />    |     "PortNum" = 1<br />    |     "non-removable" = "no"<br />    |     "IOCFPlugInTypes" = {"9dc7b780-9ec0-11d4-a54f-000a27052861"="IOUSBFamily.kext/Contents/PlugIns/IOUSBLib.bundle"}<br />    |     "bDeviceProtocol" = 0<br />    |     "IOUserClientClass" = "IOUSBDeviceUserClientV2"<br />    |     "IOPowerManagement" = {"DevicePowerState"=0,"CurrentPowerState"=3,"CapabilityFlags"=65536,"MaxPowerState"=4,"DriverPowerState"=3}<br />    |     "kUSBCurrentConfiguration" = 1<br />    |     "Device Speed" = 1<br />    |     "USB Vendor Name" = "FTDI"<br />    |     "idVendor" = 1027<br />    |     "IOGeneralInterest" = "IOCommand is not serializable"<br />    |     "USB Serial Number" = "<b>AC01U4XN</b>"<br />    |     "IOClassNameOverride" = "IOUSBDevice"<br />    |   } <br /></pre>The most important information you get is the USB serial number - AC01U4XN in my case.<br />Another way to get this information is<br /><pre># system_profiler SPUSBDataType<br /><br /></pre>which will give back something similar to:<br /><pre>FT232R USB UART:<br /><br />          Product ID: 0x6001<br />          Vendor ID: 0x0403  (Future Technology Devices International Limited)<br />          Version: 6.00<br />          Serial Number: <b>AC01U4XN</b><br />          Speed: Up to 12 Mb/sec<br />          Manufacturer: FTDI<br />          Location ID: 0x14100000 / 2<br />          Current Available (mA): 500<br />          Current Required (mA): 90<br />          Extra Operating Current (mA): 0<br /></pre><div><br /></div><div>The serial number you got is the same.<br /><br />What you are trying to achieve here is to connect to the device, but in order to connect to it, you have to know where the device in the /dev folder is mapped to. A quick and dirty solution is to list all devices under /dev when the device is disconnected, once when it is connected, and diff the outputs. For example, the following should do the job:<br /><br /><pre>ls -lha /dev/tty* &gt; plugged.txt<br />ls -lha /dev/tty* &gt; np.txt<br />vimdiff plugged.txt np.txt<br /></pre><br />The result should be obvious, /dev/tty.usbserial-AC01U4XN is the new device in case macOS. In the case of Linux, it was /dev/ttyUSB0.<br /><h4>Linux users, read it from here. macOS users, please continue reading</h4>Now you can use either the built-in screen command or minicom to get data out from the badge. Usually, you need three information in order to communicate with a badge. Path on /dev (you already got that), speed in baud, and the async config parameters. Either you can guess the speed or you can Google that for the specific device. Standard baud rates include 110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000 and 256000 bits per second. I usually found 1200, 9600 and 115200 a common choice, but that is just me.<br />Regarding the async config parameters, the default is that <b>8</b> bits are used, there is <b>n</b>o parity bit, and <b>1</b> stop bit is used. The short abbreviation for this is 8n1. In the next example, you will use the screen command. By default, it uses 8n1, but it is called cs8 to confuse the beginners.<br /><br />If you type:<br /># screen /dev/tty.usbserial-AC01U4XN 9600<br />or<br /># screen /dev/ttyUSB0 9600<br />and wait for minutes and nothing happens, it is because the badge already tried to communicate via the USB port, but no-one was listening there. Disconnect the badge from the computer, connect again, and type the screen command above to connect. If you are quick enough you can see that the amber LED will stop blinking and your screen command is greeted with some interesting information. By quick enough I mean ˜90 seconds, as it takes the device 1.5 minutes to boot the OS and the CTF app.<br /><h3>Windows</h3><div>When you connect the device to Windows, you will be greeted with a pop-up.</div><div><a href="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B17.52.32.png" src="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B17.52.32.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="124" data-original-width="488" height="" src="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B17.52.32.png" width="400" /></a></div><div><br /></div><div>Just click on the popup and you will see the COM port number the device is connected to:</div><br /><div><a href="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B17.52.55.png" src="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B17.52.55.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="269" data-original-width="663" height="" src="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B17.52.55.png" width="400" /></a></div><div><br /></div><div>In this case, it is connected to COM3. So let's fire up our favorite putty.exe, select Serial, choose COM3, add speed 9600, and you are ready to go!</div><br /><div><a href="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B18.22.04.png" src="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B18.22.04.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="308" data-original-width="710" height="" src="https://z6543.github.io/_img/Screen2BShot2B2019-09-162Bat2B18.22.04.png" width="400" /></a></div><br />You might check the end of the macOS section in case you can't see anything. Timing is everything.<br /><br /><h2>The CTF</h2><pre>Welcome to the Hacktivity 2018 badge challenge!<br /><br />This challenge consists of several tasks with one or more levels of<br />difficulty. They are all connected in some way or another to HW RE<br />and there's no competition, the whole purpose is to learn things.<br /><br />Note: we recommend turning on local echo in your terminal!<br />Also, feel free to ask for hints at the Hackcenter!<br /><br />Choose your destiny below:<br /><br />  1. Visual HW debugging<br />  2. Reverse engineering<br />  3. RF hacking<br />  4. Crypto protection<br /><br />Enter the number of the challenge you're interested in and press [<br /></pre></div>Excellent, now you are ready to hack this! In case you are lost in controlling the screen command, go to <a href="https://linuxize.com/post/how-to-use-linux-screen/">https://linuxize.com/post/how-to-use-linux-screen/</a>.<br /><br />I will not spoil any fun in giving out the challenge solutions here. It is still your task to find solutions for these.<br /><br />But here is a catch. You can get a root shell on the device. And it is pretty straightforward. Just carefully remove the Omega shield from the badge. Now you see two jumpers; by default, these are connected together as UART1. As seen below.<br /></div>
+<div><a href="https://z6543.github.io/_img/IMG_8641.JPG" src="https://z6543.github.io/_img/IMG_8641.JPG" style="margin-left: 1em; margin-right: 1em;"><img src="https://z6543.github.io/_img/IMG_8641.JPG" /></a></div>
+<div><br /></div>
+<div><br /></div>
+<div>But what happens if you move these jumpers to UART0? Guess what, you can get a root shell! This is what I call privilege escalation on the HW level :) But first, let's connect the Omega shield back. Also, for added fun, this new interface speaks on 115200 baud, so you should change your screen parameters to 115200. Also, the new interface has a different ID under /dev, but I am sure you can figure this out from now on.</div>
+<div><br /></div>
+<div><br /></div>
+<div><img border="0" src="https://z6543.github.io/_img/IMG_8642.JPG" /></div>
+<div><br /></div>
+<div><span style="text-align: justify;"><br /></span></div>
+<div><span style="text-align: justify;">If you connect to the device during boot time, you can see a lot of exciting debug information about the device. And after it boots, you just get a root prompt. Woohoo! </span></div>
+<div><span style="text-align: justify;">But what can you do with this root access? Well, for starters, how about running </span></div>
+<div><span style="text-align: justify;"># strings hello | less</span></div>
+<div><span style="text-align: justify;"><br /></span></div>
+<div><span style="text-align: justify;">From now on, you are on your own to hack this badge. Happy hacking.</span></div>
+<div><span style="text-align: justify;">Big thanks to <a href="https://twitter.com/0xmaro" target="_blank">Attila Marosi-Bauer</a> and <a href="https://hsbp.org/HomePage" target="_blank">Hackerspace Budapest</a> for developing this badge and the contests.</span></div>
+<div><span style="text-align: justify;"><br /></span></div>
+<div><span style="text-align: justify;">PS: In case you want to use the radio functionality of the badge, see below how you should solder the parts to it. By default, you can process slow speed radio frequency signals on GPIO19. But for higher transfer speeds, you should wire the RF module DATA OUT pin with the RX1 free together.</span></div>
+<div><span style="text-align: justify;"><br /></span></div>
+<div><a href="https://z6543.github.io/_img/IMG_8638.JPG" src="https://z6543.github.io/_img/IMG_8638.JPG" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="1600" data-original-width="1200" height="" src="https://z6543.github.io/_img/IMG_8638.JPG" width="300" /></a><br /><br /></div>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

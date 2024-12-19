@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>DSploit | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="DSploit" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="DSploit After playing with the applications installed on the Pwn Pad, I found that the most important application (at least for me) was missing from the pre-installed apps. Namely, DSploit. Although DSploit has tons of features, I really liked the multiprotocol password sniffing (same as dsniff) and the session hijacking functionality.The DSploit APK in the Play Store was not working for me, but the latest nightly on http://dsploit.net worked like a charm.Most features require that you and your target uses the same WiFi network, and that&#39;s it. It can be Open, WEP, WPA/WPA2 Personal. On all of these networks, DSploit will sniff the passwords - because of the active attacks. E.g. a lot of email clients still use IMAP with clear text passwords, or some webmails, etc. First, DSploit lists the AP and the known devices on the network. In this case, I chose one victim client.In the following submenu, there are tons of options, but the best features are in the MITM section. Stealthiness warning: in some cases, I received the following popup on the victim Windows:This is what we have under the MITM submenu:Password sniffingFor example, let&#39;s start with the Password Sniffer. It is the same as EvilAP and DSniff in my previous post. With the same results for the popular Hungarian webmail with the default secure login checkbox turned off. Don&#39;t forget, this is not an Open WiFi network, but one with WPA2 protection!Session hijackNow let&#39;s assume that the victim is very security-aware and he checks the secure login checkbox. Another cause can be that the victim already logged in, long before we started to attack. The session hijacking function is similar to the Firesheep tool, but it works with every website where the session cookies are sent in clear text, and there is no need for any additional support.In a session hijacking attack (also called &quot;sidejacking&quot;), after the victim browser sends the authentication cookies in clear text, DSploit copies these cookies into its own browser, and opens the website with the same cookies, which results in successful login most of the time. Let&#39;s see session hijacking in action!Here, we can see that the session cookies have been sniffed from the air:Let&#39;s select that session, and be amazed that we logged into the user&#39;s webmail session.Redirect trafficThis feature can be used both for fun or profit. For fun, you can redirect all the victim traffic to http://www.kittenwar.com/. For-profit, you can redirect your victim to phishing pages.Replace images, videosI think this is just for fun here. Endless Rick Rolling possibilities.Script injectionThis is mostly for profit. client-side injection, drive-by-exploits, endless possibilities.Custom filterIf you are familiar with ettercap, this has similar functionalities (but dumber), with string or regex replacements. E.g. you can replace the news, stock prices, which pizza the victim ordered, etc. If you know more fun stuff here, please leave a comment (only HTTP scenario - e.g. attacking Facebook won&#39;t work).Additional fun (not in DSploit) - SSLStrip From the MITM section of DSploit, I really miss the SSLStrip functionality. Luckily, it is built into the Pwn Pad. With the help of SSLStrip, we can remove the references to HTTPS links in the clear text HTTP traffic, and replace those with HTTP. So even if the user checks the secure login checkbox at freemail.hu, the password will be sent in clear text - thus it can be sniffed with DSniff.HTML source on the client-side without SSLstrip:HTML source on the client-side with SSL strip:With EvilAP, SSLStrip, and DSniff, the password can be stolen. No hacking skillz needed.Lessons learned hereIf you are a website operator where you allow your users to login, always:Use HTTPS with a trusted certificate, and redirect all unencrypted traffic to HTTPS ASAPMark the session cookies with the secure flagUse HSTS to prevent SSLStrip attacksIf you are a user:Don&#39;t trust sites with your confidential data if the above points are not fixed. Choose a more secure alternativeUse HTTPS everywhere pluginFor improved security, use VPNBecause hacking has never been so easy before.And last but not least, if you like the DSploit project, don&#39;t forget to donate them!" />
+<meta property="og:description" content="DSploit After playing with the applications installed on the Pwn Pad, I found that the most important application (at least for me) was missing from the pre-installed apps. Namely, DSploit. Although DSploit has tons of features, I really liked the multiprotocol password sniffing (same as dsniff) and the session hijacking functionality.The DSploit APK in the Play Store was not working for me, but the latest nightly on http://dsploit.net worked like a charm.Most features require that you and your target uses the same WiFi network, and that&#39;s it. It can be Open, WEP, WPA/WPA2 Personal. On all of these networks, DSploit will sniff the passwords - because of the active attacks. E.g. a lot of email clients still use IMAP with clear text passwords, or some webmails, etc. First, DSploit lists the AP and the known devices on the network. In this case, I chose one victim client.In the following submenu, there are tons of options, but the best features are in the MITM section. Stealthiness warning: in some cases, I received the following popup on the victim Windows:This is what we have under the MITM submenu:Password sniffingFor example, let&#39;s start with the Password Sniffer. It is the same as EvilAP and DSniff in my previous post. With the same results for the popular Hungarian webmail with the default secure login checkbox turned off. Don&#39;t forget, this is not an Open WiFi network, but one with WPA2 protection!Session hijackNow let&#39;s assume that the victim is very security-aware and he checks the secure login checkbox. Another cause can be that the victim already logged in, long before we started to attack. The session hijacking function is similar to the Firesheep tool, but it works with every website where the session cookies are sent in clear text, and there is no need for any additional support.In a session hijacking attack (also called &quot;sidejacking&quot;), after the victim browser sends the authentication cookies in clear text, DSploit copies these cookies into its own browser, and opens the website with the same cookies, which results in successful login most of the time. Let&#39;s see session hijacking in action!Here, we can see that the session cookies have been sniffed from the air:Let&#39;s select that session, and be amazed that we logged into the user&#39;s webmail session.Redirect trafficThis feature can be used both for fun or profit. For fun, you can redirect all the victim traffic to http://www.kittenwar.com/. For-profit, you can redirect your victim to phishing pages.Replace images, videosI think this is just for fun here. Endless Rick Rolling possibilities.Script injectionThis is mostly for profit. client-side injection, drive-by-exploits, endless possibilities.Custom filterIf you are familiar with ettercap, this has similar functionalities (but dumber), with string or regex replacements. E.g. you can replace the news, stock prices, which pizza the victim ordered, etc. If you know more fun stuff here, please leave a comment (only HTTP scenario - e.g. attacking Facebook won&#39;t work).Additional fun (not in DSploit) - SSLStrip From the MITM section of DSploit, I really miss the SSLStrip functionality. Luckily, it is built into the Pwn Pad. With the help of SSLStrip, we can remove the references to HTTPS links in the clear text HTTP traffic, and replace those with HTTP. So even if the user checks the secure login checkbox at freemail.hu, the password will be sent in clear text - thus it can be sniffed with DSniff.HTML source on the client-side without SSLstrip:HTML source on the client-side with SSL strip:With EvilAP, SSLStrip, and DSniff, the password can be stolen. No hacking skillz needed.Lessons learned hereIf you are a website operator where you allow your users to login, always:Use HTTPS with a trusted certificate, and redirect all unencrypted traffic to HTTPS ASAPMark the session cookies with the secure flagUse HSTS to prevent SSLStrip attacksIf you are a user:Don&#39;t trust sites with your confidential data if the above points are not fixed. Choose a more secure alternativeUse HTTPS everywhere pluginFor improved security, use VPNBecause hacking has never been so easy before.And last but not least, if you like the DSploit project, don&#39;t forget to donate them!" />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/android/arp/poisoning/hacking/mitm/session/hijack/2014/04/29/DSploit.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/android/arp/poisoning/hacking/mitm/session/hijack/2014/04/29/DSploit.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-04-29T13:55:47+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="DSploit" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2014-04-29T13:55:47+00:00","datePublished":"2014-04-29T13:55:47+00:00","description":"DSploit After playing with the applications installed on the Pwn Pad, I found that the most important application (at least for me) was missing from the pre-installed apps. Namely, DSploit. Although DSploit has tons of features, I really liked the multiprotocol password sniffing (same as dsniff) and the session hijacking functionality.The DSploit APK in the Play Store was not working for me, but the latest nightly on http://dsploit.net worked like a charm.Most features require that you and your target uses the same WiFi network, and that&#39;s it. It can be Open, WEP, WPA/WPA2 Personal. On all of these networks, DSploit will sniff the passwords - because of the active attacks. E.g. a lot of email clients still use IMAP with clear text passwords, or some webmails, etc. First, DSploit lists the AP and the known devices on the network. In this case, I chose one victim client.In the following submenu, there are tons of options, but the best features are in the MITM section. Stealthiness warning: in some cases, I received the following popup on the victim Windows:This is what we have under the MITM submenu:Password sniffingFor example, let&#39;s start with the Password Sniffer. It is the same as EvilAP and DSniff in my previous post. With the same results for the popular Hungarian webmail with the default secure login checkbox turned off. Don&#39;t forget, this is not an Open WiFi network, but one with WPA2 protection!Session hijackNow let&#39;s assume that the victim is very security-aware and he checks the secure login checkbox. Another cause can be that the victim already logged in, long before we started to attack. The session hijacking function is similar to the Firesheep tool, but it works with every website where the session cookies are sent in clear text, and there is no need for any additional support.In a session hijacking attack (also called &quot;sidejacking&quot;), after the victim browser sends the authentication cookies in clear text, DSploit copies these cookies into its own browser, and opens the website with the same cookies, which results in successful login most of the time. Let&#39;s see session hijacking in action!Here, we can see that the session cookies have been sniffed from the air:Let&#39;s select that session, and be amazed that we logged into the user&#39;s webmail session.Redirect trafficThis feature can be used both for fun or profit. For fun, you can redirect all the victim traffic to http://www.kittenwar.com/. For-profit, you can redirect your victim to phishing pages.Replace images, videosI think this is just for fun here. Endless Rick Rolling possibilities.Script injectionThis is mostly for profit. client-side injection, drive-by-exploits, endless possibilities.Custom filterIf you are familiar with ettercap, this has similar functionalities (but dumber), with string or regex replacements. E.g. you can replace the news, stock prices, which pizza the victim ordered, etc. If you know more fun stuff here, please leave a comment (only HTTP scenario - e.g. attacking Facebook won&#39;t work).Additional fun (not in DSploit) - SSLStrip From the MITM section of DSploit, I really miss the SSLStrip functionality. Luckily, it is built into the Pwn Pad. With the help of SSLStrip, we can remove the references to HTTPS links in the clear text HTTP traffic, and replace those with HTTP. So even if the user checks the secure login checkbox at freemail.hu, the password will be sent in clear text - thus it can be sniffed with DSniff.HTML source on the client-side without SSLstrip:HTML source on the client-side with SSL strip:With EvilAP, SSLStrip, and DSniff, the password can be stolen. No hacking skillz needed.Lessons learned hereIf you are a website operator where you allow your users to login, always:Use HTTPS with a trusted certificate, and redirect all unencrypted traffic to HTTPS ASAPMark the session cookies with the secure flagUse HSTS to prevent SSLStrip attacksIf you are a user:Don&#39;t trust sites with your confidential data if the above points are not fixed. Choose a more secure alternativeUse HTTPS everywhere pluginFor improved security, use VPNBecause hacking has never been so easy before.And last but not least, if you like the DSploit project, don&#39;t forget to donate them!","headline":"DSploit","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/android/arp/poisoning/hacking/mitm/session/hijack/2014/04/29/DSploit.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/android/arp/poisoning/hacking/mitm/session/hijack/2014/04/29/DSploit.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">DSploit</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 29 Apr 2014
+    
+  </div>
+  
+  <div style=""><h3 style="text-align: justify;">DSploit</h3></div>
+<div style=""><div style="">After playing with the applications installed on the <a href="http://jumpespjump.blogspot.com/2014/04/wifi-hacking-on-tablets.html">Pwn Pad</a>, I found that the most important application (at least for me) was missing from the pre-installed apps. Namely, <a href="http://dsploit.net/">DSploit</a>. Although DSploit has tons of features, I really liked the multiprotocol password sniffing (same as dsniff) and the session hijacking functionality.</div><div style=""><br /></div><div style="">The DSploit APK in the Play Store was not working for me, but the latest nightly on http://dsploit.net worked like a charm.</div><div style=""><br /></div><div style="">Most features require that you and your target uses the same WiFi network, and that's it. It can be Open, WEP, WPA/WPA2 Personal. On all of these networks, DSploit will sniff the passwords - because of the <a href="http://dsploit.net/2013/03/22/dsploit-internals-and-arp-cache-poisoning/">active attacks</a>. E.g. a lot of email clients still use IMAP with clear text passwords, or some webmails, etc. </div><div style=""><br /></div><div style="">First, DSploit lists the AP and the known devices on the network. In this case, I chose one victim client.</div><div style=""><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/dsploit_01.png" src="https://z6543.github.io/_img/dsploit_01.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/dsploit_01.png" width="400" /></a></div><div style=""><br /></div><div style="">In the following submenu, there are tons of options, but the best features are in the MITM section. </div><div style=""><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/dsploit_02.png" src="https://z6543.github.io/_img/dsploit_02.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/dsploit_02.png" width="251" /></a></div><div class="separator" style=""><br /></div><div class="separator" style=""><span style="text-align: justify;">Stealthiness warning: in some cases, I received the following popup on the victim Windows:</span></div><div class="separator" style=""><span style="text-align: justify;"><br /></span></div><div class="separator" style=""><a href="https://z6543.github.io/_img/attack1.png" src="https://z6543.github.io/_img/attack1.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/attack1.png" width="320" /></a></div><div style=""><br />This is what we have under the MITM submenu:</div><div style=""><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/dsploit_03.png" src="https://z6543.github.io/_img/dsploit_03.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/dsploit_03.png" width="302" /></a></div><div style=""><br /></div><h3>Password sniffing</h3><div style="">For example, let's start with the <b>Password Sniffer</b>. It is the same as EvilAP and DSniff in my previous post. With the same results for the popular Hungarian webmail with the default secure login checkbox turned off. Don't forget, this is not an Open WiFi network, but one with WPA2 protection!<br /><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/freemail_password.png" src="https://z6543.github.io/_img/freemail_password.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/freemail_password.png" width="320" /></a></div><div style=""><br /></div><h3>Session hijack</h3><div style="">Now let's assume that the victim is very security-aware and he checks the secure login checkbox. Another cause can be that the victim already logged in, long before we started to attack. The <b>session hijacking </b>function is similar to the <a href="http://codebutler.com/firesheep/">Firesheep</a> tool, but it works with every website where the session cookies are sent in clear text, and there is no need for any additional support.<br /><br /></div><div style="">In a session hijacking attack (also called "sidejacking"), after the victim browser sends the authentication cookies in clear text, DSploit copies these cookies into its own browser, and opens the website with the same cookies, which results in successful login most of the time. Let's see session hijacking in action!</div><div style=""><br /></div><div style="">Here, we can see that the session cookies have been sniffed from the air:</div><div style=""><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/freemail_session.png" src="https://z6543.github.io/_img/freemail_session.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/freemail_session.png" width="320" /></a></div><div style=""><br /></div><div style="">Let's select that session, and be amazed that we logged into the user's webmail session.<br /><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/freemail_loggedin.png" src="https://z6543.github.io/_img/freemail_loggedin.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/freemail_loggedin.png" width="320" /></a></div><div class="separator" style=""><br /></div><div class="separator" style=""><a href="https://z6543.github.io/_img/much-hacking.png" src="https://z6543.github.io/_img/much-hacking.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/much-hacking.png" width="320" /></a></div><div class="separator" style=""><br /></div><div class="separator" style=""><br /></div><h3>Redirect traffic</h3>This feature can be used both for fun or profit. For fun, you can redirect all the victim traffic to http://www.kittenwar.com/. For-profit, you can redirect your victim to phishing pages.<br /><br /><div class="separator" style=""><a href="https://z6543.github.io/_img/kittenwar.png" src="https://z6543.github.io/_img/kittenwar.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/kittenwar.png" width="320" /></a></div><br /><h3>Replace images, videos</h3>I think this is just for fun here. Endless Rick Rolling possibilities.<br /><br /><div class="separator" style=""><a href="https://z6543.github.io/_img/rickrolled3.jpg" src="https://z6543.github.io/_img/rickrolled3.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/rickrolled3.jpg" width="320" /></a></div><br /><h3>Script injection</h3>This is mostly for profit. client-side injection, drive-by-exploits, endless possibilities.<br /><br /><h3>Custom filter</h3>If you are familiar with ettercap, this has similar functionalities (but dumber), with string or regex replacements. E.g. you can replace the news, stock prices, which pizza the victim ordered, etc. If you know more fun stuff here, please leave a comment (only HTTP scenario - e.g. attacking Facebook won't work).<br /><br /><h3>Additional fun (not in DSploit) - SSLStrip </h3>From the MITM section of DSploit, I really miss the SSLStrip functionality. Luckily, it is built into the Pwn Pad. With the help of SSLStrip, we can remove the references to HTTPS links in the clear text HTTP traffic, and replace those with HTTP. So even if the user checks the secure login checkbox at freemail.hu, the password will be sent in clear text - thus it can be sniffed with DSniff.<br /><br />HTML source on the client-side without SSLstrip:<br /><br /><div class="separator" style=""><a href="https://z6543.github.io/_img/sslstrip_freemail2.png" src="https://z6543.github.io/_img/sslstrip_freemail2.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/sslstrip_freemail2.png" width="400" /></a></div><br />HTML source on the client-side with SSL strip:<br /><br /><div class="separator" style=""><a href="https://z6543.github.io/_img/sslstrip_freemail.png" src="https://z6543.github.io/_img/sslstrip_freemail.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/sslstrip_freemail.png" width="400" /></a></div><br />With EvilAP, SSLStrip, and DSniff, the password can be stolen. No hacking skillz needed.<br /><h3>Lessons learned here</h3>If you are a website operator where you allow your users to login, always:<br /><ol><li>Use HTTPS with a trusted certificate, and redirect all unencrypted traffic to HTTPS ASAP</li><li>Mark the session cookies with the <a href="https://www.owasp.org/index.php/SecureFlag">secure flag</a></li><li>Use <a href="http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security">HSTS</a> to prevent SSLStrip attacks</li></ol><div>If you are a user:</div><ol><li>Don't trust sites with your confidential data if the above points are not fixed. Choose a more secure alternative</li><li>Use HTTPS everywhere plugin</li><li>For improved security, use VPN</li></ol><div style="">Because hacking has never been so easy before.<br />And last but not least, if you like the DSploit project, don't forget to <a href="http://dsploit.net/donate/">donate</a> them!</div></div>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

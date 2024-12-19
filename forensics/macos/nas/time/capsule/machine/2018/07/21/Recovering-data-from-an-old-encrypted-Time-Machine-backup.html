@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Recovering data from an old encrypted Time Machine backup | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Recovering data from an old encrypted Time Machine backup" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Recovering data from a backup should be an easy thing to do. At least this is what you expect. Yesterday I had a problem which should have been easy to solve, but it was not. I hope this blog post can help others who face the same problem." />
+<meta property="og:description" content="Recovering data from a backup should be an easy thing to do. At least this is what you expect. Yesterday I had a problem which should have been easy to solve, but it was not. I hope this blog post can help others who face the same problem." />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/forensics/macos/nas/time/capsule/machine/2018/07/21/Recovering-data-from-an-old-encrypted-Time-Machine-backup.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/forensics/macos/nas/time/capsule/machine/2018/07/21/Recovering-data-from-an-old-encrypted-Time-Machine-backup.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-07-21T13:32:30+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Recovering data from an old encrypted Time Machine backup" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2018-07-21T13:32:30+00:00","datePublished":"2018-07-21T13:32:30+00:00","description":"Recovering data from a backup should be an easy thing to do. At least this is what you expect. Yesterday I had a problem which should have been easy to solve, but it was not. I hope this blog post can help others who face the same problem.","headline":"Recovering data from an old encrypted Time Machine backup","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/forensics/macos/nas/time/capsule/machine/2018/07/21/Recovering-data-from-an-old-encrypted-Time-Machine-backup.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/forensics/macos/nas/time/capsule/machine/2018/07/21/Recovering-data-from-an-old-encrypted-Time-Machine-backup.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Recovering data from an old encrypted Time Machine backup</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 21 Jul 2018
+    
+  </div>
+  
+  <p>Recovering data from a backup should be an easy thing to do. At least this is what you expect. Yesterday I had a problem which should have been easy to solve, but it was not. I hope this blog post can help others who face the same problem.</p>
+
+<div class="separator" style=""><a href="https://z6543.github.io/_img/macos-high-sierra-system-preferences-time-machine.jpg" imageanchor="1" src="https://z6543.github.io/_img/macos-high-sierra-system-preferences-time-machine.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="881" data-original-width="1336" height="" src="https://z6543.github.io/_img/macos-high-sierra-system-preferences-time-machine.jpg" width="400" /></a></div>
+<h2>The problem</h2>
+<ol>
+  <li>I had an encrypted Time Machine backup which was not used for months</li>
+  <li>This backup was not on an official Apple Time Capsule or on a USB HDD, but on a WD MyCloud NAS</li>
+  <li>I needed files from this backup</li>
+  <li>After running out of time I only had SSH access to the macOS, no GUI</li>
+</ol>
+
+<h2>The struggle</h2>
+<p>By default, Time Machine is one of the best and easiest backup solution I have seen. As long as you stick to the default use case, where you have one active backup disk, life is pink and happy. But this was not my case.</p>
+
+<p>As always, I started to Google what shall I do. One of the first options recommended that I add the backup disk to Time Machine, and it will automagically show the backup snapshots from the old backup. Instead of this, it did not show the old snapshots but started to create a new backup. Panic button has been pressed, backup canceled, back to Google.</p>
+<div class="separator" style=""><a href="https://1.bp.blogspot.com/-9Die_5TbKPc/W1BFBZBDAcI/AAAAAAAACrE/jla8CDuxZh8S83G-piox8g9FqzH9IBPvwCLcBGAs/s1600/use-additional-backup-drive-time-machine.jpeg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="321" data-original-width="516" height="199" src="https://1.bp.blogspot.com/-9Die_5TbKPc/W1BFBZBDAcI/AAAAAAAACrE/jla8CDuxZh8S83G-piox8g9FqzH9IBPvwCLcBGAs/s320/use-additional-backup-drive-time-machine.jpeg" width="320" /></a></div>
+
+<p>Other tutorials recommend to click on the Time Machine icon and pressing alt (Option) key, where I can choose “Browse other backup disks”. But this did not list the old Time Machine backup. It did list the backup when selecting disks in Time Machine preferences, but I already tried and failed that way.</p>
+<div class="separator" style=""><a href="https://3.bp.blogspot.com/-qIZjV8XjqtU/W1BE3bvCtwI/AAAAAAAACrA/tO8szi90eP8EntDpnv42WHzv7If__keogCLcBGAs/s1600/browse-additional-backup-disks.jpeg" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="191" data-original-width="437" height="139" src="https://3.bp.blogspot.com/-qIZjV8XjqtU/W1BE3bvCtwI/AAAAAAAACrA/tO8szi90eP8EntDpnv42WHzv7If__keogCLcBGAs/s320/browse-additional-backup-disks.jpeg" width="320" /></a></div>
+
+<p>YAT (yet another tutorial) recommended to SSH into the NAS, and browse the backup disk, as it is just a simple directory where I can see all the files. But all the files inside where just a bunch of nonsense, no real directory structure.</p>
+
+<p>YAT (yet another tutorial) recommended that I can just easily browse the content of the backup from the Finder by double-clicking on the sparse bundle file. After clicking on it, I can see the disk image on the left part of the Finder, attached as a new disk.
+Well, this is true, but because of some bug, when you connect to the Time Capsule, you don’t see the sparse bundle file. And I got inconsistent results, for the WD NAS, double-clicking on the sparse bundle did nothing. For the Time Capsule, it did work.
+At this point, I had to leave the location where the backup was present, and I only had remote SSH access. You know, if you can’t solve a problem, let’s complicate things by restrict yourself in solutions.
+<span style="color: red;">
+</span>Finally, I tried to check out some data forensics blogs, and besides some expensive tools, I could find the solution.</p>
+<h2>The solution</h2>
+<p>Finally, a <a href="https://d4rkw1ll0w4n6.wordpress.com/2015/02/12/timemachine-4n6/" target="_blank">blog post</a> provided the real solution - hdiutil.
+The best part of hdiutil is that you can provide the read-only flag to it. This can be very awesome when it comes to forensics acquisition.</p>
+
+<div class="separator" style=""><a href="https://z6543.github.io/_img/Screen2BShot2B2018-07-192Bat2B09.54.50.png" imageanchor="1" src="https://z6543.github.io/_img/Screen2BShot2B2018-07-192Bat2B09.54.50.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="389" data-original-width="1596" height="" src="https://z6543.github.io/_img/Screen2BShot2B2018-07-192Bat2B09.54.50.png" width="400" /></a></div>
+<p>To mount any NAS via SMB:</p>
+<pre class="prettyprint lang-bsh">mount_smbfs afp://&lt;username&gt;@&lt;NAS_IP&gt;/&lt;Share_for_backup&gt; /&lt;mountpoint&gt;</pre>
+<p>To mount a Time Capsule share via AFP:</p>
+<pre class="prettyprint lang-bsh">mount_afp afp://any_username:password@&lt;Time_Capsule_IP&gt;/&lt;Share_for_backup&gt; /&lt;mountpoint&gt;</pre>
+<p>And finally this command should do the job:</p>
+<pre class="prettyprint lang-bsh">hdiutil attach test.sparsebundle -readonly</pre>
+<p>It is nice that you can provide read-only parameter.</p>
+
+<p>If the backup was encrypted and you don’t want to provide the password in a password prompt, use the following:</p>
+<pre class="prettyprint lang-bsh">printf '%s' 'CorrectHorseBatteryStaple' | hdiutil attach test.sparsebundle -stdinpass -readonly</pre>
+<p>Note: if you receive the error “resource temporarily unavailable”, probably another machine is backing up to the device</p>
+
+<p>And now, you can find your backup disk under /Volumes. Happy restoring!</p>
+
+<p>Probably it would have been quicker to either enable the remote GUI, or to physically travel to the system and login locally, but that would spoil the fun.</p>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

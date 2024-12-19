@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>How to secure your home against “Internet of Things” and FUD | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="How to secure your home against “Internet of Things” and FUD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="TL;DR, most of the security news about IoT is full of FUD. Always put the risks in context - who can exploit this and what can the attacker do with it. Most story only covers the latter. Introduction There is rarely a day without news that another &quot;Internet of Things&quot; got hacked. &quot;Smart&quot; safes, &quot;smart&quot; rifles, &quot;smart&quot; cars, &quot;smart&quot; fridges, &quot;smart&quot; TVs, &quot;smart&quot; alarm systems, &quot;smart&quot; meters, &quot;smart&quot; bulbs, NAS devices, routers. These devices are getting hacked every day. Because most of these devices were never designed with security as a goal, and some of them have been never tested by security professionals, it is no surprise that these things are full of vulnerabilities. Independent security researchers find these vulnerabilities, write a cool blog post or give a presentation about the vulnerability and the exploit, and the media forgets the constraints just for the sake of more clicks. &quot;We are all doomed&quot; we can read in the news, but sometimes the risks are buried deeply in technical jargon. Please note I blame the news sites here, not the researchers. http://www.slideshare.net/danielmiessler/iot-attack-surfaces-defcon-2015 There are huge differences between the following risks: Attackers can directly communicate with the router (or camera) from the Internet without authentication and exploit the vulnerability. This is the worst-case scenario. For example, an automated ransomware attack against your NAS is pretty bad.Attackers have to position themselves in the same WAN network (e.g. Sprint mobile network in the case of Jeep hacking) to exploit the vulnerability. This is still pretty bad.The vulnerable code can not be triggered directly from the Internet, but tricks like CSRF can be used to exploit it (details later in this post). The vulnerable code can not be triggered directly from the Internet, and it uses a protocol/port which prevents Cross Protocol Scripting. Attackers have to access the local network before exploiting this vulnerability. As it is the case with the worst scenario, one can find a lot of devices connected to the internet. You can always find funny stuff at http://explorer.shodanhq.com/#/explore , or use the nmap screenshot script to find your own stuff :) Network exposure Most devices are behind an IPv4 NAT device (e.g. home router), thus can not be reached from the Internet side by default. Except when the device configures the firewall via UPNP. Or the device has a persistence cloud connection, and the cloud can send commands to the device. Or the device uses IPv6 tunneling (e.g. Teredo), thus it is reachable from the Internet. But not every vulnerability on your home network is accessible directly from the Internet. As more and more devices and networks will support IPv6, this scenario might change, but I hope most home routers will come with a default deny configuration in their IPv6 firewall module. On the other hand, scanning for IPv6 devices blindly is not feasible due to the large number of IPv6 addresses, but some tricks might work.  If attackers can not access the device directly, there is a way to hack it through the user&#39;s browser. Just convince the victim user to visit a website, and via CSRF (Cross Site Request Forgery) and brute-forcing the device IP, it is possible to hack some devices (mostly through HTTP - if the exploit can fit into simple GET or POST commands. If attackers can not attack the device vulnerability through the Internet directly, or via CSRF, but have connected to the same network - the network exposure shrinks significantly. And when attackers are on the same network as you, I bet you have bigger problems than the security of the IoT devices ... Recommendations for home users Don&#39;t buy **** you don&#39;t needDisconnect from the power cord the IoT devices you don&#39;t need to operate 7*24.  Disable cloud connectivity if it is not necessary. For example, I have a NAS device that can be reached through the &quot;cloud&quot;, but I have disabled it by not configuring any default gateway for the device. I prefer connecting to my network via VPN and reach all my stuff through that. Prevent CSRF attacks. I use two tricks. Don&#39;t use the 192.168.0.x - 192.168.10.x network at-home - use an uncommon IP range instead (e.g. 192.168.156.x is better). The second trick is I configured my Adblock plugin in my primary browser to block access to my internal network. And I use another browser whenever I want to access my internal devices. Update: On Firefox you can use NoScript ABE to block access to internal resources. Check your router configuration:disable UPnPcheck the firewall settings and disable unnecessary port forwardscheck for IPv6 settings, and configure the firewall as default deny for incoming IPv6 TCP/UDP. Change default passwords, especially for services connected to the Internet. Follow password best practices. Run Nmap to locate new IoT in your home network :)  Run a WiFi scan to locate new WiFi access points. Let me share a personal experience with you. I moved to a new house and brought my own WiFi router with me. I plugged it in, and forget about WiFi. Months later it turned out I had two other WiFi devices in my house - the cable modem had its own integrated WiFi with default passwords printed on the bottom, and the Set-top-box was the same - default WiFi passwords printed on the bottom. And don&#39;t forget to scan for ZigBee, Bluetooth, IrDA, FM, ... Update your devices - in case you have a lot of free time in your hand. Don&#39;t allow your guests to connect to your home network. Set up a separated AP for them. Imagine your nephew stealing your private photos or videos from your NAS or DNLA server. With great power, comes great responsibility. The less device you own in your house, the less time you need to maintain those.Read the manuals of your devices. Be aware of the different interfaces. Configure it in a secure way.Disable Teredo protocol in case you don&#39;t need IPv6.Stop being amazed by junk hacking.Update: Disable WebRTC: https://www.browserleaks.com/webrtc , in Chrome you can use this extension: https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia Update: Prevent against DNS rebind attacks via configuring a DNS server which can block internal IP addresses. OpenDNS can block internal IP, but this is not a default option, you have to configure it.Recommendations for vendorsFor vendors, I recommend at least the followings:Implement security during Software Development LifeCycleContinuous security testing and bug bountiesSeamless auto-updateOpt-in cloud connectivity Recommendations for journalists Stop FUD. Pretty please. The questions to ask before losing your head who can exploit the vulnerability?what prerequisites do we have about the attack to successfully exploit the vulnerability? Is the attacker already in your home network? If yes, you have probably bigger problems.what can the attacker do when the exploit is successful? And last but not least, don&#39;t forget that in the case of IoT devices, sometimes users are the product, not the customer. IoT is about collecting data for marketing purposes. http://blog.open-xchange.com/2015/02/09/iot/" />
+<meta property="og:description" content="TL;DR, most of the security news about IoT is full of FUD. Always put the risks in context - who can exploit this and what can the attacker do with it. Most story only covers the latter. Introduction There is rarely a day without news that another &quot;Internet of Things&quot; got hacked. &quot;Smart&quot; safes, &quot;smart&quot; rifles, &quot;smart&quot; cars, &quot;smart&quot; fridges, &quot;smart&quot; TVs, &quot;smart&quot; alarm systems, &quot;smart&quot; meters, &quot;smart&quot; bulbs, NAS devices, routers. These devices are getting hacked every day. Because most of these devices were never designed with security as a goal, and some of them have been never tested by security professionals, it is no surprise that these things are full of vulnerabilities. Independent security researchers find these vulnerabilities, write a cool blog post or give a presentation about the vulnerability and the exploit, and the media forgets the constraints just for the sake of more clicks. &quot;We are all doomed&quot; we can read in the news, but sometimes the risks are buried deeply in technical jargon. Please note I blame the news sites here, not the researchers. http://www.slideshare.net/danielmiessler/iot-attack-surfaces-defcon-2015 There are huge differences between the following risks: Attackers can directly communicate with the router (or camera) from the Internet without authentication and exploit the vulnerability. This is the worst-case scenario. For example, an automated ransomware attack against your NAS is pretty bad.Attackers have to position themselves in the same WAN network (e.g. Sprint mobile network in the case of Jeep hacking) to exploit the vulnerability. This is still pretty bad.The vulnerable code can not be triggered directly from the Internet, but tricks like CSRF can be used to exploit it (details later in this post). The vulnerable code can not be triggered directly from the Internet, and it uses a protocol/port which prevents Cross Protocol Scripting. Attackers have to access the local network before exploiting this vulnerability. As it is the case with the worst scenario, one can find a lot of devices connected to the internet. You can always find funny stuff at http://explorer.shodanhq.com/#/explore , or use the nmap screenshot script to find your own stuff :) Network exposure Most devices are behind an IPv4 NAT device (e.g. home router), thus can not be reached from the Internet side by default. Except when the device configures the firewall via UPNP. Or the device has a persistence cloud connection, and the cloud can send commands to the device. Or the device uses IPv6 tunneling (e.g. Teredo), thus it is reachable from the Internet. But not every vulnerability on your home network is accessible directly from the Internet. As more and more devices and networks will support IPv6, this scenario might change, but I hope most home routers will come with a default deny configuration in their IPv6 firewall module. On the other hand, scanning for IPv6 devices blindly is not feasible due to the large number of IPv6 addresses, but some tricks might work.  If attackers can not access the device directly, there is a way to hack it through the user&#39;s browser. Just convince the victim user to visit a website, and via CSRF (Cross Site Request Forgery) and brute-forcing the device IP, it is possible to hack some devices (mostly through HTTP - if the exploit can fit into simple GET or POST commands. If attackers can not attack the device vulnerability through the Internet directly, or via CSRF, but have connected to the same network - the network exposure shrinks significantly. And when attackers are on the same network as you, I bet you have bigger problems than the security of the IoT devices ... Recommendations for home users Don&#39;t buy **** you don&#39;t needDisconnect from the power cord the IoT devices you don&#39;t need to operate 7*24.  Disable cloud connectivity if it is not necessary. For example, I have a NAS device that can be reached through the &quot;cloud&quot;, but I have disabled it by not configuring any default gateway for the device. I prefer connecting to my network via VPN and reach all my stuff through that. Prevent CSRF attacks. I use two tricks. Don&#39;t use the 192.168.0.x - 192.168.10.x network at-home - use an uncommon IP range instead (e.g. 192.168.156.x is better). The second trick is I configured my Adblock plugin in my primary browser to block access to my internal network. And I use another browser whenever I want to access my internal devices. Update: On Firefox you can use NoScript ABE to block access to internal resources. Check your router configuration:disable UPnPcheck the firewall settings and disable unnecessary port forwardscheck for IPv6 settings, and configure the firewall as default deny for incoming IPv6 TCP/UDP. Change default passwords, especially for services connected to the Internet. Follow password best practices. Run Nmap to locate new IoT in your home network :)  Run a WiFi scan to locate new WiFi access points. Let me share a personal experience with you. I moved to a new house and brought my own WiFi router with me. I plugged it in, and forget about WiFi. Months later it turned out I had two other WiFi devices in my house - the cable modem had its own integrated WiFi with default passwords printed on the bottom, and the Set-top-box was the same - default WiFi passwords printed on the bottom. And don&#39;t forget to scan for ZigBee, Bluetooth, IrDA, FM, ... Update your devices - in case you have a lot of free time in your hand. Don&#39;t allow your guests to connect to your home network. Set up a separated AP for them. Imagine your nephew stealing your private photos or videos from your NAS or DNLA server. With great power, comes great responsibility. The less device you own in your house, the less time you need to maintain those.Read the manuals of your devices. Be aware of the different interfaces. Configure it in a secure way.Disable Teredo protocol in case you don&#39;t need IPv6.Stop being amazed by junk hacking.Update: Disable WebRTC: https://www.browserleaks.com/webrtc , in Chrome you can use this extension: https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia Update: Prevent against DNS rebind attacks via configuring a DNS server which can block internal IP addresses. OpenDNS can block internal IP, but this is not a default option, you have to configure it.Recommendations for vendorsFor vendors, I recommend at least the followings:Implement security during Software Development LifeCycleContinuous security testing and bug bountiesSeamless auto-updateOpt-in cloud connectivity Recommendations for journalists Stop FUD. Pretty please. The questions to ask before losing your head who can exploit the vulnerability?what prerequisites do we have about the attack to successfully exploit the vulnerability? Is the attacker already in your home network? If yes, you have probably bigger problems.what can the attacker do when the exploit is successful? And last but not least, don&#39;t forget that in the case of IoT devices, sometimes users are the product, not the customer. IoT is about collecting data for marketing purposes. http://blog.open-xchange.com/2015/02/09/iot/" />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/hack/home/security/internet/of/things/iot/2015/08/20/How-to-secure-your-home-against-Internet-of-Things-and-FUD.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/hack/home/security/internet/of/things/iot/2015/08/20/How-to-secure-your-home-against-Internet-of-Things-and-FUD.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-08-20T14:06:38+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="How to secure your home against “Internet of Things” and FUD" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2015-08-20T14:06:38+00:00","datePublished":"2015-08-20T14:06:38+00:00","description":"TL;DR, most of the security news about IoT is full of FUD. Always put the risks in context - who can exploit this and what can the attacker do with it. Most story only covers the latter. Introduction There is rarely a day without news that another &quot;Internet of Things&quot; got hacked. &quot;Smart&quot; safes, &quot;smart&quot; rifles, &quot;smart&quot; cars, &quot;smart&quot; fridges, &quot;smart&quot; TVs, &quot;smart&quot; alarm systems, &quot;smart&quot; meters, &quot;smart&quot; bulbs, NAS devices, routers. These devices are getting hacked every day. Because most of these devices were never designed with security as a goal, and some of them have been never tested by security professionals, it is no surprise that these things are full of vulnerabilities. Independent security researchers find these vulnerabilities, write a cool blog post or give a presentation about the vulnerability and the exploit, and the media forgets the constraints just for the sake of more clicks. &quot;We are all doomed&quot; we can read in the news, but sometimes the risks are buried deeply in technical jargon. Please note I blame the news sites here, not the researchers. http://www.slideshare.net/danielmiessler/iot-attack-surfaces-defcon-2015 There are huge differences between the following risks: Attackers can directly communicate with the router (or camera) from the Internet without authentication and exploit the vulnerability. This is the worst-case scenario. For example, an automated ransomware attack against your NAS is pretty bad.Attackers have to position themselves in the same WAN network (e.g. Sprint mobile network in the case of Jeep hacking) to exploit the vulnerability. This is still pretty bad.The vulnerable code can not be triggered directly from the Internet, but tricks like CSRF can be used to exploit it (details later in this post). The vulnerable code can not be triggered directly from the Internet, and it uses a protocol/port which prevents Cross Protocol Scripting. Attackers have to access the local network before exploiting this vulnerability. As it is the case with the worst scenario, one can find a lot of devices connected to the internet. You can always find funny stuff at http://explorer.shodanhq.com/#/explore , or use the nmap screenshot script to find your own stuff :) Network exposure Most devices are behind an IPv4 NAT device (e.g. home router), thus can not be reached from the Internet side by default. Except when the device configures the firewall via UPNP. Or the device has a persistence cloud connection, and the cloud can send commands to the device. Or the device uses IPv6 tunneling (e.g. Teredo), thus it is reachable from the Internet. But not every vulnerability on your home network is accessible directly from the Internet. As more and more devices and networks will support IPv6, this scenario might change, but I hope most home routers will come with a default deny configuration in their IPv6 firewall module. On the other hand, scanning for IPv6 devices blindly is not feasible due to the large number of IPv6 addresses, but some tricks might work.  If attackers can not access the device directly, there is a way to hack it through the user&#39;s browser. Just convince the victim user to visit a website, and via CSRF (Cross Site Request Forgery) and brute-forcing the device IP, it is possible to hack some devices (mostly through HTTP - if the exploit can fit into simple GET or POST commands. If attackers can not attack the device vulnerability through the Internet directly, or via CSRF, but have connected to the same network - the network exposure shrinks significantly. And when attackers are on the same network as you, I bet you have bigger problems than the security of the IoT devices ... Recommendations for home users Don&#39;t buy **** you don&#39;t needDisconnect from the power cord the IoT devices you don&#39;t need to operate 7*24.  Disable cloud connectivity if it is not necessary. For example, I have a NAS device that can be reached through the &quot;cloud&quot;, but I have disabled it by not configuring any default gateway for the device. I prefer connecting to my network via VPN and reach all my stuff through that. Prevent CSRF attacks. I use two tricks. Don&#39;t use the 192.168.0.x - 192.168.10.x network at-home - use an uncommon IP range instead (e.g. 192.168.156.x is better). The second trick is I configured my Adblock plugin in my primary browser to block access to my internal network. And I use another browser whenever I want to access my internal devices. Update: On Firefox you can use NoScript ABE to block access to internal resources. Check your router configuration:disable UPnPcheck the firewall settings and disable unnecessary port forwardscheck for IPv6 settings, and configure the firewall as default deny for incoming IPv6 TCP/UDP. Change default passwords, especially for services connected to the Internet. Follow password best practices. Run Nmap to locate new IoT in your home network :)  Run a WiFi scan to locate new WiFi access points. Let me share a personal experience with you. I moved to a new house and brought my own WiFi router with me. I plugged it in, and forget about WiFi. Months later it turned out I had two other WiFi devices in my house - the cable modem had its own integrated WiFi with default passwords printed on the bottom, and the Set-top-box was the same - default WiFi passwords printed on the bottom. And don&#39;t forget to scan for ZigBee, Bluetooth, IrDA, FM, ... Update your devices - in case you have a lot of free time in your hand. Don&#39;t allow your guests to connect to your home network. Set up a separated AP for them. Imagine your nephew stealing your private photos or videos from your NAS or DNLA server. With great power, comes great responsibility. The less device you own in your house, the less time you need to maintain those.Read the manuals of your devices. Be aware of the different interfaces. Configure it in a secure way.Disable Teredo protocol in case you don&#39;t need IPv6.Stop being amazed by junk hacking.Update: Disable WebRTC: https://www.browserleaks.com/webrtc , in Chrome you can use this extension: https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia Update: Prevent against DNS rebind attacks via configuring a DNS server which can block internal IP addresses. OpenDNS can block internal IP, but this is not a default option, you have to configure it.Recommendations for vendorsFor vendors, I recommend at least the followings:Implement security during Software Development LifeCycleContinuous security testing and bug bountiesSeamless auto-updateOpt-in cloud connectivity Recommendations for journalists Stop FUD. Pretty please. The questions to ask before losing your head who can exploit the vulnerability?what prerequisites do we have about the attack to successfully exploit the vulnerability? Is the attacker already in your home network? If yes, you have probably bigger problems.what can the attacker do when the exploit is successful? And last but not least, don&#39;t forget that in the case of IoT devices, sometimes users are the product, not the customer. IoT is about collecting data for marketing purposes. http://blog.open-xchange.com/2015/02/09/iot/","headline":"How to secure your home against “Internet of Things” and FUD","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/hack/home/security/internet/of/things/iot/2015/08/20/How-to-secure-your-home-against-Internet-of-Things-and-FUD.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/hack/home/security/internet/of/things/iot/2015/08/20/How-to-secure-your-home-against-Internet-of-Things-and-FUD.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">How to secure your home against "Internet of Things" and FUD</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 20 Aug 2015
+    
+  </div>
+  
+  <div style="">TL;DR, most of the security news about IoT is full of FUD. Always put the risks in context - who can exploit this and what can the attacker do with it. Most story only covers the latter.</div>
+<div style=""><br /></div>
+<h2 style="text-align: justify;">Introduction</h2>
+<div style="">There is rarely a day without news that another "Internet of Things" got hacked. "Smart" safes, "smart" rifles, "smart" cars, "smart" fridges, "smart" TVs, "smart" alarm systems, "smart" meters, "smart" bulbs, NAS devices, routers. These devices are getting hacked every day. Because most of these devices were never designed with security as a goal, and some of them have been never tested by security professionals, it is no surprise that these things are full of vulnerabilities.</div>
+<div style=""><br /></div>
+<div style=""><br /></div>
+<div style=""><br /></div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/thereisnotiot.png" src="https://z6543.github.io/_img/thereisnotiot.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/thereisnotiot.png" width="400" /></a></div>
+<div style=""><br /></div>
+<div style=""><br /></div>
+<div style="">Independent security researchers find these vulnerabilities, write a cool blog post or give a presentation about the vulnerability and the exploit, and the media forgets the constraints just for the sake of more clicks. "We are all doomed" we can read in the news, but sometimes the risks are buried deeply in technical jargon. Please note I blame the news sites here, not the researchers.</div>
+<div style=""><br /></div>
+<table cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="https://z6543.github.io/_img/iotjunk.png" src="https://z6543.github.io/_img/iotjunk.png" style="margin-left: auto; margin-right: auto;"><img border="0" height="" src="https://z6543.github.io/_img/iotjunk.png" width="640" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">http://www.slideshare.net/danielmiessler/iot-attack-surfaces-defcon-2015</td></tr></tbody></table>
+<div style=""><br /></div>
+<div style="">There are huge differences between the following risks:</div>
+<div style=""><br /></div>
+<ul><li style="text-align: justify;">Attackers can directly communicate with the router (or camera) from the Internet without authentication and exploit the vulnerability. This is the worst-case scenario. For example, an <a href="http://forum.synology.com/enu/viewtopic.php?f=3&amp;t=88716" target="_blank">automated ransomware attack</a> against your NAS is pretty bad.</li><li style="text-align: justify;">Attackers have to position themselves in the same WAN network (e.g. Sprint mobile network in the case of Jeep hacking) to exploit the vulnerability. This is still pretty bad.</li><li style="text-align: justify;">The vulnerable code can not be triggered directly from the Internet, but tricks like CSRF can be used to exploit it (details later in this post). </li><li style="text-align: justify;">The vulnerable code can not be triggered directly from the Internet, and it uses a protocol/port which prevents <a href="https://www.kb.cert.org/vuls/id/476267" target="_blank">Cross Protocol Scripting</a>. Attackers have to access the local network before exploiting this vulnerability.</li></ul>
+<div style="">As it is the case with the worst scenario, one can find a lot of devices connected to the internet. You can always find funny stuff at <a href="http://explorer.shodanhq.com/#/explore">http://explorer.shodanhq.com/#/explore</a> , or use the <a href="https://www.trustwave.com/Resources/SpiderLabs-Blog/Using-Nmap-to-Screenshot-Web-Services/" target="_blank">nmap screenshot script</a> to find your own stuff :)</div>
+<div style=""><br /></div>
+<div class="separator" style=""></div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/shodan.png" src="https://z6543.github.io/_img/shodan.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/shodan.png" width="400" /></a></div>
+<div style=""><br /></div>
+<h2 style="text-align: justify;">Network exposure</h2>
+<div style="">Most devices are behind an IPv4 NAT device (e.g. home router), thus can not be reached from the Internet side by default. Except when the device configures the firewall via UPNP. Or the device has a persistence cloud connection, and the cloud can send commands to the device. Or the device uses IPv6 tunneling (e.g. Teredo), thus it is reachable from the Internet. But not every vulnerability on your home network is accessible directly from the Internet. As more and more devices and networks will support IPv6, this scenario might change, but I hope most home routers will come with a default deny configuration in their IPv6 firewall module. On the other hand, scanning for IPv6 devices blindly is not feasible due to the large number of IPv6 addresses, but <a href="https://youtu.be/t9d7p3zxoiM?t=2437" target="_blank">some tricks might work</a>. </div>
+<div style=""><br /></div>
+<div style="">If attackers can not access the device directly, there is a way to hack it through the user's browser. Just convince the victim user to visit a website, and via <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)" target="_blank">CSRF (Cross Site Request Forgery)</a> and brute-forcing the device IP, it is possible to hack some devices (mostly through HTTP - if the exploit can fit into simple GET or POST commands.</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/csrf.png" src="https://z6543.github.io/_img/csrf.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/csrf.png" width="640" /></a></div>
+<div style=""><br /></div>
+<div style="">If attackers can not attack the device vulnerability through the Internet directly, or via CSRF, but have connected to the same network - the network exposure shrinks significantly. And when attackers are on the same network as you, I bet you have bigger problems than the security of the IoT devices ...</div>
+<h2 style="text-align: justify;">Recommendations for home users</h2>
+<div><div style="">Don't buy **** you don't need<br /><br />Disconnect from the power cord the IoT devices you don't need to operate 7*24. </div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Disable cloud connectivity if it is not necessary. For example, I have a NAS device that can be reached through the "cloud", but I have disabled it by not configuring any default gateway for the device. I prefer connecting to my network via VPN and reach all my stuff through that.</div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Prevent CSRF attacks. I use two tricks. Don't use the 192.168.0.x - 192.168.10.x network at-home - use an uncommon IP range instead (e.g. 192.168.156.x is better). The second trick is I configured my Adblock plugin in my primary browser to block access to my internal network. And I use another browser whenever I want to access my internal devices. Update: On Firefox you can use NoScript ABE to block access to internal resources.</div><div class="separator" style=""><a href="https://z6543.github.io/_img/adblock.png" src="https://z6543.github.io/_img/adblock.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/adblock.png" width="640" /></a></div><div style=""><br /></div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Check your router configuration:<br /><br /><ul><li>disable UPnP</li><li>check the firewall settings and disable unnecessary port forwards</li><li>check for IPv6 settings, and configure the firewall as default deny for incoming IPv6 TCP/UDP.</li></ul></div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Change default passwords, especially for services connected to the Internet. <a href="http://jumpespjump.blogspot.com/2014/10/change-passwords-regularly-myth-and-lie.html" target="_blank">Follow password best practices.</a></div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Run Nmap to locate new IoT in your home network :) </div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Run a WiFi scan to locate new WiFi access points. Let me share a personal experience with you. I moved to a new house and brought my own WiFi router with me. I plugged it in, and forget about WiFi. Months later it turned out I had two other WiFi devices in my house - the cable modem had its own integrated WiFi with default passwords printed on the bottom, and the Set-top-box was the same - default WiFi passwords printed on the bottom. And don't forget to scan for ZigBee, Bluetooth, IrDA, FM, ...</div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Update your devices - in case you have a lot of free time in your hand.</div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">Don't allow your guests to connect to your home network. Set up a separated AP for them. Imagine your nephew stealing your private photos or videos from your NAS or DNLA server.</div></div>
+<div><div style=""><br /></div></div>
+<div><div style="">With great power, comes great responsibility. The less device you own in your house, the less time you need to maintain those.</div><div style=""><br /></div><div style="">Read the manuals of your devices. Be aware of the different interfaces. Configure it in a secure way.</div><div style=""><br />Disable Teredo protocol in case you don't need IPv6.<br /><br /></div><div style="">Stop being amazed by junk hacking.<br /><br />Update: Disable WebRTC: <a href="https://www.browserleaks.com/webrtc" target="_blank">https://www.browserleaks.com/webrtc</a> , in Chrome you can use this extension: <a href="https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia">https://chrome.google.com/webstore/detail/webrtc-network-limiter/npeicpdbkakmehahjeeohfdhnlpdklia</a></div></div>
+<div><div style=""><br />Update: Prevent against DNS rebind attacks via configuring a DNS server which can block internal IP addresses. OpenDNS can block internal IP, but this is not a default option, you have to configure it.<br /><h2>Recommendations for vendors</h2><div>For vendors, I recommend at least the followings:</div><div style=""><div style=""><br /></div><ul><li style="text-align: justify;">Implement security during Software Development LifeCycle</li><li style="text-align: justify;">Continuous security testing and bug bounties</li><li style="text-align: justify;">Seamless auto-update</li><li style="text-align: justify;">Opt-in cloud connectivity</li></ul><div style=""><br /></div></div></div></div>
+<div><h2 style="text-align: justify;">Recommendations for journalists</h2></div>
+<div><div style="">Stop FUD. Pretty please.</div></div>
+<div><div style=""><br /></div></div>
+<h2 style="text-align: justify;">The questions to ask before losing your head</h2>
+<div><ul><li style="text-align: justify;">who can exploit the vulnerability?</li><li style="text-align: justify;">what prerequisites do we have about the attack to successfully exploit the vulnerability? Is the attacker already in your home network? If yes, you have probably bigger problems.</li><li style="text-align: justify;">what can the attacker do when the exploit is successful?</li></ul></div>
+<div style=""><br /></div>
+<div><div style="">And last but not least, don't forget that in the case of IoT devices, sometimes users are the product, not the customer. IoT is about collecting data for marketing purposes.</div></div>
+<div><div style=""><a href="http://blog.open-xchange.com/2015/02/09/iot/">http://blog.open-xchange.com/2015/02/09/iot/</a><br /><div class="separator" style=""><a href="https://z6543.github.io/_img/ios.png" src="https://z6543.github.io/_img/ios.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/ios.png" width="248" /></a></div><br /></div></div>
+<div><div style=""><br /></div></div>
+<div><div style=""><br /></div></div>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>One reason why InfoSec sucked in the past 20 years - the “security tips” myth | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="One reason why InfoSec sucked in the past 20 years - the “security tips” myth" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="From time to time, I get disappointed how much effort and money is put into securing computers, networks, mobile phones, ... and yet in 2016 here we are, where not much has changed on the defensive side. There are many things I personally blame for this situation, and one of them is the security tips. The goal of these security tips is that if the average user follows these easy to remember rules, their computer will be safe. Unfortunately, by the time people integrate these rules into their daily life, these rules either become outdated, or these rules were so oversimplified that it was never true in the first place. Some of these security tips might sound ridiculous to people in InfoSec nowadays, but this is exactly what people still remember because we told them so for years. PDF is safe to open This is an oldie. I think this started at the time of macro viruses. Still, people think opening a PDF from an untrusted source is safer than opening a Word file. For details why this is not true, check: https://www.cvedetails.com/vulnerability-list/vendor_id-53/product_id-497/Adobe-Acrobat-Reader.html On an unrelated note, people still believe PDF is integrity protected because the content cannot be changed (compared to a Word document). Image stolen from Kaspersky Java is secure One of the best ones. Oracle started marketing Java as a safe language, where buffer overflows, format strings and pointer-based vulnerabilities are gone. Unfortunately, they forgot to tell the world that instead of &quot;unsafe programs developed by others&quot; they installed their unsafe program on 3 billion devices.  Stay away from rogue websites and you will be safe This is a very common belief I hear from average people. &quot;I only visit some trusted news sites and social media, I never visit those shady sites.&quot; I have some bad news. At the time of malvertising and infected websites, you don&#39;t have to visit those shady sites anymore to get infected. Don&#39;t use open WiFi I have a very long explanation of why this makes no sense, see here. Actually, the whole recommendation makes no sense as people will connect to public WiFis, no matter what we (InfoSec) recommend. The password policy nightmare Actually, this topic has been covered by myself in two blog posts, see here and here. Long story short: use a password manager and 2-factor authentication wherever possible. Let the password manager choose the password for you. And last but not least, corporate password policy sux. Sites with a padlock are safe We tell people for years that the communication with HTTPS sites are safe, and you can be sure it is HTTPS by finding a randomly changing padlock icon somewhere next to the URL. What people hear is that sites with padlocks are safe. Whatever that means. The same goes for WiFi - a network with a padlock is safe. Use Linux, it is free from malware For years people told to Windows users that only if they would use Linux they won&#39;t have so much malware. Thanks to Android, now everyone in the world can enjoy malware on his/her Linux machine. OSX is free from malware It is true that there is significantly less malware on OSX than on Windows, but this is an &quot;economical&quot; question rather than a &quot;security&quot; one. The more people use OSX, the better target it will become. Some people even believe they are safe from phishing because they are using a Mac! Updated AV + firewall makes me 100% safe There is no such thing as 100% safe, and unfortunately, nowadays most malware is written for PROFIT, which means it can bypass these basic protections for days (or weeks, months, years). The more proactive protection is built into the product, the better! How to backup data Although this is one of the most important security tips which is not followed by people, my problem here is not the backup data advise, but how we as a community failed to provide easy to use ways to do that. Now that crypto-ransomware is a real threat to every Windows (and some OSX) users, even those people who have backups on their NAS can find their backups lost. The only hope is that at least OSX has Time Machine which is not targeted yet, and the only backup solution which really works. The worst part is that we even created NAS devices which can be infected via worms ... Disconnect your computer from the Internet when not used There is no need to comment on this. Whoever recommends things like that, clearly has a problem. Use (free) VPN to protect your anonimity First of all. There is no such thing as free service. If it is free, you are the service. On another hand, a non-free VPN can introduce new vulnerablities, and they won&#39;t protect your anonymity. It replaces one ISP with another (your VPN provider). Even TOR cannot guarantee anonymity by itself, and VPNs are much worse. The corporate &quot;security tips&quot; myth &quot;Luckily&quot; these toxic security tips have infected the enterprise environment as well, not just the home users. Use robots.txt to hide secret information on public websites It is 2016 and somehow web developers still believe in this nonsense. And this is why this is usually the first to check on a website for penetration testers or attackers.My password policy is safer than ever As previously discussed, passwords are bad. Very bad. And they will stick with us for decades ... Use WAF, IDS, IPS, Nextgen APT detection hibber-gibber and you will be safe Companies should invest more in people and less into magic blinking devices. Instead of shipping computers with bloatware, ship computers with exploit protection software Teach people how to use a password safe Teach people how to use 2FA Teach people how to use common-sense Conclusion Computer security is complex, hard and the risks change every year. Is this our fault? Probably. But these kinds of security tips won&#39;t help us save the world. " />
+<meta property="og:description" content="From time to time, I get disappointed how much effort and money is put into securing computers, networks, mobile phones, ... and yet in 2016 here we are, where not much has changed on the defensive side. There are many things I personally blame for this situation, and one of them is the security tips. The goal of these security tips is that if the average user follows these easy to remember rules, their computer will be safe. Unfortunately, by the time people integrate these rules into their daily life, these rules either become outdated, or these rules were so oversimplified that it was never true in the first place. Some of these security tips might sound ridiculous to people in InfoSec nowadays, but this is exactly what people still remember because we told them so for years. PDF is safe to open This is an oldie. I think this started at the time of macro viruses. Still, people think opening a PDF from an untrusted source is safer than opening a Word file. For details why this is not true, check: https://www.cvedetails.com/vulnerability-list/vendor_id-53/product_id-497/Adobe-Acrobat-Reader.html On an unrelated note, people still believe PDF is integrity protected because the content cannot be changed (compared to a Word document). Image stolen from Kaspersky Java is secure One of the best ones. Oracle started marketing Java as a safe language, where buffer overflows, format strings and pointer-based vulnerabilities are gone. Unfortunately, they forgot to tell the world that instead of &quot;unsafe programs developed by others&quot; they installed their unsafe program on 3 billion devices.  Stay away from rogue websites and you will be safe This is a very common belief I hear from average people. &quot;I only visit some trusted news sites and social media, I never visit those shady sites.&quot; I have some bad news. At the time of malvertising and infected websites, you don&#39;t have to visit those shady sites anymore to get infected. Don&#39;t use open WiFi I have a very long explanation of why this makes no sense, see here. Actually, the whole recommendation makes no sense as people will connect to public WiFis, no matter what we (InfoSec) recommend. The password policy nightmare Actually, this topic has been covered by myself in two blog posts, see here and here. Long story short: use a password manager and 2-factor authentication wherever possible. Let the password manager choose the password for you. And last but not least, corporate password policy sux. Sites with a padlock are safe We tell people for years that the communication with HTTPS sites are safe, and you can be sure it is HTTPS by finding a randomly changing padlock icon somewhere next to the URL. What people hear is that sites with padlocks are safe. Whatever that means. The same goes for WiFi - a network with a padlock is safe. Use Linux, it is free from malware For years people told to Windows users that only if they would use Linux they won&#39;t have so much malware. Thanks to Android, now everyone in the world can enjoy malware on his/her Linux machine. OSX is free from malware It is true that there is significantly less malware on OSX than on Windows, but this is an &quot;economical&quot; question rather than a &quot;security&quot; one. The more people use OSX, the better target it will become. Some people even believe they are safe from phishing because they are using a Mac! Updated AV + firewall makes me 100% safe There is no such thing as 100% safe, and unfortunately, nowadays most malware is written for PROFIT, which means it can bypass these basic protections for days (or weeks, months, years). The more proactive protection is built into the product, the better! How to backup data Although this is one of the most important security tips which is not followed by people, my problem here is not the backup data advise, but how we as a community failed to provide easy to use ways to do that. Now that crypto-ransomware is a real threat to every Windows (and some OSX) users, even those people who have backups on their NAS can find their backups lost. The only hope is that at least OSX has Time Machine which is not targeted yet, and the only backup solution which really works. The worst part is that we even created NAS devices which can be infected via worms ... Disconnect your computer from the Internet when not used There is no need to comment on this. Whoever recommends things like that, clearly has a problem. Use (free) VPN to protect your anonimity First of all. There is no such thing as free service. If it is free, you are the service. On another hand, a non-free VPN can introduce new vulnerablities, and they won&#39;t protect your anonymity. It replaces one ISP with another (your VPN provider). Even TOR cannot guarantee anonymity by itself, and VPNs are much worse. The corporate &quot;security tips&quot; myth &quot;Luckily&quot; these toxic security tips have infected the enterprise environment as well, not just the home users. Use robots.txt to hide secret information on public websites It is 2016 and somehow web developers still believe in this nonsense. And this is why this is usually the first to check on a website for penetration testers or attackers.My password policy is safer than ever As previously discussed, passwords are bad. Very bad. And they will stick with us for decades ... Use WAF, IDS, IPS, Nextgen APT detection hibber-gibber and you will be safe Companies should invest more in people and less into magic blinking devices. Instead of shipping computers with bloatware, ship computers with exploit protection software Teach people how to use a password safe Teach people how to use 2FA Teach people how to use common-sense Conclusion Computer security is complex, hard and the risks change every year. Is this our fault? Probably. But these kinds of security tips won&#39;t help us save the world. " />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/myth/security/tips/2016/06/11/One-reason-why-InfoSec-sucked-in-the-past-20-years-the-security-tips-myth.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/myth/security/tips/2016/06/11/One-reason-why-InfoSec-sucked-in-the-past-20-years-the-security-tips-myth.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-06-11T13:36:22+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="One reason why InfoSec sucked in the past 20 years - the “security tips” myth" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2016-06-11T13:36:22+00:00","datePublished":"2016-06-11T13:36:22+00:00","description":"From time to time, I get disappointed how much effort and money is put into securing computers, networks, mobile phones, ... and yet in 2016 here we are, where not much has changed on the defensive side. There are many things I personally blame for this situation, and one of them is the security tips. The goal of these security tips is that if the average user follows these easy to remember rules, their computer will be safe. Unfortunately, by the time people integrate these rules into their daily life, these rules either become outdated, or these rules were so oversimplified that it was never true in the first place. Some of these security tips might sound ridiculous to people in InfoSec nowadays, but this is exactly what people still remember because we told them so for years. PDF is safe to open This is an oldie. I think this started at the time of macro viruses. Still, people think opening a PDF from an untrusted source is safer than opening a Word file. For details why this is not true, check: https://www.cvedetails.com/vulnerability-list/vendor_id-53/product_id-497/Adobe-Acrobat-Reader.html On an unrelated note, people still believe PDF is integrity protected because the content cannot be changed (compared to a Word document). Image stolen from Kaspersky Java is secure One of the best ones. Oracle started marketing Java as a safe language, where buffer overflows, format strings and pointer-based vulnerabilities are gone. Unfortunately, they forgot to tell the world that instead of &quot;unsafe programs developed by others&quot; they installed their unsafe program on 3 billion devices.  Stay away from rogue websites and you will be safe This is a very common belief I hear from average people. &quot;I only visit some trusted news sites and social media, I never visit those shady sites.&quot; I have some bad news. At the time of malvertising and infected websites, you don&#39;t have to visit those shady sites anymore to get infected. Don&#39;t use open WiFi I have a very long explanation of why this makes no sense, see here. Actually, the whole recommendation makes no sense as people will connect to public WiFis, no matter what we (InfoSec) recommend. The password policy nightmare Actually, this topic has been covered by myself in two blog posts, see here and here. Long story short: use a password manager and 2-factor authentication wherever possible. Let the password manager choose the password for you. And last but not least, corporate password policy sux. Sites with a padlock are safe We tell people for years that the communication with HTTPS sites are safe, and you can be sure it is HTTPS by finding a randomly changing padlock icon somewhere next to the URL. What people hear is that sites with padlocks are safe. Whatever that means. The same goes for WiFi - a network with a padlock is safe. Use Linux, it is free from malware For years people told to Windows users that only if they would use Linux they won&#39;t have so much malware. Thanks to Android, now everyone in the world can enjoy malware on his/her Linux machine. OSX is free from malware It is true that there is significantly less malware on OSX than on Windows, but this is an &quot;economical&quot; question rather than a &quot;security&quot; one. The more people use OSX, the better target it will become. Some people even believe they are safe from phishing because they are using a Mac! Updated AV + firewall makes me 100% safe There is no such thing as 100% safe, and unfortunately, nowadays most malware is written for PROFIT, which means it can bypass these basic protections for days (or weeks, months, years). The more proactive protection is built into the product, the better! How to backup data Although this is one of the most important security tips which is not followed by people, my problem here is not the backup data advise, but how we as a community failed to provide easy to use ways to do that. Now that crypto-ransomware is a real threat to every Windows (and some OSX) users, even those people who have backups on their NAS can find their backups lost. The only hope is that at least OSX has Time Machine which is not targeted yet, and the only backup solution which really works. The worst part is that we even created NAS devices which can be infected via worms ... Disconnect your computer from the Internet when not used There is no need to comment on this. Whoever recommends things like that, clearly has a problem. Use (free) VPN to protect your anonimity First of all. There is no such thing as free service. If it is free, you are the service. On another hand, a non-free VPN can introduce new vulnerablities, and they won&#39;t protect your anonymity. It replaces one ISP with another (your VPN provider). Even TOR cannot guarantee anonymity by itself, and VPNs are much worse. The corporate &quot;security tips&quot; myth &quot;Luckily&quot; these toxic security tips have infected the enterprise environment as well, not just the home users. Use robots.txt to hide secret information on public websites It is 2016 and somehow web developers still believe in this nonsense. And this is why this is usually the first to check on a website for penetration testers or attackers.My password policy is safer than ever As previously discussed, passwords are bad. Very bad. And they will stick with us for decades ... Use WAF, IDS, IPS, Nextgen APT detection hibber-gibber and you will be safe Companies should invest more in people and less into magic blinking devices. Instead of shipping computers with bloatware, ship computers with exploit protection software Teach people how to use a password safe Teach people how to use 2FA Teach people how to use common-sense Conclusion Computer security is complex, hard and the risks change every year. Is this our fault? Probably. But these kinds of security tips won&#39;t help us save the world. ","headline":"One reason why InfoSec sucked in the past 20 years - the “security tips” myth","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/myth/security/tips/2016/06/11/One-reason-why-InfoSec-sucked-in-the-past-20-years-the-security-tips-myth.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/myth/security/tips/2016/06/11/One-reason-why-InfoSec-sucked-in-the-past-20-years-the-security-tips-myth.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">One reason why InfoSec sucked in the past 20 years - the "security tips" myth</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 11 Jun 2016
+    
+  </div>
+  
+  <div style="">From time to time, I get disappointed how much effort and money is put into securing computers, networks, mobile phones, ... and yet in 2016 here we are, where not much has changed on the defensive side. There are many things I personally blame for this situation, and one of them is the security tips.</div>
+<div style=""><br /></div>
+<div style="">The goal of these security tips is that if the average user follows these easy to remember rules, their computer will be safe. Unfortunately, by the time people integrate these rules into their daily life, these rules either become outdated, or these rules were so oversimplified that it was never true in the first place. Some of these security tips might sound ridiculous to people in InfoSec nowadays, but this is exactly what people still remember because we told them so for years.</div>
+<h3></h3>
+<h3></h3>
+<h3 style="text-align: justify;">PDF is safe to open</h3>
+<div style="">This is an oldie. I think this started at the time of macro viruses. Still, people think opening a PDF from an untrusted source is safer than opening a Word file. For details why this is not true, check: https://www.cvedetails.com/vulnerability-list/vendor_id-53/product_id-497/Adobe-Acrobat-Reader.html</div>
+<div style="">On an unrelated note, people still believe PDF is integrity protected because the content cannot be changed (compared to a Word document).</div>
+<table cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="https://z6543.github.io/_img/pdf_blog_title.jpg" imageanchor="1" src="https://z6543.github.io/_img/pdf_blog_title.jpg" style="margin-left: auto; margin-right: auto;"><img border="0" height="" src="https://z6543.github.io/_img/pdf_blog_title.jpg" width="200" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Image stolen from Kaspersky</td></tr></tbody></table>
+<div style=""><br /></div>
+<h3 style="text-align: justify;">Java is secure</h3>
+<div><div style="">One of the best ones. Oracle started marketing Java as a safe language, where buffer overflows, format strings and pointer-based vulnerabilities are gone. Unfortunately, they forgot to tell the world that instead of "unsafe programs developed by others" they installed their unsafe program on 3 billion devices. </div></div>
+<div><div class="separator" style=""><a href="https://z6543.github.io/_img/Jteqd.png" imageanchor="1" src="https://z6543.github.io/_img/Jteqd.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/Jteqd.png" width="200" /></a></div><div style=""><br /></div></div>
+<h3 style="text-align: justify;">Stay away from rogue websites and you will be safe</h3>
+<div style="">This is a very common belief I hear from average people. "I only visit some trusted news sites and social media, I never visit those shady sites." I have some bad news. At the time of <a href="https://www.google.com/search?q=malvertising" target="_blank">malvertising </a>and infected websites, you don't have to visit those shady sites anymore to get infected.</div>
+<h3></h3>
+<h3></h3>
+<h3 style="text-align: justify;">Don't use open WiFi</h3>
+<div style="">I have a very long explanation of why this makes no sense, see <a href="http://jumpespjump.blogspot.hu/2015/07/mythbusters-is-open-unencrypted-wifi.html" target="_blank">here</a>. Actually, the whole recommendation makes no sense as people will connect to public WiFis, no matter what we (InfoSec) recommend.</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/205975-free_wifi_wireless_original.jpg" imageanchor="1" src="https://z6543.github.io/_img/205975-free_wifi_wireless_original.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/205975-free_wifi_wireless_original.jpg" width="200" /></a></div>
+<div style=""><br /></div>
+<h3 style="text-align: justify;">The password policy nightmare</h3>
+<div style="">Actually, this topic has been covered by myself in two blog posts, see <a href="http://jumpespjump.blogspot.hu/2014/10/change-passwords-regularly-myth-and-lie.html" target="_blank">here </a>and <a href="http://jumpespjump.blogspot.hu/2014/10/change-passwords-regularly-myth-and-lie_13.html" target="_blank">here</a>. Long story short: use a password manager and 2-factor authentication wherever possible. Let the password manager choose the password for you. And last but not least, corporate password policy sux.</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/df826c798b30070ed3bbbe5dba776e35.jpg" imageanchor="1" src="https://z6543.github.io/_img/df826c798b30070ed3bbbe5dba776e35.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/df826c798b30070ed3bbbe5dba776e35.jpg" width="200" /></a></div>
+<div style=""><br /></div>
+<h3 style="text-align: justify;">Sites with a padlock are safe</h3>
+<div><div style="">We tell people for years that the communication with HTTPS sites are safe, and you can be sure it is HTTPS by finding a randomly changing padlock icon somewhere next to the URL. What people hear is that sites with padlocks are safe. Whatever that means. The same goes for WiFi - a network with a padlock is safe.</div><div class="separator" style=""><a href="https://z6543.github.io/_img/computer-internet-security1-560x420.jpg" imageanchor="1" src="https://z6543.github.io/_img/computer-internet-security1-560x420.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/computer-internet-security1-560x420.jpg" width="200" /></a></div><div style=""><br /></div></div>
+<h3 style="text-align: justify;">Use Linux, it is free from malware</h3>
+<div><div style="">For years people told to Windows users that only if they would use Linux they won't have so much malware. Thanks to Android, now everyone in the world can enjoy malware on his/her Linux machine.</div><div class="separator" style=""><a href="https://z6543.github.io/_img/android-evil.png" imageanchor="1" src="https://z6543.github.io/_img/android-evil.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/android-evil.png" width="200" /></a></div><div style=""><br /></div></div>
+<h3 style="text-align: justify;">OSX is free from malware</h3>
+<div><div style="">It is true that there is significantly less malware on OSX than on Windows, but this is an "economical" question rather than a "security" one. The more people use OSX, the better target it will become. Some people even believe they are safe from phishing because they are using a Mac!</div><div class="separator" style=""><a href="https://z6543.github.io/_img/ThreatMetrix-Discusses-Sophisticated-Malware-Targeting-OS-X-2.jpg" imageanchor="1" src="https://z6543.github.io/_img/ThreatMetrix-Discusses-Sophisticated-Malware-Targeting-OS-X-2.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/ThreatMetrix-Discusses-Sophisticated-Malware-Targeting-OS-X-2.jpg" width="200" /></a></div><div style=""><br /></div></div>
+<h3 style="text-align: justify;">Updated AV + firewall makes me 100% safe</h3>
+<div><div style="">There is no such thing as 100% safe, and unfortunately, nowadays most malware is written for PROFIT, which means it can bypass these basic protections for days (or weeks, months, years). The more proactive protection is built into the product, the better!</div></div>
+<h3></h3>
+<h3 style="text-align: justify;"></h3>
+<h3 style="text-align: justify;">How to backup data</h3>
+<div style="">Although this is one of the most important security tips which is not followed by people, my problem here is not the backup data advise, but how we as a community failed to provide easy to use ways to do that. Now that crypto-ransomware is a real threat to every Windows (and some OSX) users, even those people who have backups on their NAS can find their backups lost. The only hope is that at least OSX has Time Machine which is not targeted yet, and the only backup solution which really works.</div>
+<div style="">The worst part is that we even created NAS devices which can be infected via worms ...</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/synolocker.png" imageanchor="1" src="https://z6543.github.io/_img/synolocker.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/synolocker.png" width="200" /></a></div>
+<div style=""><br /></div>
+<h3 style="text-align: justify;">Disconnect your computer from the Internet when not used</h3>
+<div><div style="">There is no need to comment on this. Whoever recommends things like that, clearly has a problem.</div></div>
+<h3></h3>
+<h3></h3>
+<h3 style="text-align: justify;">Use (free) VPN to protect your anonimity</h3>
+<div><div style="">First of all. There is no such thing as <a href="https://www.safervpn.com/blog/use-free-vpn-hola-risks-cybercrime/" target="_blank">free service</a>. If it is free, you are the service. On another hand, a non-free VPN can <a href="https://www.mrg-effitas.com/how-your-vpn-can-be-a-front-door-access-to-your-system/" target="_blank">introduce new vulnerablities</a>, and they won't protect your anonymity. It replaces one ISP with another (your VPN provider). Even TOR cannot guarantee anonymity by itself, and VPNs are much worse.</div></div>
+<h2></h2>
+<h2 style="text-align: justify;">The corporate "security tips" myth</h2>
+<div><div style="">"Luckily" these toxic security tips have infected the enterprise environment as well, not just the home users.</div></div>
+<h3></h3>
+<h3></h3>
+<h3 style="text-align: justify;">Use robots.txt to hide secret information on public websites</h3>
+<div><div style="">It is 2016 and somehow web developers still believe in this nonsense. And this is why this is usually the first to check on a website for penetration testers or attackers.</div><div style=""><br /></div><h3 style="text-align: justify;">My password policy is safer than ever</h3></div>
+<div><div style="">As previously discussed, passwords are bad. Very bad. And they will stick with us for decades ...</div></div>
+<h3></h3>
+<h3></h3>
+<h3 style="text-align: justify;">Use WAF, IDS, IPS, Nextgen APT detection hibber-gibber and you will be safe</h3>
+<div><div style="">Companies should invest more in people and less into magic blinking devices.</div></div>
+<div style=""><br /></div>
+<div style="">Instead of shipping computers with bloatware, ship computers with exploit protection software</div>
+<div style="">Teach people how to use a password safe</div>
+<div style="">Teach people how to use 2FA</div>
+<div style="">Teach people how to use common-sense</div>
+<div style=""><br /></div>
+<h2 style="text-align: justify;">Conclusion</h2>
+<div><div style="">Computer security is complex, hard and the risks change every year. Is this our fault? Probably. But these kinds of security tips won't help us save the world. </div></div>
+<div style=""><br /></div>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>
