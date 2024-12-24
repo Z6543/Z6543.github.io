@@ -30,8 +30,7 @@ github_username:  Z6543
 
 # Build settings
 # theme: minima
-plugins:
-  - jekyll-feed
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -74,6 +73,7 @@ theme: jekyll-dash
 plugins:
   - liquid-md5
   - jekyll/tagging  
+  - jekyll-feed
 
 avatar_source: github
 github_username: Z6543  
