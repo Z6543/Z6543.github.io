@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>“Just” migrate to Jekyll … | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="“Just” migrate to Jekyll …" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Intro As I already ranted about it, I am not very satisfied with multiple Google services recently (blogger, YouTube), so I started looking for alternative solutions for my blog. Based on a quick Twitter poll, all the cool kids use Jekyll and Github pages nowadays, and I did not want to miss out … Had I known how much time I had to spend on this blog migration, I probably would not start it in the first place … Jekyll Why Jekyll and Github pages? Because it is free I don’t have to operate my own webserver I don’t have to maintain proper TLS config It is a static website Github is more secure than most services" />
+<meta property="og:description" content="Intro As I already ranted about it, I am not very satisfied with multiple Google services recently (blogger, YouTube), so I started looking for alternative solutions for my blog. Based on a quick Twitter poll, all the cool kids use Jekyll and Github pages nowadays, and I did not want to miss out … Had I known how much time I had to spend on this blog migration, I probably would not start it in the first place … Jekyll Why Jekyll and Github pages? Because it is free I don’t have to operate my own webserver I don’t have to maintain proper TLS config It is a static website Github is more secure than most services" />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/2023/04/05/Just_use_Jekyll.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/2023/04/05/Just_use_Jekyll.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-05T10:49:41+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="“Just” migrate to Jekyll …" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-04-05T10:49:41+00:00","datePublished":"2023-04-05T10:49:41+00:00","description":"Intro As I already ranted about it, I am not very satisfied with multiple Google services recently (blogger, YouTube), so I started looking for alternative solutions for my blog. Based on a quick Twitter poll, all the cool kids use Jekyll and Github pages nowadays, and I did not want to miss out … Had I known how much time I had to spend on this blog migration, I probably would not start it in the first place … Jekyll Why Jekyll and Github pages? Because it is free I don’t have to operate my own webserver I don’t have to maintain proper TLS config It is a static website Github is more secure than most services","headline":"“Just” migrate to Jekyll …","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/2023/04/05/Just_use_Jekyll.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/2023/04/05/Just_use_Jekyll.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">"Just" migrate to Jekyll ...</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 05 Apr 2023
+    
+  </div>
+  
+  <h1 id="intro">Intro</h1>
+<p><a href="/2022/09/16/Google.html">As I already ranted about it</a>, I am not very satisfied with multiple Google services recently (blogger, YouTube), so I started looking for alternative solutions for my blog. Based on a quick Twitter poll, all the cool kids use Jekyll and Github pages nowadays, and I did not want to miss out …<br />
+Had I known how much time I had to spend on this blog migration, I probably would not start it in the first place …</p>
+<h1 id="jekyll">Jekyll</h1>
+<p>Why Jekyll and Github pages?</p>
+<ul>
+  <li>Because it is free</li>
+  <li>I don’t have to operate my own webserver</li>
+  <li>I don’t have to maintain proper TLS config</li>
+  <li>It is a static website</li>
+  <li>Github is more secure than most services</li>
+</ul>
+
+<p>My first task was installing Jekyll locally to test my web pages locally. This was my first mistake. I created this Jekyll environment on the macOS like an animal - without using Docker. <br />
+<img src="/_img/jekyll.jpg" alt="Jekyll" /><br />
+<img src="/_img/maneuver.jpg" alt="maneuver" /><br />
+ Or ~1 hour at least. Pro tip: use <a href="https://hub.docker.com/r/jekyll/jekyll/">Docker</a>. Cool, now we have it. I spent significant time trying to figure out the proper _config.yml config and Gemfile parameters, but I think I figured out what I needed, kinda. Not perfect, but it works.</p>
+
+<p>The next challenge was saving the blog posts from Blogger/Blogspot in a Jekyll-readable format. I tried multiple solutions, but only <a href="https://gist.github.com/rupeshtiwari/80f2203fee697a94e4b11b75b856aa56">this</a> was close enough to do anything. After that, I realized the formatting was effed up on numerous posts. It took me a while to figure out the problem was image styles and another &lt;br&gt;\ related issue I cannot reproduce anymore. It did not help that I tried to debug this problem on a machine where I did not have the Jekyll installation, and I waited 5 minutes for Github to rebuild the site to test that I still did not figure out what the issue was. Clearly, I did set up the local dev env to avoid this exact situation …</p>
+
+<p>The next step was to download all the images from the blog posts, store them in the website repo, and rewrite all the URLs on the pages. You would think this is a trivial exercise, but I ended up with ~100 lines of Python code, running and rerunning it at least seven times to get there.</p>
+
+<p>Next, I realized that the “content creation” date was somehow messed up with the last update, but the code looks OK. So I fixed this on all the blog posts manually. While doing this, I realized that the blog post exporter script only saved 25 posts, probably a limitation on the blogger feed system itself. So I had to download the rest of the blog posts, download the images again, download the incorrect HTML tags again, fix the image URLs, and fix the creation dates.</p>
+
+<p>Meanwhile, I always had this issue: whenever I pushed the latest version, my custom domain name did not work anymore - I had to configure this in the CNAME file. And after I had already built and rebuilt, and rebuilt the site with Github pages, it turned out there was a <a href="https://github.com/Z6543/Z6543.github.io/blob/8bff56adf2ba60ab65cc77597e073e790b050fec/.github/workflows/jekyll.yml#L15">caching possibility</a>, which in fact, can change the build time from five minutes to one minute. Probably, there is an even better solution, but this is good enough for now.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Am I satisfied with the overall result? Yes. <br />
+Am I satisfied with how I got here? No.<br />
+Do I recommend this route? If you have free time, yes.<br />
+Should this be so complicated? I hope not. <br />
+Do I like that my website uses Ruby? Hell no.</p>
+
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2020/09/10/WHCD.html">
+            My WHCD experience
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>

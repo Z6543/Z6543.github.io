@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="direction--ltr"lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Mythbusters - Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not | Jump ESP, jump!</title>
+<meta name="generator" content="Jekyll v4.0.1" />
+<meta property="og:title" content="Mythbusters - Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction Whenever security professionals recommend the 5 most important IT security practices to average users, one of the items is usually something like: “Avoid using open Wifi” or “Always use VPN while using open WiFi” or “Avoid sensitive websites (e.g. online banking) while using open WiFI”, etc. What I think about this? It is bullshit. But let’s not jump to the conclusions. Let’s analyze all risks and factors here. During the following analysis, I made two assumptions. The first one is that we are comparing public WiFi hotspots with no encryption at all (referred to as Open), and we compare this to public WiFi hotspots with WPA2-PSK (and just hope WEP died years before). The other assumption is there are people who are security-aware, and those who just don’t care. They just want to browse the web, access Facebook, write e-mails, etc. The risks Let’s discuss the different threats people face using public hotspots, compared to home/work internet usage: 1. Where the website session data is not protected with SSL/TLS (and the cookie is not protected with secure flag), attackers on the same hotspot can obtain the session data and use it in session/login credentials stealing. Typical protocols affected: HTTP sitesHTTPS sites but unsecured cookieFTP without encryptionIMAP/SMTP/POP3 without SSL/TLS or STARTTLS 2. Attackers can inject extra data into the HTTP traffic, which can be used for exploits, or social engineer attacks (e.g. update Flash player with our malware) – see the Dark Hotel campaign 3. Attackers can use tools like SSLStrip to keep the user’s traffic on clear text HTTP and steal password/session data/personal information 4. Attackers can monitor and track user activity 5. Attackers can directly attack the user’s machine (e.g. SMB service) WPA2-PSK security So, why is a public WPA2-PSK WiFi safer than an open WiFi? Spoiler alert: it is not! In a generic public WPA2-PSK scenario, all users share the same password. And guess what, the whole traffic can be decrypted with the following information: SSID + shared password + information from the 4-way handshake. https://wiki.wireshark.org/HowToDecrypt802.11 If you want to see it in action, here is a nice tutorial for you http://www.lovemytool.com/blog/2010/05/wireshark-and-tshark-decrypt-sample-capture-file-by-joke-snelders.html Decrypted WPA2-PSK traffic Any user having access to the same WPA2-PSK network knows this information. So they can instantly decrypt your traffic. Or the attackers can just set up an access point with the same SSID, same password, and stronger signal. And now, the attacker can instantly launch active man-in-the-middle attacks. It is a common belief (even among ITSEC experts) that WPA2-PSK is not vulnerable to this attack. I am not sure why this vulnerability was left in the protocol, if you have the answer, let me know. Edit (2015-08-03): I think the key message here is that without server authentication (e.g. via PKI), it is not possible to solve this. Let me link here one of my previous posts here with a great skiddie tool: http://jumpespjump.blogspot.nl/2014/04/dsploit.html To sum up, attackers on a WPA2-PSK network can: Decrypt all HTTP/FTP/IMAP/SMTP/POP3 passwords or other sensitive informationCan launch active attacks like SSLStrip, or modify HTTP traffic to include exploit/social engineer attacksCan monitor/track user activity The only difference between open and WPA2-PSK networks is that an open network can be hacked with an attacker of the skill level of 1 from 10, while the WPA2-PSK network needs and an attacker with a skill level of 1.5. That is the difference. The real solutions 1.Website owners, service providers should deploy proper (trusted) SSL/TLS infrastructure, protect session cookies, etc. Whenever a user (or security professional) notices a problem with the quality of the service (e.g. missing SSL/TLS), the service provider has to be notified. If no change is made, it is recommended to drop the service provider and choose a more secure one. Users have to use HTTPS Everywhere plugin. 2. Protect the device against exploits by patching the software on it, use a secure browser (Chrome, IE11 + enhanced protection), disable unnecessary plugins (Java, Flash, Silverlight), or at least use it via click-to-play. Also, the use of exploit mitigations tools (EMET, HitmanPro Alert, Malwarebytes AntiExploit) and a good internet security suite is a good idea. 3. Website owners have to deploy HSTS, and optionally include their site in an HSTS preload list 4. Don’t click blindly on fake downloads (like fake Flash Player updates) 5. The benefits of a VPN is usually overestimated. A VPN provider is just another provider, like the hotspot provider, or the ISP. They can do the same malicious stuff (traffic injecting, traffic monitoring, user tracking). Especially when people use free VPNs. And “Average Joe” will choose a free VPN. Also, VPN connections tend to be disconnected, and almost none of the VPN providers provide fail secure VPNs. Also, for the price of a good VPN service you can buy a good data plan and use 4G/3G instead of low-quality public hotspots. But besides this, on mobile OSes (Android, iOS, etc.) I strongly recommend the use of VPN, because it is not practically feasible to know for users which app is using SSL/TLS and which is not. 6. Use a location-aware firewall, and whenever the network is not trusted, set it to a Public. 7. In a small-business/home environment, buy a WiFi router with guest WiFi access possibility, where the different passwords can be set to guest networks than used for the other. Asking the question “Are you using open WiFi?”, or “Do you do online banking on open WiFi?” are the wrong questions. The good questions are: Do you trust the operator(s) of the network you are using?Are the clients separated?If clients are not separated, is it possible that there are people with malicious intent on the network?Are you security-aware, and are you following the rules previously mentioned? If you do follow these rules, those will protect you on whatever network you are. And call me an idiot, but I do online banking, e-shopping, and all the other sensitive stuff while I’m using open WiFi. And whenever I order pizza from an HTTP website, attackers can learn my address. Which is already in the phone book, on Facebook, and in every photo metadata I took with my smartphone about my cat and uploaded to the Internet (http://iknowwhereyourcatlives.com/). Most articles and research publications are full of FUD about what people can learn from others. Maybe they are just outdated, maybe they are not. But it is totally safe to use Gmail on an open WiFi, no one will be able to read my e-mails. PS: I know “Average Joe” won’t find my blog post, won’t start to read it, won’t understand half I wrote. But even if they do, they won’t patch their browser plugins, pay for a VPN, or check the session cookie. So they are doomed to fail. That’s life. Deal with it." />
+<meta property="og:description" content="Introduction Whenever security professionals recommend the 5 most important IT security practices to average users, one of the items is usually something like: “Avoid using open Wifi” or “Always use VPN while using open WiFi” or “Avoid sensitive websites (e.g. online banking) while using open WiFI”, etc. What I think about this? It is bullshit. But let’s not jump to the conclusions. Let’s analyze all risks and factors here. During the following analysis, I made two assumptions. The first one is that we are comparing public WiFi hotspots with no encryption at all (referred to as Open), and we compare this to public WiFi hotspots with WPA2-PSK (and just hope WEP died years before). The other assumption is there are people who are security-aware, and those who just don’t care. They just want to browse the web, access Facebook, write e-mails, etc. The risks Let’s discuss the different threats people face using public hotspots, compared to home/work internet usage: 1. Where the website session data is not protected with SSL/TLS (and the cookie is not protected with secure flag), attackers on the same hotspot can obtain the session data and use it in session/login credentials stealing. Typical protocols affected: HTTP sitesHTTPS sites but unsecured cookieFTP without encryptionIMAP/SMTP/POP3 without SSL/TLS or STARTTLS 2. Attackers can inject extra data into the HTTP traffic, which can be used for exploits, or social engineer attacks (e.g. update Flash player with our malware) – see the Dark Hotel campaign 3. Attackers can use tools like SSLStrip to keep the user’s traffic on clear text HTTP and steal password/session data/personal information 4. Attackers can monitor and track user activity 5. Attackers can directly attack the user’s machine (e.g. SMB service) WPA2-PSK security So, why is a public WPA2-PSK WiFi safer than an open WiFi? Spoiler alert: it is not! In a generic public WPA2-PSK scenario, all users share the same password. And guess what, the whole traffic can be decrypted with the following information: SSID + shared password + information from the 4-way handshake. https://wiki.wireshark.org/HowToDecrypt802.11 If you want to see it in action, here is a nice tutorial for you http://www.lovemytool.com/blog/2010/05/wireshark-and-tshark-decrypt-sample-capture-file-by-joke-snelders.html Decrypted WPA2-PSK traffic Any user having access to the same WPA2-PSK network knows this information. So they can instantly decrypt your traffic. Or the attackers can just set up an access point with the same SSID, same password, and stronger signal. And now, the attacker can instantly launch active man-in-the-middle attacks. It is a common belief (even among ITSEC experts) that WPA2-PSK is not vulnerable to this attack. I am not sure why this vulnerability was left in the protocol, if you have the answer, let me know. Edit (2015-08-03): I think the key message here is that without server authentication (e.g. via PKI), it is not possible to solve this. Let me link here one of my previous posts here with a great skiddie tool: http://jumpespjump.blogspot.nl/2014/04/dsploit.html To sum up, attackers on a WPA2-PSK network can: Decrypt all HTTP/FTP/IMAP/SMTP/POP3 passwords or other sensitive informationCan launch active attacks like SSLStrip, or modify HTTP traffic to include exploit/social engineer attacksCan monitor/track user activity The only difference between open and WPA2-PSK networks is that an open network can be hacked with an attacker of the skill level of 1 from 10, while the WPA2-PSK network needs and an attacker with a skill level of 1.5. That is the difference. The real solutions 1.Website owners, service providers should deploy proper (trusted) SSL/TLS infrastructure, protect session cookies, etc. Whenever a user (or security professional) notices a problem with the quality of the service (e.g. missing SSL/TLS), the service provider has to be notified. If no change is made, it is recommended to drop the service provider and choose a more secure one. Users have to use HTTPS Everywhere plugin. 2. Protect the device against exploits by patching the software on it, use a secure browser (Chrome, IE11 + enhanced protection), disable unnecessary plugins (Java, Flash, Silverlight), or at least use it via click-to-play. Also, the use of exploit mitigations tools (EMET, HitmanPro Alert, Malwarebytes AntiExploit) and a good internet security suite is a good idea. 3. Website owners have to deploy HSTS, and optionally include their site in an HSTS preload list 4. Don’t click blindly on fake downloads (like fake Flash Player updates) 5. The benefits of a VPN is usually overestimated. A VPN provider is just another provider, like the hotspot provider, or the ISP. They can do the same malicious stuff (traffic injecting, traffic monitoring, user tracking). Especially when people use free VPNs. And “Average Joe” will choose a free VPN. Also, VPN connections tend to be disconnected, and almost none of the VPN providers provide fail secure VPNs. Also, for the price of a good VPN service you can buy a good data plan and use 4G/3G instead of low-quality public hotspots. But besides this, on mobile OSes (Android, iOS, etc.) I strongly recommend the use of VPN, because it is not practically feasible to know for users which app is using SSL/TLS and which is not. 6. Use a location-aware firewall, and whenever the network is not trusted, set it to a Public. 7. In a small-business/home environment, buy a WiFi router with guest WiFi access possibility, where the different passwords can be set to guest networks than used for the other. Asking the question “Are you using open WiFi?”, or “Do you do online banking on open WiFi?” are the wrong questions. The good questions are: Do you trust the operator(s) of the network you are using?Are the clients separated?If clients are not separated, is it possible that there are people with malicious intent on the network?Are you security-aware, and are you following the rules previously mentioned? If you do follow these rules, those will protect you on whatever network you are. And call me an idiot, but I do online banking, e-shopping, and all the other sensitive stuff while I’m using open WiFi. And whenever I order pizza from an HTTP website, attackers can learn my address. Which is already in the phone book, on Facebook, and in every photo metadata I took with my smartphone about my cat and uploaded to the Internet (http://iknowwhereyourcatlives.com/). Most articles and research publications are full of FUD about what people can learn from others. Maybe they are just outdated, maybe they are not. But it is totally safe to use Gmail on an open WiFi, no one will be able to read my e-mails. PS: I know “Average Joe” won’t find my blog post, won’t start to read it, won’t understand half I wrote. But even if they do, they won’t patch their browser plugins, pay for a VPN, or check the session cookie. So they are doomed to fail. That’s life. Deal with it." />
+<link rel="canonical" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/vpn/wifi/wireless/wpa2/wpa2-psk/2015/07/23/Mythbusters-Is-an-open-(unencrypted)-WiFi-more-dangerous-than-a-WPA2-PSK-Actually,-it-is-not.html" />
+<meta property="og:url" content="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/vpn/wifi/wireless/wpa2/wpa2-psk/2015/07/23/Mythbusters-Is-an-open-(unencrypted)-WiFi-more-dangerous-than-a-WPA2-PSK-Actually,-it-is-not.html" />
+<meta property="og:site_name" content="Jump ESP, jump!" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-07-23T13:37:15+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Mythbusters - Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2015-07-23T13:37:15+00:00","datePublished":"2015-07-23T13:37:15+00:00","description":"Introduction Whenever security professionals recommend the 5 most important IT security practices to average users, one of the items is usually something like: “Avoid using open Wifi” or “Always use VPN while using open WiFi” or “Avoid sensitive websites (e.g. online banking) while using open WiFI”, etc. What I think about this? It is bullshit. But let’s not jump to the conclusions. Let’s analyze all risks and factors here. During the following analysis, I made two assumptions. The first one is that we are comparing public WiFi hotspots with no encryption at all (referred to as Open), and we compare this to public WiFi hotspots with WPA2-PSK (and just hope WEP died years before). The other assumption is there are people who are security-aware, and those who just don’t care. They just want to browse the web, access Facebook, write e-mails, etc. The risks Let’s discuss the different threats people face using public hotspots, compared to home/work internet usage: 1. Where the website session data is not protected with SSL/TLS (and the cookie is not protected with secure flag), attackers on the same hotspot can obtain the session data and use it in session/login credentials stealing. Typical protocols affected: HTTP sitesHTTPS sites but unsecured cookieFTP without encryptionIMAP/SMTP/POP3 without SSL/TLS or STARTTLS 2. Attackers can inject extra data into the HTTP traffic, which can be used for exploits, or social engineer attacks (e.g. update Flash player with our malware) – see the Dark Hotel campaign 3. Attackers can use tools like SSLStrip to keep the user’s traffic on clear text HTTP and steal password/session data/personal information 4. Attackers can monitor and track user activity 5. Attackers can directly attack the user’s machine (e.g. SMB service) WPA2-PSK security So, why is a public WPA2-PSK WiFi safer than an open WiFi? Spoiler alert: it is not! In a generic public WPA2-PSK scenario, all users share the same password. And guess what, the whole traffic can be decrypted with the following information: SSID + shared password + information from the 4-way handshake. https://wiki.wireshark.org/HowToDecrypt802.11 If you want to see it in action, here is a nice tutorial for you http://www.lovemytool.com/blog/2010/05/wireshark-and-tshark-decrypt-sample-capture-file-by-joke-snelders.html Decrypted WPA2-PSK traffic Any user having access to the same WPA2-PSK network knows this information. So they can instantly decrypt your traffic. Or the attackers can just set up an access point with the same SSID, same password, and stronger signal. And now, the attacker can instantly launch active man-in-the-middle attacks. It is a common belief (even among ITSEC experts) that WPA2-PSK is not vulnerable to this attack. I am not sure why this vulnerability was left in the protocol, if you have the answer, let me know. Edit (2015-08-03): I think the key message here is that without server authentication (e.g. via PKI), it is not possible to solve this. Let me link here one of my previous posts here with a great skiddie tool: http://jumpespjump.blogspot.nl/2014/04/dsploit.html To sum up, attackers on a WPA2-PSK network can: Decrypt all HTTP/FTP/IMAP/SMTP/POP3 passwords or other sensitive informationCan launch active attacks like SSLStrip, or modify HTTP traffic to include exploit/social engineer attacksCan monitor/track user activity The only difference between open and WPA2-PSK networks is that an open network can be hacked with an attacker of the skill level of 1 from 10, while the WPA2-PSK network needs and an attacker with a skill level of 1.5. That is the difference. The real solutions 1.Website owners, service providers should deploy proper (trusted) SSL/TLS infrastructure, protect session cookies, etc. Whenever a user (or security professional) notices a problem with the quality of the service (e.g. missing SSL/TLS), the service provider has to be notified. If no change is made, it is recommended to drop the service provider and choose a more secure one. Users have to use HTTPS Everywhere plugin. 2. Protect the device against exploits by patching the software on it, use a secure browser (Chrome, IE11 + enhanced protection), disable unnecessary plugins (Java, Flash, Silverlight), or at least use it via click-to-play. Also, the use of exploit mitigations tools (EMET, HitmanPro Alert, Malwarebytes AntiExploit) and a good internet security suite is a good idea. 3. Website owners have to deploy HSTS, and optionally include their site in an HSTS preload list 4. Don’t click blindly on fake downloads (like fake Flash Player updates) 5. The benefits of a VPN is usually overestimated. A VPN provider is just another provider, like the hotspot provider, or the ISP. They can do the same malicious stuff (traffic injecting, traffic monitoring, user tracking). Especially when people use free VPNs. And “Average Joe” will choose a free VPN. Also, VPN connections tend to be disconnected, and almost none of the VPN providers provide fail secure VPNs. Also, for the price of a good VPN service you can buy a good data plan and use 4G/3G instead of low-quality public hotspots. But besides this, on mobile OSes (Android, iOS, etc.) I strongly recommend the use of VPN, because it is not practically feasible to know for users which app is using SSL/TLS and which is not. 6. Use a location-aware firewall, and whenever the network is not trusted, set it to a Public. 7. In a small-business/home environment, buy a WiFi router with guest WiFi access possibility, where the different passwords can be set to guest networks than used for the other. Asking the question “Are you using open WiFi?”, or “Do you do online banking on open WiFi?” are the wrong questions. The good questions are: Do you trust the operator(s) of the network you are using?Are the clients separated?If clients are not separated, is it possible that there are people with malicious intent on the network?Are you security-aware, and are you following the rules previously mentioned? If you do follow these rules, those will protect you on whatever network you are. And call me an idiot, but I do online banking, e-shopping, and all the other sensitive stuff while I’m using open WiFi. And whenever I order pizza from an HTTP website, attackers can learn my address. Which is already in the phone book, on Facebook, and in every photo metadata I took with my smartphone about my cat and uploaded to the Internet (http://iknowwhereyourcatlives.com/). Most articles and research publications are full of FUD about what people can learn from others. Maybe they are just outdated, maybe they are not. But it is totally safe to use Gmail on an open WiFi, no one will be able to read my e-mails. PS: I know “Average Joe” won’t find my blog post, won’t start to read it, won’t understand half I wrote. But even if they do, they won’t patch their browser plugins, pay for a VPN, or check the session cookie. So they are doomed to fail. That’s life. Deal with it.","headline":"Mythbusters - Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not","mainEntityOfPage":{"@type":"WebPage","@id":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/vpn/wifi/wireless/wpa2/wpa2-psk/2015/07/23/Mythbusters-Is-an-open-(unencrypted)-WiFi-more-dangerous-than-a-WPA2-PSK-Actually,-it-is-not.html"},"url":"https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/vpn/wifi/wireless/wpa2/wpa2-psk/2015/07/23/Mythbusters-Is-an-open-(unencrypted)-WiFi-more-dangerous-than-a-WPA2-PSK-Actually,-it-is-not.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="icon" type="image/png" href="/assets/favicon.png" />
+  <link rel="stylesheet" href="/assets/css/magnific-popup.css"><link type="application/atom+xml" rel="alternate" href="https://httpscolonforwardslashforwardslashwwwdotzoltanbalazsdotcom.com/feed.xml" title="Jump ESP, jump!" /><script src="https://code.jquery.com/jquery-3.2.0.min.js"></script> 
+  <script src="/assets/js/jquery.magnific-popup.js"></script>
+</head>
+<body><div class="site-header">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="/">Jump ESP, jump!<b class="command_prompt"></b><b class="blinking_cursor">_</b></a>
+    <span class="social_links">
+        
+    </span>
+  </div>
+</div>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+  <div class="author-box">
+
+
+<img src="
+    https://gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=256
+" class="author-avatar" alt="Avatar" />
+<div class="description">Because Google started to delete hacking related blog posts  without using a single brain cell, I had to learn just another framework. Thx Google </div>
+
+</div>
+
+
+<div class="post">
+  <h1 class="post-title">Mythbusters - Is an open (unencrypted) WiFi more dangerous than a WPA2-PSK? Actually, it is not</h1>
+  
+  <div class="post-tags">
+      
+  </div>
+  
+  <div class="post-date">
+    Published on 23 Jul 2015
+    
+  </div>
+  
+  <h2>Introduction</h2>
+<div></div>
+<div style="">Whenever security professionals recommend the 5 most important IT security practices to average users, one of the items is usually something like: “Avoid using open Wifi” or “Always use VPN while using open WiFi” or “Avoid sensitive websites (e.g. online banking) while using open WiFI”, etc.</div>
+<div style=""></div>
+<div style="">What I think about this? It is bullshit. But let’s not jump to the conclusions. Let’s analyze all risks and factors here.</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/chive-thursday-29.jpg" imageanchor="1" src="https://z6543.github.io/_img/chive-thursday-29.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/chive-thursday-29.jpg" width="270" /></a></div>
+<div style="">During the following analysis, I made two assumptions. The first one is that we are comparing public WiFi hotspots with no encryption at all (referred to as Open), and we compare this to public WiFi hotspots with WPA2-PSK (and just hope WEP died years before). The other assumption is there are people who are security-aware, and those who just don’t care. They just want to browse the web, access Facebook, write e-mails, etc.</div>
+<h3>The risks</h3>
+<div></div>
+<div style="">Let’s discuss the different threats people face using public hotspots, compared to home/work internet usage:</div>
+<div style="">1.<span class="Apple-tab-span" style="white-space: pre;"> </span>Where the website session data is not protected with SSL/TLS (and the cookie is not protected with secure flag), attackers on the same hotspot can obtain the session data and use it in session/login credentials stealing. Typical protocols affected:</div>
+<div style=""></div>
+<ul><li style="text-align: justify;">HTTP sites</li><li style="text-align: justify;">HTTPS sites but unsecured cookie</li><li style="text-align: justify;">FTP without encryption</li><li style="text-align: justify;">IMAP/SMTP/POP3 without SSL/TLS or STARTTLS</li></ul>
+<div style=""></div>
+<div style="">2.<span class="Apple-tab-span" style="white-space: pre;"> </span>Attackers can inject extra data into the HTTP traffic, which can be used for exploits, or social engineer attacks (e.g. update Flash player with our malware) – see the <a href="https://securelist.com/files/2014/11/darkhotel_kl_07.11.pdf" target="_blank">Dark Hotel campaign</a></div>
+<div style=""></div>
+<div style="">3.<span class="Apple-tab-span" style="white-space: pre;"> </span>Attackers can use tools like SSLStrip to keep the user’s traffic on clear text HTTP and steal password/session data/personal information</div>
+<div style=""></div>
+<div style="">4.<span class="Apple-tab-span" style="white-space: pre;"> </span>Attackers can monitor and track user activity</div>
+<div style=""></div>
+<div style="">5.<span class="Apple-tab-span" style="white-space: pre;"> </span>Attackers can directly attack the user’s machine (e.g. SMB service)</div>
+<h3>WPA2-PSK security</h3>
+<div style="">So, why is a public WPA2-PSK WiFi safer than an open WiFi? Spoiler alert: it is not!</div>
+<div style=""></div>
+<div style="">In a generic public WPA2-PSK scenario, all users share the same password. And guess what, the whole traffic can be decrypted with the following information: SSID + shared password + information from the 4-way handshake. <a href="https://wiki.wireshark.org/HowToDecrypt802.11">https://wiki.wireshark.org/HowToDecrypt802.11</a></div>
+<div style="">If you want to see it in action, here is a nice tutorial for you</div>
+<div style=""><a href="http://www.lovemytool.com/blog/2010/05/wireshark-and-tshark-decrypt-sample-capture-file-by-joke-snelders.html">http://www.lovemytool.com/blog/2010/05/wireshark-and-tshark-decrypt-sample-capture-file-by-joke-snelders.html</a></div>
+<table align="center" cellpadding="0" cellspacing="0" class="tr-caption-container" style="margin-left: auto; margin-right: auto; text-align: center;"><tbody><tr><td style="text-align: center;"><a href="https://z6543.github.io/_img/6a00e008d95770883401348056c1d8970c.png" imageanchor="1" src="https://z6543.github.io/_img/6a00e008d95770883401348056c1d8970c.png" style="margin-left: auto; margin-right: auto;"><img border="0" height="" src="https://z6543.github.io/_img/6a00e008d95770883401348056c1d8970c.png" width="400" /></a></td></tr><tr><td class="tr-caption" style="text-align: center;">Decrypted WPA2-PSK traffic</td></tr></tbody></table>
+<div style="">Any user having access to the same WPA2-PSK network knows this information. So they can instantly decrypt your traffic. Or the attackers can just set up an access point with the same SSID, same password, and stronger signal. And now, the attacker can instantly launch active man-in-the-middle attacks. It is a common belief (even among ITSEC experts) that WPA2-PSK is not vulnerable to this attack. I am not sure why this vulnerability was left in the protocol, if you have the answer, let me know. Edit (2015-08-03): I think the key message here is that without server authentication (e.g. via PKI), it is not possible to solve this.</div>
+<div style="">Let me link here one of my previous posts here with a great skiddie tool:</div>
+<div style=""><a href="http://jumpespjump.blogspot.nl/2014/04/dsploit.html">http://jumpespjump.blogspot.nl/2014/04/dsploit.html</a></div>
+<div style=""></div>
+<div style="">To sum up, attackers on a WPA2-PSK network can:</div>
+<div style=""></div>
+<ul><li style="text-align: justify;">Decrypt all HTTP/FTP/IMAP/SMTP/POP3 passwords or other sensitive information</li><li style="text-align: justify;">Can launch active attacks like SSLStrip, or modify HTTP traffic to include exploit/social engineer attacks</li><li style="text-align: justify;">Can monitor/track user activity</li></ul>
+<div style=""></div>
+<div style="">The only difference between open and WPA2-PSK networks is that an open network can be hacked with an attacker of the skill level of 1 from 10, while the WPA2-PSK network needs and an attacker with a skill level of 1.5. That is the difference.</div>
+<h3>The real solutions</h3>
+<div style="">1.<span class="Apple-tab-span" style="white-space: pre;"></span>Website owners, service providers should deploy proper (trusted) SSL/TLS infrastructure, protect session cookies, etc. Whenever a user (or security professional) notices a problem with the quality of the service (e.g. missing SSL/TLS), the service provider has to be notified. If no change is made, it is recommended to drop the service provider and choose a more secure one. Users have to use HTTPS Everywhere plugin.</div>
+<div style=""></div>
+<div style="">2.<span class="Apple-tab-span" style="white-space: pre;"> </span>Protect the device against exploits by patching the software on it, use a secure browser (Chrome, IE11 + enhanced protection), disable unnecessary plugins (Java, Flash, Silverlight), or at least use it via click-to-play. Also, the use of exploit mitigations tools (EMET, HitmanPro Alert, Malwarebytes AntiExploit) and a good internet security suite is a good idea.</div>
+<div style=""></div>
+<div style="">3.<span class="Apple-tab-span" style="white-space: pre;"> </span>Website owners have to deploy <a href="https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security" target="_blank">HSTS</a>, and optionally include their site in an <a href="https://hstspreload.appspot.com/" target="_blank">HSTS preload list</a></div>
+<div style=""></div>
+<div style="">4.<span class="Apple-tab-span" style="white-space: pre;"> </span>Don’t click blindly on fake downloads (like fake Flash Player updates)</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/scandesk.jpg" imageanchor="1" src="https://z6543.github.io/_img/scandesk.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/scandesk.jpg" width="400" /></a></div>
+<div style="">5.<span class="Apple-tab-span" style="white-space: pre;"> </span>The benefits of a VPN is usually overestimated. A VPN provider is just another provider, like the hotspot provider, or the ISP. They can do the same malicious stuff (traffic injecting, traffic monitoring, user tracking). Especially when people use free VPNs. And “Average Joe” will choose a free VPN. Also, VPN connections tend to be disconnected, and almost none of the VPN providers provide fail secure VPNs. Also, for the price of a good VPN service you can buy a good data plan and use 4G/3G instead of low-quality public hotspots. But besides this, on mobile OSes (Android, iOS, etc.) I strongly recommend the use of VPN, because it is not practically feasible to know for users which app is using SSL/TLS and which is not.</div>
+<div style=""></div>
+<div style="">6.<span class="Apple-tab-span" style="white-space: pre;"> </span>Use a location-aware firewall, and whenever the network is not trusted, set it to a Public.</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/2251.clip_image001_627A00E5.png" imageanchor="1" src="https://z6543.github.io/_img/2251.clip_image001_627A00E5.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/2251.clip_image001_627A00E5.png" width="320" /></a></div>
+<div style="">7. In a small-business/home environment, buy a WiFi router with guest WiFi access possibility, where the different passwords can be set to guest networks than used for the other.</div>
+<div style=""></div>
+<div style="">Asking the question “Are you using open WiFi?”, or “Do you do online banking on open WiFi?” are the wrong questions. The good questions are:</div>
+<ul><li style="text-align: justify;">Do you trust the operator(s) of the network you are using?</li><li style="text-align: justify;">Are the clients separated?</li><li style="text-align: justify;">If clients are not separated, is it possible that there are people with malicious intent on the network?</li><li style="text-align: justify;">Are you security-aware, and are you following the rules previously mentioned? If you do follow these rules, those will protect you on whatever network you are.</li></ul>
+<div style=""></div>
+<div style="">And call me an idiot, but I do online banking, e-shopping, and all the other sensitive stuff while I’m using open WiFi. And whenever I order pizza from an HTTP website, attackers can learn my address. Which is already in the phone book, on Facebook, and in every photo metadata I took with my smartphone about my cat and uploaded to the Internet (<a href="http://iknowwhereyourcatlives.com/">http://iknowwhereyourcatlives.com/</a>).</div>
+<div class="separator" style=""><a href="https://z6543.github.io/_img/cat.png" imageanchor="1" src="https://z6543.github.io/_img/cat.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="" src="https://z6543.github.io/_img/cat.png" width="320" /></a></div>
+<div style="">Most articles and research publications are full of FUD about what people can learn from others. Maybe they are just outdated, maybe they are not. But it is totally safe to use Gmail on an open WiFi, no one will be able to read my e-mails.</div>
+<div style=""></div>
+<div style="">PS: I know “Average Joe” won’t find my blog post, won’t start to read it, won’t understand half I wrote. But even if they do, they won’t patch their browser plugins, pay for a VPN, or check the session cookie. So they are doomed to fail. That’s life. Deal with it.</div>
+<div></div>
+
+</div>
+
+
+
+
+
+<div class="related">
+  <h2>related posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/03/01/VPN-Snakeoil.html">
+            Personal VPN services are snake-oil
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2023/04/05/Just_use_Jekyll.html">
+            "Just" migrate to Jekyll ...
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2022/09/16/Google.html">
+            So Long Google, and Thanks for All the Fish
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+  
+
+
+
+
+<script>
+  let i = 0;
+  const text = '';
+  const speed = parseInt('50');
+  
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById('animated-post-description').innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+
+  document.getElementById('animated-post-description').style.display = 'initial';
+  typeWriter();
+
+  // Image modal
+  var $imgs = [];
+  $('img').each(function(idx) {
+    var obj = {
+      src: $(this).attr('src')
+    }
+    $imgs.push(obj);
+    var elem = $(this);
+    $(this).click(function() {
+      $('.modal').magnificPopup('open', idx);
+    });
+  });
+
+  $('.modal').magnificPopup({
+    items: $imgs,
+    type: 'image',
+    closeOnContentClick: true,
+    mainClass: 'mfp-img-mobile',
+    image: {
+      verticalFit: true
+    }
+    
+  });
+</script>
+
+      </div>
+    </main><footer class="site-footer">
+  <div class="wrapper">
+    <div class="credits"><a href="https://github.com/bitbrain/jekyll-dash">dash</a> theme for Jekyll by <a href="https://github.com/bitbrain">bitbrain</a> made with <i class="fas fa-heart"></i><div class="toggleWrapper">
+    <input type="checkbox" class="dn" id="theme-toggle" onclick="modeSwitcher()" checked />
+    <label for="theme-toggle" class="toggle">
+    <span class="toggle__handler">
+      <span class="crater crater--1"></span>
+      <span class="crater crater--2"></span>
+      <span class="crater crater--3"></span>
+    </span>
+        <span class="star star--1"></span>
+        <span class="star star--2"></span>
+        <span class="star star--3"></span>
+        <span class="star star--4"></span>
+        <span class="star star--5"></span>
+        <span class="star star--6"></span>
+    </label>
+</div>
+<script type="text/javascript">
+const theme = localStorage.getItem('theme');
+
+if (theme === "light") {
+    document.documentElement.setAttribute('data-theme', 'light');
+} else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+}
+const userPrefers = getComputedStyle(document.documentElement).getPropertyValue('content');
+
+function activateDarkTheme() {
+    document.getElementById('theme-toggle').checked = true;
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.documentElement.classList.add('theme--dark');
+    document.documentElement.classList.remove('theme--light');
+	document.getElementById("theme-toggle").className = 'light';
+	window.localStorage.setItem('theme', 'dark');
+}
+
+function activateLightTheme() {
+    document.getElementById('theme-toggle').checked = false;
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.classList.add('theme--light');
+    document.documentElement.classList.remove('theme--dark');
+	document.getElementById("theme-toggle").className = 'dark';
+	window.localStorage.setItem('theme', 'light');
+}
+
+if (theme === "dark") {
+    activateDarkTheme();
+} else if (theme === "light") {
+    activateLightTheme();
+} else if  (userPrefers === "light") {
+    activateDarkTheme();
+} else {
+    activateDarkTheme();
+}
+
+function modeSwitcher() {
+	let currentMode = document.documentElement.getAttribute('data-theme');
+	if (currentMode === "dark") {
+	    activateLightTheme();
+	} else {
+	    activateDarkTheme();
+	}
+}
+</script></div>
+  </div>
+</footer>
+
+
+<script>
+      window.FontAwesomeConfig = {
+        searchPseudoElements: true
+      }
+    </script>
+  </body>
+
+</html>
