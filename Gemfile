@@ -8,6 +8,6 @@ gem 'jekyll-tagging'
 gem 'jekyll-fontawesome-svg'
 gem "kramdown-parser-gfm"
 gem "webrick", "~> 1.7"
-gem 'jekyll-feed'
+# gem 'jekyll-feed'
 # gem 'github-pages'
  
