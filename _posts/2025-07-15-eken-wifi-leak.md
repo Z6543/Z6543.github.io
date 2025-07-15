@@ -16,6 +16,8 @@ CVE-MISSING
 Video doorbells developed by EKEN group periodically sends debug logs to the EKEN cloud servers. These debug logs contain sensitive information like Wi-Fi SSID and credentials.
 
 Example log: 
+
+<div style="text-align: left;">
 [0000000654]{I] fua_video_get_config preview_resolution 0wdr_mode 0 wifi_test_mode 0 
 
 [0000000656][1970-01-01 00:00:00.925268]{D] ########################################### 
@@ -28,6 +30,9 @@ Example log:
 
 [0000000659][1970-01-01 00:00:00.928436]{D] 9 http://oss-eu-central-1.aliyuncs.com de1-aiwit
 &nbsp;
+
+</div>
+
 
 [VulnerabilityType Other]
 
