@@ -78,4 +78,8 @@ plugins:
 avatar_source: github
 github_username: Z6543  
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 
