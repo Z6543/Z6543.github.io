@@ -19,23 +19,16 @@ Example log:
 
 <div style="text-align: left;">
 [0000000654]{I] fua_video_get_config preview_resolution 0wdr_mode 0 wifi_test_mode 0 
-
-
+<br/>
 [0000000656][1970-01-01 00:00:00.925268]{D] ########################################### 
-
-
-[0000000658][1970-01-01 00:00:00.927269]{D] BT60PLUSEKDB_<REDACTED-<REDACTED-<REDACTED-<REDACTED-<REDACTED
-
-
-[0000000659][1970-01-01 00:00:00.928104]{D] <SSID<PASSWORD
-
-
+<br/>
+[0000000658][1970-01-01 00:00:00.927269]{D] BT60PLUSEKDB_<REDACTED-<REDACTED-<REDACTED-<REDACTED-<REDACTED>
+<br/>
+[0000000659][1970-01-01 00:00:00.928104]{D] <SSID<PASSWORD>
+<br/>  
 [0000000659][1970-01-01 00:00:00.928274]{D] http://api.gdxp.com:8100 https://push.gdxp.com 47.243.113.135:139963 [tcp]47.254.95.196:9007 47.243.228.110:102587 47.107.28.145:17051 
-
-
+  <br/>
 [0000000659][1970-01-01 00:00:00.928436]{D] 9 http://oss-eu-central-1.aliyuncs.com de1-aiwit
-&nbsp;
-
 </div>
 
 
