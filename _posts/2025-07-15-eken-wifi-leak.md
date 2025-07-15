@@ -31,81 +31,48 @@ Example log:
 [0000000659][1970-01-01 00:00:00.928436]{D] 9 http://oss-eu-central-1.aliyuncs.com de1-aiwit
 </div>
 
-
+<pre>
 [VulnerabilityType Other]
 
 Wi-Fi credentials exposed to cloud servers via clear-text HTTP
 
-&nbsp;
-
 [Vendor of Product]
 
 Eken
-
 Product name: Video doorbell
-
 Model: T6
-
 Manufacturer: Topvision (Shenzen) Technology Co., Ltd
 
-&nbsp;
-
 [Affected Product Code Base]
-
 Eken Aiwit video doorbells - BT60PLUS_MAIN_V1.0_GC1084_20230531
 
-&nbsp;
-
-[Affected Component]&nbsp;
-
+[Affected Component]
 HTTP PUT to de1-aiwit.oss-eu-central-1.aliyuncs.com/device_log/<date/<camera_id
 
-&nbsp;
-
-[Attack Type Other]&nbsp;
-
+[Attack Type Other]
 Attacker listening to clear-text HTTP traffic in the upstream
-
-&nbsp;
 
 [Impact Information Disclosure]&nbsp;
-
 true
 
-&nbsp;
 
-[Attack Vectors]&nbsp;
-
+[Attack Vectors]
 Attacker listening to clear-text HTTP traffic in the upstream
 
-&nbsp;
-
-[Discoverer]&nbsp;
-
+[Discoverer]
 Zoltan Balazs
 
-&nbsp;
+[Reference]
+http://api.gdxp.com:8100
+http://eken.com
+http://oss-eu-central-1.aliyuncs.com
+https://push.gdxp.com
 
-[Reference]&nbsp;
-
-http://api.gdxp.com:8100&nbsp;
-
-http://eken.com&nbsp;
-
-http://oss-eu-central-1.aliyuncs.com&nbsp;
-
-https://push.gdxp.com&nbsp;
-
-
-&nbsp;
 
 Vulnerability timeline: 
-2025-04-04: E-mail sent to support-us@eken.com <support-us@eken.com>, no reply received.&nbsp;
-
-2025-05-18: E-mail sent to support-us@eken.com <support-us@eken.com>, no reply received.&nbsp;
-
-2025-05-25: E-mail sent to support-us@eken.com <support-us@eken.com>, no reply received.&nbsp;
-
-2025-07-15: Vulnerability published&nbsp;
-
+2025-04-04: E-mail sent to support-us@eken.com &gt;support-us@eken.com&lt;, no reply received.
+2025-05-18: E-mail sent to support-us@eken.com &gt;support-us@eken.com&lt;, no reply received.
+2025-05-25: E-mail sent to support-us@eken.com &gt;support-us@eken.com&lt;, no reply received.
+2025-07-15: Vulnerability published
+  </pre>
 
