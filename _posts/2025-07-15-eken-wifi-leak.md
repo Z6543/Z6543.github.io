@@ -69,5 +69,5 @@ Vulnerability timeline:
 2025-07-15: Vulnerability published on this website.
 2025-09-26: Mitre replies with the reserved CVE-ID CVE-2025-56675.   
 2025-09-29: This post has been updated with the CVE-ID CVE-2025-56675.    
-  </pre&gt;
+</pre>
 
