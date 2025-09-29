@@ -1,6 +1,6 @@
 ---           
 layout: post
-title: 'CVE-MISSING - EKEN video doorbells leaking Wi-Fi credentials through HTTP to cloud servers'
+title: 'CVE-2025-56675 - EKEN video doorbells leaking Wi-Fi credentials through HTTP to cloud servers'
 date: 2025-07-15 08:15:00 UTC
 comments: false
 categories:  
@@ -8,7 +8,7 @@ categories:
 
 <pre>
 CVE-ID:
-CVE-MISSING
+CVE-2025-56675
 
 [Suggested description]
 Video doorbells developed by EKEN group periodically sends debug logs to the EKEN cloud servers. These debug logs contain sensitive information like Wi-Fi SSID and credentials.
@@ -60,8 +60,14 @@ https://push.gdxp.com
 
 Vulnerability timeline: 
 2025-04-04: E-mail sent to support-us@eken.com &lt;support-us@eken.com&gt;, no reply received.
+2025-04-14: Vulnerability details sent to Mitre via their form.
 2025-05-18: E-mail sent to support-us@eken.com &lt;support-us@eken.com&gt;, no reply received.
 2025-05-25: E-mail sent to support-us@eken.com &lt;support-us@eken.com&gt;, no reply received.
-2025-07-15: Vulnerability published
+2025-06-10: Mitre contacted again, asking for the reserved CVE-ID.  
+2025-06-20: Mitre notifies me that the device type was incomplete.  
+2025-07-02: Mitre contacted, new update provided (device type).
+2025-07-15: Vulnerability published on this website.
+2025-09-26: Mitre replies with the reserved CVE-ID CVE-2025-56675.   
+2025-09-29: This post has been updated with the CVE-ID CVE-2025-56675.    
   </pre&gt;
 
